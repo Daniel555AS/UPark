@@ -76,7 +76,7 @@ public class Login extends JFrame {
 		
 		JLabel lblNewLabel_1 = new JLabel("Usuario");
 		lblNewLabel_1.setFont(new Font("HP Simplified", Font.BOLD, 30));
-		lblNewLabel_1.setBounds(578, 288, 116, 39);
+		lblNewLabel_1.setBounds(578, 299, 116, 39);
 		contentPane.add(lblNewLabel_1);
 		
 		JButton btnNewButton = new JButton("INGRESAR");
