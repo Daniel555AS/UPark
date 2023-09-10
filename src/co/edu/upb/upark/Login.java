@@ -29,6 +29,7 @@ import java.util.ArrayList;
 //
 
 import java.awt.event.ActionEvent;
+import javax.swing.SwingConstants;
 
 public class Login extends JFrame {
 
@@ -37,7 +38,6 @@ public class Login extends JFrame {
 	public static int positionNumber;
 	public static String IdentificationNumber;
 	
-
 	/**
 	 * Launch the application.
 	 */
@@ -59,7 +59,7 @@ public class Login extends JFrame {
 	 */
 	public Login() {
 
-
+		
 		this.setResizable(false); // Disable the maximize window option
 
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -76,9 +76,10 @@ public class Login extends JFrame {
 		panel_1.setBounds(0, 594, 1287, 29);
 		contentPane.add(panel_1);
 
-		JLabel lblNewLabel = new JLabel("BIENVENIDO");
+		JLabel lblNewLabel = new JLabel("UPARK");
+		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel.setFont(new Font("HP Simplified", Font.BOLD, 99));
-		lblNewLabel.setBounds(382, 135, 519, 124);
+		lblNewLabel.setBounds(376, 135, 519, 124);
 		contentPane.add(lblNewLabel);
 
 		textField = new JTextField();
@@ -93,7 +94,7 @@ public class Login extends JFrame {
 		lblNewLabel_1.setBounds(578, 299, 116, 39);
 		contentPane.add(lblNewLabel_1);
 
-		JButton btnNewButton = new JButton("INGRESAR");
+		JButton btnNewButton = new JButton("ACCEDER");
 		btnNewButton.setFont(new Font("HP Simplified", Font.BOLD, 31));
 		btnNewButton.setForeground(new Color(0, 0, 0));
 		btnNewButton.setBackground(new Color(255, 239, 91));
@@ -101,6 +102,8 @@ public class Login extends JFrame {
 			// Login button
 			public void actionPerformed(ActionEvent e) {
 				///////////////////////////////////
+
+
 				try {
 					Connection conn = DriverManager.getConnection("jdbc:mysql://:/", "***", "***");
 					Statement stmt = conn.createStatement();
@@ -113,7 +116,19 @@ public class Login extends JFrame {
 					String[] arrayLogin = listLogin.toArray(new String[0]);
 					rs.close();
 					stmt.close();
-					
+
+					Statement stmtRol = conn.createStatement();
+					ResultSet rsRol = stmtRol.executeQuery("SELECT rol FROM usuarios");
+					ArrayList<String> listRol = new ArrayList<>();
+					while (rsRol.next()) {
+						String valor = rsRol.getString("rol");
+						listRol.add(valor);
+					}
+					String[] arrayRol = listRol.toArray(new String[0]);
+					rsRol.close();
+					stmtRol.close();
+
+
 					int counter = 0;
 
 
@@ -127,10 +142,28 @@ public class Login extends JFrame {
 					}// for
 
 					if(counter > 0) {
-						SelectCar p = new SelectCar();
-						p.setVisible(true);
-						
-					}// if
+
+
+						if(arrayRol[positionNumber].equals("Vigilante")) {
+
+							LoginSecurity l = new LoginSecurity();
+							l.setVisible(true);
+							dispose(); //Close the current window
+
+
+						}// Security.
+
+
+						else {
+
+							SelectCar p = new SelectCar();
+							p.setVisible(true);
+							dispose(); //Close the current window
+
+
+						}// Students, Teachers and others.
+
+					}// if(counter > 0)
 
 					else {
 						JOptionPane.showMessageDialog(null, "El usuario no ha sido encontrado", "ERROR", JOptionPane.ERROR_MESSAGE);
@@ -142,12 +175,13 @@ public class Login extends JFrame {
 				}
 				catch(SQLException i){
 					i.printStackTrace();
-				}
+				}// catch
+
 
 				///////////////////////////////////
 			}
-			
-		    
+
+
 		});
 		btnNewButton.setBounds(476, 483, 320, 57);
 		contentPane.add(btnNewButton);
@@ -156,7 +190,7 @@ public class Login extends JFrame {
 		lblNewLabel_2.setBounds(10, 10, 343, 132);
 		contentPane.add(lblNewLabel_2);
 		lblNewLabel_2.setIcon(new ImageIcon("Media\\logo-upb-blanco1.png"));
-		
-		
+
+
 	}
 }
