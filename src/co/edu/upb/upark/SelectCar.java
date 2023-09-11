@@ -58,7 +58,6 @@ public class SelectCar extends JFrame {
 
 
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		//setBounds(100, 100, 649, 390);
 		setBounds(100, 100, 1286, 660);
 		contentPane = new JPanel();
 		contentPane.setBackground(new Color(255, 255, 255));
@@ -84,6 +83,11 @@ public class SelectCar extends JFrame {
 
 		String name = "";
 		String[] vehicles = new String[2];
+		String[] vehicleInformation1 = new String[5];
+		String[] vehicleInformation2 = new String[5];
+		int countVehicle1 = 0;
+		int countVehicle2 = 0;
+		
 
 
 
@@ -114,15 +118,36 @@ public class SelectCar extends JFrame {
 			while (rs3.next()) {
 				count++;
 				if (count == 1) {
-					for (int jj = 2; jj < rs3.getMetaData().getColumnCount(); jj++) {
-						rowString1 += rs3.getString(jj) + "  ";
+					for (int jj = 2; jj <= rs3.getMetaData().getColumnCount(); jj++) {
+						String rowString = "";
+						rowString = rs3.getString(jj) + " ";
+						vehicleInformation1[countVehicle1] = rowString1;
+						countVehicle1++;
+						
 					}
+					for (int j = 2; j < rs3.getMetaData().getColumnCount(); j++) {
+						
+						rowString1 += rs3.getString(j);
+						
+					}
+					
 				} else if (count == 2) {
-					for (int jj = 2; jj < rs3.getMetaData().getColumnCount(); jj++) {
-						rowString2 += rs3.getString(jj) + "  ";
+					for (int jj = 2; jj <= rs3.getMetaData().getColumnCount(); jj++) {
+						String rowString = "";
+						rowString = rs3.getString(jj);
+						vehicleInformation2[countVehicle2] = rowString2;
+						countVehicle2++;
+					}
+					
+					for (int j = 2; j < rs3.getMetaData().getColumnCount(); j++) {
+						
+						rowString2 += rs3.getString(j) + " ";
+						
 					}
 				}
 			}
+			
+
 
 			vehicles[0] = rowString1;
 			vehicles[1] = rowString2;
