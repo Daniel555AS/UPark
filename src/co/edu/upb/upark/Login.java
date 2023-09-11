@@ -127,9 +127,23 @@ public class Login extends JFrame {
 					String[] arrayRol = listRol.toArray(new String[0]);
 					rsRol.close();
 					stmtRol.close();
-
-
+					
+					
+					Statement stmtCurrentUser = conn.createStatement();
+					ResultSet rsCurrentUser = stmtCurrentUser.executeQuery("SELECT numeroidentificacion FROM usuariosActuales");
+					ArrayList<String> listCurrentUsers = new ArrayList<>();
+					while (rsCurrentUser.next()) {
+						String valor = rs.getString("numeroidentificacion");
+						listCurrentUsers.add(valor);
+					}
+					String[] arrayCurrentUsers = listCurrentUsers.toArray(new String[0]);
+					rsCurrentUser.close();
+					stmtCurrentUser.close();
+					
+					
+					
 					int counter = 0;
+					int counterCurrentUser = 0;
 
 
 					for(int ii = 0; ii < arrayLogin.length; ii++) {
@@ -140,6 +154,26 @@ public class Login extends JFrame {
 						}//if
 
 					}// for
+					
+					
+					for(int jj = 0; jj < arrayCurrentUsers.length; jj++) {
+						if(textField.getText().equals(arrayCurrentUsers[jj])) {
+							counterCurrentUser = counterCurrentUser + 1;				
+						}// if
+					}// for
+					
+					
+					if(counterCurrentUser > 0) {
+						
+						
+						
+						conn.close();
+					}// if(counterCurrentUser > 0)
+					
+					
+					else {
+					
+					
 
 					if(counter > 0) {
 
@@ -169,8 +203,11 @@ public class Login extends JFrame {
 						JOptionPane.showMessageDialog(null, "El usuario no ha sido encontrado", "ERROR", JOptionPane.ERROR_MESSAGE);
 						textField.setText("");
 					}// else
-
+					
 					conn.close();
+				}// else - Current User
+
+					
 
 				}
 				catch(SQLException i){
