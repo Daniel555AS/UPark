@@ -29,6 +29,10 @@ import javax.swing.Timer;
 
 public class SelectCar extends JFrame {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private static String name = "";
 	private static String doc = "";
@@ -57,11 +61,10 @@ public class SelectCar extends JFrame {
 	 */
 	public SelectCar() {
 
-
+		this.setResizable(false); // Disable the maximize window option
 
 		int numberPosition = Login.positionNumber;
 		String numberIdentification = Login.IdentificationNumber;
-
 
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1286, 660);
@@ -82,18 +85,14 @@ public class SelectCar extends JFrame {
 		contentPane.add(lblNewLabel);
 		lblNewLabel.setIcon(new ImageIcon("Media\\logo-upb-blanco1.png"));
 
-		JLabel lblNewLabel_1 = new JLabel("Escoge tu vehículo");
-		lblNewLabel_1.setFont(new Font("HP Simplified", Font.BOLD, 99));
-		lblNewLabel_1.setBounds(238, 124, 795, 124);
+		JLabel lblNewLabel_1 = new JLabel("Escoge Tu Vehículo");
+		lblNewLabel_1.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel_1.setFont(new Font("Cambria", Font.BOLD, 99));
+		lblNewLabel_1.setBounds(164, 124, 944, 124);
 		contentPane.add(lblNewLabel_1);
-
-		
 
 		int countVehicle1 = 0;
 		int countVehicle2 = 0;
-		
-
-
 
 		// --------------------- Get the name of the vehicle owner, the document of the vechicle owner and the array of vehicles ---------------------
 
@@ -111,8 +110,7 @@ public class SelectCar extends JFrame {
 			stmt1.close();
 
 			name = arraySelectCar1[numberPosition];	
-			
-			
+
 			Statement stmtDoc = conn.createStatement();
 			ResultSet rsDoc = stmtDoc.executeQuery("SELECT documento FROM usuarios");
 			ArrayList<String> listDoc = new ArrayList<>();
@@ -125,8 +123,7 @@ public class SelectCar extends JFrame {
 			stmtDoc.close();
 
 			doc = arrayDoc[numberPosition];
-			
-			
+
 			Statement stmt3 = conn.createStatement();
 			String query = "SELECT * FROM vehiculos WHERE numeroidentificacion = '" + numberIdentification + "'"; 
 			ResultSet rs3 = stmt3.executeQuery(query);
@@ -137,35 +134,33 @@ public class SelectCar extends JFrame {
 				count++;
 				if (count == 1) {
 					for (int jj = 1; jj <= rs3.getMetaData().getColumnCount(); jj++) {
-						String rowString = "";
+						String rowString= "";
 						rowString = rs3.getString(jj);
 						vehicleInformation1[countVehicle1] = rowString;
 						countVehicle1++;
-						
+
 					}
 					for (int j = 1; j < rs3.getMetaData().getColumnCount(); j++) {
-						
+
 						rowString1 += rs3.getString(j) + " ";
-						
+
 					}
-					
+
 				} else if (count == 2) {
-					for (int jj = 2; jj <= rs3.getMetaData().getColumnCount(); jj++) {
+					for (int jj = 1; jj <= rs3.getMetaData().getColumnCount(); jj++) {
 						String rowString = "";
 						rowString = rs3.getString(jj);
 						vehicleInformation2[countVehicle2] = rowString;
 						countVehicle2++;
 					}
-					
-					for (int j = 2; j < rs3.getMetaData().getColumnCount(); j++) {
-						
+
+					for (int j = 1; j < rs3.getMetaData().getColumnCount(); j++) {
+
 						rowString2 += rs3.getString(j) + " ";
-						
+
 					}
 				}
 			}
-			
-
 
 			vehicles[0] = rowString1;
 			vehicles[1] = rowString2;
@@ -173,26 +168,21 @@ public class SelectCar extends JFrame {
 			rs3.close();
 			stmt3.close();
 
-
 			conn.close();
 		}
 		catch(SQLException i){
 			i.printStackTrace();
 		}
 
-
-        //------------------------------------------------------------------------------------------------------------------------------ ------------
-
-
-
+		//------------------------------------------------------------------------------------------------------------------------------ ------------
 
 		JLabel lblNewLabel_2 = new JLabel(name);
-		lblNewLabel_2.setFont(new Font("HP Simplified", Font.BOLD, 36));
+		lblNewLabel_2.setFont(new Font("Cambria", Font.BOLD, 36));
 		lblNewLabel_2.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel_2.setBounds(192, 258, 888, 49);
 		contentPane.add(lblNewLabel_2);
 
-		JComboBox comboBox = new JComboBox();
+		JComboBox<String> comboBox = new JComboBox<String>();
 		DefaultComboBoxModel<String> model = new DefaultComboBoxModel<String>();
 		if(vehicles[0] != "") {
 			model.addElement(vehicles[0]);
@@ -202,83 +192,74 @@ public class SelectCar extends JFrame {
 		}
 
 		comboBox.setModel(model);
-		comboBox.setFont(new Font("HP Simplified", Font.BOLD, 29));
+		comboBox.setFont(new Font("Cambria", Font.BOLD, 29));
 		comboBox.setBounds(216, 345, 840, 71);
 		contentPane.add(comboBox);
-		
-		
+
 		JButton btnNewButton = new JButton("INGRESAR");
-		btnNewButton.setFont(new Font("HP Simplified", Font.BOLD, 31));
+		btnNewButton.setFont(new Font("Cambria", Font.BOLD, 44));
 		btnNewButton.setForeground(new Color(0, 0, 0));
 		btnNewButton.setBackground(new Color(255, 239, 91));
 		btnNewButton.addActionListener(new ActionListener() {
-		    public void actionPerformed(ActionEvent e) {
-		        // close SelectCar
-		        dispose();
-		        
-		        //////////////////////////
-		        
-		        try {
+			public void actionPerformed(ActionEvent e) {
+				// close SelectCar
+				dispose();
+
+				try {
 					Connection conn = DriverManager.getConnection("jdbc:mysql://35.222.147.13:3306/parqueadero", "root", "842963");
-					
+
 					String query = "INSERT INTO usuariosActuales (numeroidentificacion, nombreusuario, documentousuario, placa) VALUES (?, ?, ?, ?)";
 					PreparedStatement preparedStatement = conn.prepareStatement(query);
-					
+
 					String identificationNumberUser = Login.IdentificationNumber;
-					
+
 					String LicensePlate = "";
-					
+
 					if((String) comboBox.getSelectedItem() == vehicles[0]) {
 						LicensePlate = vehicleInformation1[1];
 					}
-					
+
 					else {
 						LicensePlate = vehicleInformation2[1];
 					}
-					
-					
-		            preparedStatement.setString(1, identificationNumberUser);
-		            preparedStatement.setString(2, name);
-		            preparedStatement.setString(3, doc);
-		            preparedStatement.setString(4, LicensePlate);
-		        
-		            preparedStatement.executeUpdate();
-		            
+
+					preparedStatement.setString(1, identificationNumberUser);
+					preparedStatement.setString(2, name);
+					preparedStatement.setString(3, doc);
+					preparedStatement.setString(4, LicensePlate);
+
+					preparedStatement.executeUpdate();
+
 					conn.close();
-					
+
 				}// try
 
 				catch(SQLException i){
 					i.printStackTrace();
-				}// catch
-		        
-		        ///////////////////////
-		        
-		        // display Success
-		        Success s = new Success();
-		        s.setVisible(true);
+				}// catch		        
 
-		        // Swing Timer with a 5-second delay
-		        Timer timer = new Timer(5000, new ActionListener() {
-		            public void actionPerformed(ActionEvent e) {
-		                // close Success s
-		                s.dispose();
+				// display Success
+				Success s = new Success();
+				s.setVisible(true);
 
-		                // display Login
-		                Login l = new Login();
-		                l.setVisible(true);
-		            }
-		        });
+				// Swing Timer with a 5-second delay
+				Timer timer = new Timer(5000, new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						// close Success s
+						s.dispose();
 
-		        timer.setRepeats(false);
-		        timer.start(); // start the timer
-		    }
+						// display Login
+						Login l = new Login();
+						l.setVisible(true);
+					}
+				});
+
+				timer.setRepeats(false);
+				timer.start(); // start the timer
+			}
 		});
 		btnNewButton.setBounds(416, 468, 440, 76);
 		contentPane.add(btnNewButton);
-
-
-
 
 	}
 }
