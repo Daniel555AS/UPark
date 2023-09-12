@@ -26,6 +26,8 @@ public class LoginSecurity extends JFrame {
 
 	private JPanel contentPane;
 	private JPasswordField passwordField;
+	public static MenuSecurity m = new MenuSecurity();
+	public static String name = "";
 
 	/**
 	 * Launch the application.
@@ -48,8 +50,9 @@ public class LoginSecurity extends JFrame {
 	 */
 	public LoginSecurity() {
 
-		int positionLoginSecurity = Login.positionNumber;
+		this.setResizable(false); // Disable the maximize window option
 
+		int positionLoginSecurity = Login.positionNumber;
 
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1286, 660);
@@ -70,26 +73,26 @@ public class LoginSecurity extends JFrame {
 		contentPane.add(lblNewLabel);
 		lblNewLabel.setIcon(new ImageIcon("Media\\logo-upb-blanco1.png"));
 
-		JLabel lblNewLabel_1 = new JLabel("Interfaz Seguridad");
+		JLabel lblNewLabel_1 = new JLabel("Interfaz de Seguridad");
 		lblNewLabel_1.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel_1.setBounds(207, 143, 857, 124);
-		lblNewLabel_1.setFont(new Font("HP Simplified", Font.BOLD, 99));
+		lblNewLabel_1.setBounds(110, 143, 1052, 124);
+		lblNewLabel_1.setFont(new Font("Cambria", Font.BOLD, 99));
 		contentPane.add(lblNewLabel_1);
 
 		JLabel lblNewLabel_2 = new JLabel("Contraseña");
 		lblNewLabel_2.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel_2.setBounds(535, 299, 201, 39);
-		lblNewLabel_2.setFont(new Font("HP Simplified", Font.BOLD, 30));
+		lblNewLabel_2.setFont(new Font("Cambria", Font.BOLD, 32));
 		contentPane.add(lblNewLabel_2);
 
 		passwordField = new JPasswordField();
 		passwordField.setBackground(new Color(237, 238, 223));
 		passwordField.setBounds(440, 348, 392, 67);
-		passwordField.setFont(new Font("Tahoma", Font.BOLD, 25));
+		passwordField.setFont(new Font("Cambria", Font.BOLD, 35));
 		contentPane.add(passwordField);
 
 		JButton btnNewButton = new JButton("REGRESAR");
-		btnNewButton.setFont(new Font("HP Simplified", Font.BOLD, 31));
+		btnNewButton.setFont(new Font("Cambria", Font.BOLD, 31));
 		btnNewButton.setForeground(new Color(0, 0, 0));
 		btnNewButton.setBackground(new Color(243, 37, 68));
 		btnNewButton.addActionListener(new ActionListener() {
@@ -101,12 +104,11 @@ public class LoginSecurity extends JFrame {
 
 			}
 		});
-		btnNewButton.setBounds(10, 527, 187, 57);
+		btnNewButton.setBounds(10, 527, 221, 57);
 		contentPane.add(btnNewButton);
 
-
 		JButton btnNewButton_1 = new JButton("ACCEDER");
-		btnNewButton_1.setFont(new Font("HP Simplified", Font.BOLD, 31));
+		btnNewButton_1.setFont(new Font("Cambria", Font.BOLD, 44));
 		btnNewButton_1.setForeground(new Color(0, 0, 0));
 		btnNewButton_1.setBackground(new Color(255, 239, 91));
 		btnNewButton_1.addActionListener(new ActionListener() {
@@ -128,15 +130,22 @@ public class LoginSecurity extends JFrame {
 					rsLoginSecurity.close();
 					stmtLoginSecurity.close();
 
-
+					Statement stmtLoginSecurityName = conn.createStatement();
+					ResultSet rsLoginSecurityName = stmtLoginSecurityName.executeQuery("SELECT nombre FROM usuarios");
+					ArrayList<String> listLoginSecurityName = new ArrayList<>();
+					while (rsLoginSecurityName.next()) {
+						String valor = rsLoginSecurityName.getString("nombre");
+						listLoginSecurityName.add(valor);
+					}
+					String[] arrayLoginSecurityName = listLoginSecurityName.toArray(new String[0]);
+					rsLoginSecurityName.close();
+					stmtLoginSecurityName.close();
 
 					if(arrayLoginSecurity[positionLoginSecurity].equals(passwordFinal)) {
-
-						MenuSecurity m = new MenuSecurity();
+						
+						name = arrayLoginSecurityName[positionLoginSecurity];
 						m.setVisible(true);
 						dispose(); //Close the current window
-
-
 
 					}// if
 
@@ -152,19 +161,10 @@ public class LoginSecurity extends JFrame {
 					i.printStackTrace();
 				}// catch
 
-
-
-
-
 			}
 		});
 		btnNewButton_1.setBounds(476, 446, 320, 57);
 		contentPane.add(btnNewButton_1);
-
-
-
-
-
 
 	}
 

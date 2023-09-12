@@ -39,7 +39,7 @@ public class Login extends JFrame {
 	public static int positionNumber;
 	public static String IdentificationNumberExit;
 	public static String IdentificationNumber;
-	
+
 	/**
 	 * Launch the application.
 	 */
@@ -61,7 +61,6 @@ public class Login extends JFrame {
 	 */
 	public Login() {
 
-		
 		this.setResizable(false); // Disable the maximize window option
 
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -80,31 +79,30 @@ public class Login extends JFrame {
 
 		JLabel lblNewLabel = new JLabel("UPARK");
 		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel.setFont(new Font("HP Simplified", Font.BOLD, 99));
+		lblNewLabel.setFont(new Font("Cambria", Font.BOLD, 150));
 		lblNewLabel.setBounds(376, 135, 519, 124);
 		contentPane.add(lblNewLabel);
 
 		textField = new JTextField();
 		textField.setBackground(new Color(237, 238, 223));
-		textField.setFont(new Font("Tahoma", Font.BOLD, 25));
+		textField.setFont(new Font("Cambria", Font.BOLD, 28));
 		textField.setBounds(440, 348, 392, 67);
 		contentPane.add(textField);
 		textField.setColumns(10);
 
 		JLabel lblNewLabel_1 = new JLabel("Usuario");
-		lblNewLabel_1.setFont(new Font("HP Simplified", Font.BOLD, 30));
+		lblNewLabel_1.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel_1.setFont(new Font("Cambria", Font.BOLD, 30));
 		lblNewLabel_1.setBounds(578, 299, 116, 39);
 		contentPane.add(lblNewLabel_1);
 
 		JButton btnNewButton = new JButton("ACCEDER");
-		btnNewButton.setFont(new Font("HP Simplified", Font.BOLD, 31));
+		btnNewButton.setFont(new Font("Cambria", Font.BOLD, 31));
 		btnNewButton.setForeground(new Color(0, 0, 0));
 		btnNewButton.setBackground(new Color(255, 239, 91));
 		btnNewButton.addActionListener(new ActionListener() {
 			// Login button
 			public void actionPerformed(ActionEvent e) {
-				///////////////////////////////////
-
 
 				try {
 					Connection conn = DriverManager.getConnection("jdbc:mysql://35.222.147.13:3306/parqueadero", "root", "842963");
@@ -129,8 +127,7 @@ public class Login extends JFrame {
 					String[] arrayRol = listRol.toArray(new String[0]);
 					rsRol.close();
 					stmtRol.close();
-					
-					
+
 					Statement stmtCurrentUser = conn.createStatement();
 					ResultSet rsCurrentUser = stmtCurrentUser.executeQuery("SELECT numeroidentificacion FROM usuariosActuales");
 					ArrayList<String> listCurrentUsers = new ArrayList<>();
@@ -141,12 +138,9 @@ public class Login extends JFrame {
 					String[] arrayCurrentUsers = listCurrentUsers.toArray(new String[0]);
 					stmtCurrentUser.close();
 					rsCurrentUser.close();
-		
-					
-					
+
 					int counter = 0;
 					int counterCurrentUser = 0;
-
 
 					for(int ii = 0; ii < arrayLogin.length; ii++) {
 						if(textField.getText().equals(arrayLogin[ii])) {
@@ -156,99 +150,85 @@ public class Login extends JFrame {
 						}//if
 
 					}// for
-					
-					
+
 					for(int jj = 0; jj < arrayCurrentUsers.length; jj++) {
 						if(textField.getText().equals(arrayCurrentUsers[jj])) {
 							counterCurrentUser = counterCurrentUser + 1;		
 							IdentificationNumberExit = arrayCurrentUsers[jj];
 						}// if
 					}// for
-					
-					
-					
+
 					if(counterCurrentUser > 0) {
 						dispose();
-						
-				        // display Exit exitFrame
-				        Exit exitFrame = new Exit();
-				        exitFrame.setVisible(true);
 
-				        // Swing Timer with a 5-second delay
-				        Timer timer = new Timer(5000, new ActionListener() {
-				            public void actionPerformed(ActionEvent e) {
-				                // close Exit exitFrame
-				                exitFrame.dispose();
+						// display Exit exitFrame
+						Exit exitFrame = new Exit();
+						exitFrame.setVisible(true);
 
-				                // display Login
-				                Login loginFrame = new Login();
-				                loginFrame.setVisible(true);
-				            }
-				        });
+						// Swing Timer with a 5-second delay
+						Timer timer = new Timer(5000, new ActionListener() {
+							public void actionPerformed(ActionEvent e) {
+								// close Exit exitFrame
+								exitFrame.dispose();
 
-				        timer.setRepeats(false);
-				        timer.start(); // start the timer
-				        
-				        
-				        try {
+								// display Login
+								Login loginFrame = new Login();
+								loginFrame.setVisible(true);
+							}
+						});
 
-				            String query = "DELETE FROM usuariosActuales WHERE NumeroIdentificacion = '" + IdentificationNumberExit + "'"; 
-				            Statement statementDelete = conn.createStatement();
-				            statementDelete.executeUpdate(query);
+						timer.setRepeats(false);
+						timer.start(); // start the timer
 
-				        } catch (SQLException u) {
-				            u.printStackTrace();
-				        }
-				 
+						try {
+
+							String query = "DELETE FROM usuariosActuales WHERE NumeroIdentificacion = '" + IdentificationNumberExit + "'"; 
+							Statement statementDelete = conn.createStatement();
+							statementDelete.executeUpdate(query);
+
+						} catch (SQLException u) {
+							u.printStackTrace();
+						}
+
 						conn.close();
 					}// if(counterCurrentUser > 0)
-					
-					
+
+
 					else {
-					
-					
 
-					if(counter > 0) {
+						if(counter > 0) {
 
+							if(arrayRol[positionNumber].equals("Vigilante")) {
 
-						if(arrayRol[positionNumber].equals("Vigilante")) {
+								LoginSecurity l = new LoginSecurity();
+								l.setVisible(true);
+								dispose(); //Close the current window
+							}// Security.
 
-							LoginSecurity l = new LoginSecurity();
-							l.setVisible(true);
-							dispose(); //Close the current window
-						}// Security.
+							else {
 
+								SelectCar p = new SelectCar();
+								p.setVisible(true);
+								dispose(); //Close the current window
+
+							}// Students, Teachers and others.
+
+						}// if(counter > 0)
 
 						else {
+							JOptionPane.showMessageDialog(null, "El usuario no ha sido encontrado", "ERROR", JOptionPane.ERROR_MESSAGE);
+							textField.setText("");
+						}// else
 
-							SelectCar p = new SelectCar();
-							p.setVisible(true);
-							dispose(); //Close the current window
-
-
-						}// Students, Teachers and others.
-
-					}// if(counter > 0)
-
-					else {
-						JOptionPane.showMessageDialog(null, "El usuario no ha sido encontrado", "ERROR", JOptionPane.ERROR_MESSAGE);
-						textField.setText("");
-					}// else
-					
-					conn.close();
-				}// else - Current User
-
-					
+						conn.close();
+					}// else - Current User
 
 				}
 				catch(SQLException i){
 					i.printStackTrace();
 				}// catch
 
-
-				///////////////////////////////////
 			}
-
 
 		});
 		btnNewButton.setBounds(476, 483, 320, 57);
@@ -258,7 +238,6 @@ public class Login extends JFrame {
 		lblNewLabel_2.setBounds(10, 10, 343, 132);
 		contentPane.add(lblNewLabel_2);
 		lblNewLabel_2.setIcon(new ImageIcon("Media\\logo-upb-blanco1.png"));
-
 
 	}
 }

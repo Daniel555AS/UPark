@@ -58,7 +58,7 @@ public class MenuSecurity extends JFrame {
 		
 		JButton btnNewButton = new JButton("Usuarios en Parqueadero");
 		btnNewButton.setBackground(new Color(162, 214, 22));
-		btnNewButton.setFont(new Font("HP Simplified", Font.BOLD, 33));
+		btnNewButton.setFont(new Font("Cambria", Font.BOLD, 30));
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 			}
@@ -68,7 +68,7 @@ public class MenuSecurity extends JFrame {
 		
 		JButton btnNewButton_1 = new JButton("Historial");
 		btnNewButton_1.setBackground(new Color(162, 214, 22));
-		btnNewButton_1.setFont(new Font("HP Simplified", Font.BOLD, 35));
+		btnNewButton_1.setFont(new Font("Cambria", Font.BOLD, 35));
 		btnNewButton_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 			}
@@ -79,7 +79,7 @@ public class MenuSecurity extends JFrame {
 		JButton btnNewButton_2 = new JButton("Cerrar Sesión");
 		btnNewButton_2.setBackground(new Color(243, 37, 68));
 		btnNewButton_2.setForeground(new Color(0, 0, 0));
-		btnNewButton_2.setFont(new Font("HP Simplified", Font.BOLD, 35));
+		btnNewButton_2.setFont(new Font("Cambria", Font.BOLD, 35));
 		btnNewButton_2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 			}
@@ -89,7 +89,7 @@ public class MenuSecurity extends JFrame {
 		
 		JButton btnNewButton_3 = new JButton("Agregar Visitante");
 		btnNewButton_3.setBackground(new Color(255, 239, 91));
-		btnNewButton_3.setFont(new Font("HP Simplified", Font.BOLD, 35));
+		btnNewButton_3.setFont(new Font("Cambria", Font.BOLD, 44));
 		btnNewButton_3.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
@@ -109,17 +109,27 @@ public class MenuSecurity extends JFrame {
 		
 		JLabel lblNewLabel_1 = new JLabel("Menú de Vigilancia");
 		lblNewLabel_1.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel_1.setFont(new Font("HP Simplified", Font.BOLD, 99));
+		lblNewLabel_1.setFont(new Font("Cambria", Font.BOLD, 90));
 		lblNewLabel_1.setBounds(363, 34, 821, 108);
 		contentPane.add(lblNewLabel_1);
 		
 		JLabel lblNewLabel_3 = new JLabel("Usuario: ");
-		lblNewLabel_3.setFont(new Font("HP Simplified", Font.BOLD, 32));
-		lblNewLabel_3.setBounds(34, 509, 257, 57);
+		lblNewLabel_3.setFont(new Font("Cambria", Font.BOLD, 32));
+		lblNewLabel_3.setBounds(34, 509, 131, 57);
 		contentPane.add(lblNewLabel_3);
 		
-		JLabel lblNewLabel_2 = new JLabel("New label");
-		lblNewLabel_2.setBounds(20, 129, 319, 370);
+		JLabel lblNewLabel_2 = new JLabel("");
+		lblNewLabel_2.setIcon(new ImageIcon("Media\\ImagenSeguridad.png"));
+		lblNewLabel_2.setBounds(20, 143, 320, 370);
 		contentPane.add(lblNewLabel_2);
+		
+		
+		String nameSecurity = LoginSecurity.name;
+		
+		JLabel lblNewLabel_4 = new JLabel(nameSecurity);
+		lblNewLabel_4.setHorizontalAlignment(SwingConstants.LEFT);
+		lblNewLabel_4.setFont(new Font("Cambria", Font.BOLD, 20));
+		lblNewLabel_4.setBounds(175, 509, 673, 43);
+		contentPane.add(lblNewLabel_4);
 	}
 }
