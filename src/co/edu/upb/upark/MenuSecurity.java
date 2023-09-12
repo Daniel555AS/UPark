@@ -13,6 +13,7 @@ import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 
 public class MenuSecurity extends JFrame {
 
@@ -91,6 +92,11 @@ public class MenuSecurity extends JFrame {
 		btnNewButton_3.setFont(new Font("HP Simplified", Font.BOLD, 35));
 		btnNewButton_3.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				
+				AddVisitor addVisitorFrame = new AddVisitor();
+				addVisitorFrame.setVisible(true);
+				dispose(); //Close the current window	
+				
 			}
 		});
 		btnNewButton_3.setBounds(365, 228, 824, 77);
