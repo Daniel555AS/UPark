@@ -30,6 +30,9 @@ public class AddVisitor extends JFrame {
 	private JPanel contentPane;
 	private JTextField textField;
 	private JTextField textField_1;
+	public static String visitorDocument;
+	
+	
 
 	/**
 	 * Launch the application.
@@ -96,20 +99,32 @@ public class AddVisitor extends JFrame {
 					String query = "INSERT INTO usuarios (numeroidentificacion, nombre, genero, rol, documento) VALUES (?, ?, ?, ?, ?)";
 					PreparedStatement preparedStatement = conn.prepareStatement(query);
 					
+					
+					
 		            preparedStatement.setString(1, textField.getText());
 		            preparedStatement.setString(2, textField_1.getText());
 		            preparedStatement.setString(3, (String) comboBox.getSelectedItem());
 		            preparedStatement.setString(4, "Visitante");
 		            preparedStatement.setString(5, textField.getText());
 		            preparedStatement.executeUpdate();
+		            
+		            visitorDocument = textField.getText();
+		            
+		            dispose();
+		            JOptionPane.showMessageDialog(null, "Datos del Visitante Guardados con Éxito", "VISITANTE", JOptionPane.INFORMATION_MESSAGE);
+		            
+		            AddVisitorVehicle a = new AddVisitorVehicle();
+					a.setVisible(true);
 					
 					conn.close();
-				}
+					
+				}// try
 
 				catch(SQLException i){
 					i.printStackTrace();
 				}// catch
-			}
+				
+			}//public void actionPerformed(ActionEvent e) 
 		});
 		btnNewButton.setFont(new Font("HP Simplified", Font.BOLD, 42));
 		btnNewButton.setBounds(455, 511, 366, 73);
@@ -121,6 +136,7 @@ public class AddVisitor extends JFrame {
 		textField.setBounds(49, 313, 1129, 54);
 		contentPane.add(textField);
 		textField.setColumns(10);
+		
 		
 		textField_1 = new JTextField();
 		textField_1.setFont(new Font("HP Simplified", Font.BOLD, 28));
@@ -152,5 +168,6 @@ public class AddVisitor extends JFrame {
 		
 		
 	}
+	
 }
 

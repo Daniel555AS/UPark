@@ -4,6 +4,7 @@ import java.awt.EventQueue;
 import java.awt.Font;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -29,6 +30,11 @@ import javax.swing.Timer;
 public class SelectCar extends JFrame {
 
 	private JPanel contentPane;
+	private static String name = "";
+	private static String doc = "";
+	private static String[] vehicleInformation1 = new String[5];
+	private static String[] vehicleInformation2 = new String[5];
+	private static String[]  vehicles = new String[2];
 
 	/**
 	 * Launch the application.
@@ -81,17 +87,15 @@ public class SelectCar extends JFrame {
 		lblNewLabel_1.setBounds(238, 124, 795, 124);
 		contentPane.add(lblNewLabel_1);
 
-		String name = "";
-		String[] vehicles = new String[2];
-		String[] vehicleInformation1 = new String[5];
-		String[] vehicleInformation2 = new String[5];
+		
+
 		int countVehicle1 = 0;
 		int countVehicle2 = 0;
 		
 
 
 
-		// --------------------- Get the name of the vehicle owner  and the array of vehicles ---------------------
+		// --------------------- Get the name of the vehicle owner, the document of the vechicle owner and the array of vehicles ---------------------
 
 		try {
 			Connection conn = DriverManager.getConnection("jdbc:mysql://:/", "***", "***");
@@ -106,10 +110,24 @@ public class SelectCar extends JFrame {
 			rs.close();
 			stmt1.close();
 
-			name = arraySelectCar1[numberPosition];			
+			name = arraySelectCar1[numberPosition];	
+			
+			
+			Statement stmtDoc = conn.createStatement();
+			ResultSet rsDoc = stmtDoc.executeQuery("SELECT documento FROM usuarios");
+			ArrayList<String> listDoc = new ArrayList<>();
+			while (rsDoc.next()) {
+				String valor = rsDoc.getString("documento");
+				listDoc.add(valor);
+			}
+			String[] arrayDoc = listDoc.toArray(new String[0]);
+			rsDoc.close();
+			stmtDoc.close();
 
+			doc = arrayDoc[numberPosition];
+			
+			
 			Statement stmt3 = conn.createStatement();
-
 			String query = "SELECT * FROM vehiculos WHERE numeroidentificacion = '" + numberIdentification + "'"; 
 			ResultSet rs3 = stmt3.executeQuery(query);
 			String rowString1 = "";
@@ -118,16 +136,16 @@ public class SelectCar extends JFrame {
 			while (rs3.next()) {
 				count++;
 				if (count == 1) {
-					for (int jj = 2; jj <= rs3.getMetaData().getColumnCount(); jj++) {
+					for (int jj = 1; jj <= rs3.getMetaData().getColumnCount(); jj++) {
 						String rowString = "";
-						rowString = rs3.getString(jj) + " ";
-						vehicleInformation1[countVehicle1] = rowString1;
+						rowString = rs3.getString(jj);
+						vehicleInformation1[countVehicle1] = rowString;
 						countVehicle1++;
 						
 					}
-					for (int j = 2; j < rs3.getMetaData().getColumnCount(); j++) {
+					for (int j = 1; j < rs3.getMetaData().getColumnCount(); j++) {
 						
-						rowString1 += rs3.getString(j);
+						rowString1 += rs3.getString(j) + " ";
 						
 					}
 					
@@ -135,7 +153,7 @@ public class SelectCar extends JFrame {
 					for (int jj = 2; jj <= rs3.getMetaData().getColumnCount(); jj++) {
 						String rowString = "";
 						rowString = rs3.getString(jj);
-						vehicleInformation2[countVehicle2] = rowString2;
+						vehicleInformation2[countVehicle2] = rowString;
 						countVehicle2++;
 					}
 					
@@ -163,7 +181,7 @@ public class SelectCar extends JFrame {
 		}
 
 
-		// ------------------------------------------------------------------------------
+        //------------------------------------------------------------------------------------------------------------------------------ ------------
 
 
 
@@ -197,15 +215,53 @@ public class SelectCar extends JFrame {
 		    public void actionPerformed(ActionEvent e) {
 		        // close SelectCar
 		        dispose();
+		        
+		        //////////////////////////
+		        
+		        try {
+					Connection conn = DriverManager.getConnection("jdbc:mysql://35.222.147.13:3306/parqueadero", "root", "842963");
+					
+					String query = "INSERT INTO usuariosActuales (numeroidentificacion, nombreusuario, documentousuario, placa) VALUES (?, ?, ?, ?)";
+					PreparedStatement preparedStatement = conn.prepareStatement(query);
+					
+					String identificationNumberUser = Login.IdentificationNumber;
+					
+					String LicensePlate = "";
+					
+					if((String) comboBox.getSelectedItem() == vehicles[0]) {
+						LicensePlate = vehicleInformation1[1];
+					}
+					
+					else {
+						LicensePlate = vehicleInformation2[1];
+					}
+					
+					
+		            preparedStatement.setString(1, identificationNumberUser);
+		            preparedStatement.setString(2, name);
+		            preparedStatement.setString(3, doc);
+		            preparedStatement.setString(4, LicensePlate);
+		        
+		            preparedStatement.executeUpdate();
+		            
+					conn.close();
+					
+				}// try
 
+				catch(SQLException i){
+					i.printStackTrace();
+				}// catch
+		        
+		        ///////////////////////
+		        
 		        // display Success
 		        Success s = new Success();
 		        s.setVisible(true);
 
-		        // create a Swing Timer with a 5-second delay
+		        // Swing Timer with a 5-second delay
 		        Timer timer = new Timer(5000, new ActionListener() {
 		            public void actionPerformed(ActionEvent e) {
-		                // close JFrame2
+		                // close Success s
 		                s.dispose();
 
 		                // display Login

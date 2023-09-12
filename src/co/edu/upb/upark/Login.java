@@ -30,12 +30,14 @@ import java.util.ArrayList;
 
 import java.awt.event.ActionEvent;
 import javax.swing.SwingConstants;
+import javax.swing.Timer;
 
 public class Login extends JFrame {
 
 	private JPanel contentPane;
 	private JTextField textField;
 	public static int positionNumber;
+	public static String IdentificationNumberExit;
 	public static String IdentificationNumber;
 	
 	/**
@@ -133,13 +135,13 @@ public class Login extends JFrame {
 					ResultSet rsCurrentUser = stmtCurrentUser.executeQuery("SELECT numeroidentificacion FROM usuariosActuales");
 					ArrayList<String> listCurrentUsers = new ArrayList<>();
 					while (rsCurrentUser.next()) {
-						String valor = rs.getString("numeroidentificacion");
+						String valor = rsCurrentUser.getString("numeroidentificacion");
 						listCurrentUsers.add(valor);
 					}
 					String[] arrayCurrentUsers = listCurrentUsers.toArray(new String[0]);
-					rsCurrentUser.close();
 					stmtCurrentUser.close();
-					
+					rsCurrentUser.close();
+		
 					
 					
 					int counter = 0;
@@ -158,15 +160,46 @@ public class Login extends JFrame {
 					
 					for(int jj = 0; jj < arrayCurrentUsers.length; jj++) {
 						if(textField.getText().equals(arrayCurrentUsers[jj])) {
-							counterCurrentUser = counterCurrentUser + 1;				
+							counterCurrentUser = counterCurrentUser + 1;		
+							IdentificationNumberExit = arrayCurrentUsers[jj];
 						}// if
 					}// for
 					
 					
+					
 					if(counterCurrentUser > 0) {
+						dispose();
 						
-						
-						
+				        // display Exit exitFrame
+				        Exit exitFrame = new Exit();
+				        exitFrame.setVisible(true);
+
+				        // Swing Timer with a 5-second delay
+				        Timer timer = new Timer(5000, new ActionListener() {
+				            public void actionPerformed(ActionEvent e) {
+				                // close Exit exitFrame
+				                exitFrame.dispose();
+
+				                // display Login
+				                Login loginFrame = new Login();
+				                loginFrame.setVisible(true);
+				            }
+				        });
+
+				        timer.setRepeats(false);
+				        timer.start(); // start the timer
+				        
+				        
+				        try {
+
+				            String query = "DELETE FROM usuariosActuales WHERE NumeroIdentificacion = '" + IdentificationNumberExit + "'"; 
+				            Statement statementDelete = conn.createStatement();
+				            statementDelete.executeUpdate(query);
+
+				        } catch (SQLException u) {
+				            u.printStackTrace();
+				        }
+				 
 						conn.close();
 					}// if(counterCurrentUser > 0)
 					
@@ -183,8 +216,6 @@ public class Login extends JFrame {
 							LoginSecurity l = new LoginSecurity();
 							l.setVisible(true);
 							dispose(); //Close the current window
-
-
 						}// Security.
 
 
