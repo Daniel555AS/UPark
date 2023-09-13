@@ -26,7 +26,7 @@ public class LoginSecurity extends JFrame {
 
 	private JPanel contentPane;
 	private JPasswordField passwordField;
-	public static MenuSecurity m = new MenuSecurity();
+	
 	public static String name = "";
 
 	/**
@@ -144,6 +144,7 @@ public class LoginSecurity extends JFrame {
 					if(arrayLoginSecurity[positionLoginSecurity].equals(passwordFinal)) {
 						
 						name = arrayLoginSecurityName[positionLoginSecurity];
+						MenuSecurity m = new MenuSecurity();
 						m.setVisible(true);
 						dispose(); //Close the current window
 

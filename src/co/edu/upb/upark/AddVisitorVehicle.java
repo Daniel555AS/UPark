@@ -113,8 +113,7 @@ public class AddVisitorVehicle extends JFrame {
 					PreparedStatement preparedStatement = conn.prepareStatement(query);
 					
 					String visitorDoc = AddVisitor.visitorDocument;
-					System.out.println(visitorDoc);
-							
+		
 		            preparedStatement.setString(1, textField_3.getText());
 		            preparedStatement.setString(2, textField.getText());
 		            preparedStatement.setString(3, textField_2.getText());
@@ -122,9 +121,23 @@ public class AddVisitorVehicle extends JFrame {
 		            preparedStatement.setString(5, visitorDoc);
 		            preparedStatement.executeUpdate();
 		            
+					String queryVisitor = "INSERT INTO usuariosActuales (numeroidentificacion, nombreusuario, documentousuario, placa) VALUES (?, ?, ?, ?)";
+					PreparedStatement preparedStatementVisitor = conn.prepareStatement(queryVisitor);
+					
+					String visitorNamee = AddVisitor.visitorName;
+					
+					preparedStatementVisitor.setString(1, visitorDoc);
+					preparedStatementVisitor.setString(2, visitorNamee);
+					preparedStatementVisitor.setString(3, visitorDoc);
+					preparedStatementVisitor.setString(4, textField.getText());
+					preparedStatementVisitor.executeUpdate();
+		            
 		            dispose();
 		            JOptionPane.showMessageDialog(null, "Datos del Vehículo Guardados con Éxito", "VEHÍCULO", JOptionPane.INFORMATION_MESSAGE);
 		            JOptionPane.showMessageDialog(null, "El Visitante Ha Sido Registrado Con Éxito", "ÉXITO", JOptionPane.INFORMATION_MESSAGE);
+		            
+		            MenuSecurity menuSecurityAddVisitorVehicle = new MenuSecurity();
+		            menuSecurityAddVisitorVehicle.setVisible(true);
 					
 					conn.close();
 				}

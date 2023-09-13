@@ -31,6 +31,8 @@ public class AddVisitor extends JFrame {
 	private JTextField textField;
 	private JTextField textField_1;
 	public static String visitorDocument;
+	public static String visitorName;
+	
 
 
 
@@ -109,6 +111,7 @@ public class AddVisitor extends JFrame {
 					preparedStatement.executeUpdate();
 
 					visitorDocument = textField.getText();
+					visitorName = textField_1.getText();
 
 					dispose();
 					JOptionPane.showMessageDialog(null, "Datos del Visitante Guardados con Éxito", "VISITANTE", JOptionPane.INFORMATION_MESSAGE);
@@ -137,7 +140,8 @@ public class AddVisitor extends JFrame {
 		btnNewButton_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
-				LoginSecurity.m.setVisible(true);
+				MenuSecurity menuSecurityAddVisitor = new MenuSecurity();
+				menuSecurityAddVisitor.setVisible(true);
 				dispose(); //Close the current window
 
 			}

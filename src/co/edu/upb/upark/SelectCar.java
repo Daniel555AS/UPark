@@ -150,7 +150,7 @@ public class SelectCar extends JFrame {
 						countVehicle2++;
 					}
 
-					for (int j = 2; j < rs3.getMetaData().getColumnCount(); j++) {
+					for (int j = 1; j < rs3.getMetaData().getColumnCount(); j++) {
 
 						rowString2 += rs3.getString(j) + " ";
 

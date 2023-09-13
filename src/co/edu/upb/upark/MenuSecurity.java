@@ -11,6 +11,12 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
 import java.awt.event.ActionEvent;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -18,6 +24,7 @@ import javax.swing.JOptionPane;
 public class MenuSecurity extends JFrame {
 
 	private JPanel contentPane;
+	private static String nameMenuSecurity = "";
 
 	/**
 	 * Launch the application.
@@ -41,6 +48,29 @@ public class MenuSecurity extends JFrame {
 	public MenuSecurity() {
 		
 		this.setResizable(false); // Disable the maximize window option
+		
+		int numberPosition = Login.positionNumber;
+		
+		try {
+			Connection conn = DriverManager.getConnection("jdbc:mysql://35.222.147.13:3306/parqueadero", "root", "842963");
+			Statement stmtMenuSecurity = conn.createStatement();
+			ResultSet rsMenuSecurity = stmtMenuSecurity.executeQuery("SELECT nombre FROM usuarios");
+			ArrayList<String> listMenuSecurity = new ArrayList<>();
+			while (rsMenuSecurity.next()) {
+				String valor = rsMenuSecurity.getString("nombre");
+				listMenuSecurity.add(valor);
+			}
+			String[] arrayMenuSecurity = listMenuSecurity.toArray(new String[0]);
+			rsMenuSecurity.close();
+			stmtMenuSecurity.close();
+
+			nameMenuSecurity = arrayMenuSecurity[numberPosition];	
+			
+			conn.close();
+		}
+		catch(SQLException i){
+			i.printStackTrace();
+		}
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1286, 660);
@@ -82,6 +112,11 @@ public class MenuSecurity extends JFrame {
 		btnNewButton_2.setFont(new Font("Cambria", Font.BOLD, 35));
 		btnNewButton_2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				
+				dispose();
+				Login loginMenuSecurity = new Login();
+				loginMenuSecurity.setVisible(true);
+				
 			}
 		});
 		btnNewButton_2.setBounds(858, 489, 389, 77);
@@ -115,7 +150,7 @@ public class MenuSecurity extends JFrame {
 		
 		JLabel lblNewLabel_3 = new JLabel("Usuario: ");
 		lblNewLabel_3.setFont(new Font("Cambria", Font.BOLD, 32));
-		lblNewLabel_3.setBounds(34, 509, 131, 57);
+		lblNewLabel_3.setBounds(30, 500, 131, 57);
 		contentPane.add(lblNewLabel_3);
 		
 		JLabel lblNewLabel_2 = new JLabel("");
@@ -123,13 +158,10 @@ public class MenuSecurity extends JFrame {
 		lblNewLabel_2.setBounds(20, 143, 320, 370);
 		contentPane.add(lblNewLabel_2);
 		
-		
-		String nameSecurity = LoginSecurity.name;
-		
-		JLabel lblNewLabel_4 = new JLabel(nameSecurity);
+		JLabel lblNewLabel_4 = new JLabel(nameMenuSecurity);
 		lblNewLabel_4.setHorizontalAlignment(SwingConstants.LEFT);
 		lblNewLabel_4.setFont(new Font("Cambria", Font.BOLD, 20));
-		lblNewLabel_4.setBounds(175, 509, 673, 43);
+		lblNewLabel_4.setBounds(175, 512, 673, 43);
 		contentPane.add(lblNewLabel_4);
 	}
 }
