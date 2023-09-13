@@ -154,7 +154,7 @@ public class Login extends JFrame {
 					for(int jj = 0; jj < arrayCurrentUsers.length; jj++) {
 						if(textField.getText().equals(arrayCurrentUsers[jj])) {
 							counterCurrentUser = counterCurrentUser + 1;		
-							IdentificationNumberExit = arrayCurrentUsers[jj];
+							IdentificationNumber = arrayCurrentUsers[jj];
 						}// if
 					}// for
 
@@ -182,7 +182,7 @@ public class Login extends JFrame {
 
 						try {
 
-							String query = "DELETE FROM usuariosActuales WHERE NumeroIdentificacion = '" + IdentificationNumberExit + "'"; 
+							String query = "DELETE FROM usuariosActuales WHERE NumeroIdentificacion = '" + IdentificationNumber + "'"; 
 							Statement statementDelete = conn.createStatement();
 							statementDelete.executeUpdate(query);
 

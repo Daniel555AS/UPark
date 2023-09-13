@@ -89,7 +89,7 @@ public class Exit extends JFrame {
 			int positionForName = 0;
 
 			for(int ii = 0; ii < arrayExit.length; ii++) {
-				if(arrayExit[ii] == Login.IdentificationNumberExit){
+				if(arrayExit[ii] == Login.IdentificationNumber){
 					positionForName = ii;
 					break;
 				}
@@ -114,12 +114,6 @@ public class Exit extends JFrame {
 		lblNewLabel_1.setBounds(10, 10, 343, 132);
 		lblNewLabel_1.setIcon(new ImageIcon("Media\\logo-upb-blanco1.png"));
 		contentPane.add(lblNewLabel_1);
-
-		JLabel lblNewLabel_2 = new JLabel(nameEx);
-		lblNewLabel_2.setFont(new Font("Cambria", Font.BOLD, 36));
-		lblNewLabel_2.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel_2.setBounds(195, 301, 888, 49);
-		contentPane.add(lblNewLabel_2);
 
 		JLabel lblNewLabel_3 = new JLabel("¡Gracias Por Usar Nuestro Servicio!");
 		lblNewLabel_3.setForeground(new Color(172, 50, 9));
