@@ -93,6 +93,17 @@ public class MenuSecurity extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 			}
 		});
+		
+		btnNewButton.addActionListener(new ActionListener() {
+		    public void actionPerformed(ActionEvent e) {
+		        // Crear una instancia de UsuariosEnParqueadero y mostrar la ventana
+		        UsuariosEnParqueadero ventanaUsuarios = new UsuariosEnParqueadero();
+		        ventanaUsuarios.mostrarDatosUsuarios();
+		        ventanaUsuarios.setVisible(true);
+		    }
+		});
+
+		
 		btnNewButton.setBounds(785, 352, 404, 77);
 		contentPane.add(btnNewButton);
 		
