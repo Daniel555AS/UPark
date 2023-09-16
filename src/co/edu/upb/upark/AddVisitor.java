@@ -32,7 +32,7 @@ public class AddVisitor extends JFrame {
 	private JTextField textField_1;
 	public static String visitorDocument;
 	public static String visitorName;
-	
+
 
 
 
@@ -84,7 +84,7 @@ public class AddVisitor extends JFrame {
 		lblNewLabel_1.setBounds(404, 42, 748, 90);
 		contentPane.add(lblNewLabel_1);
 
-		JComboBox comboBox = new JComboBox();
+		JComboBox<String> comboBox = new JComboBox<String>();
 		comboBox.setFont(new Font("Cambria", Font.BOLD, 30));
 		comboBox.addItem("Hombre");
 		comboBox.addItem("Mujer");
@@ -97,35 +97,48 @@ public class AddVisitor extends JFrame {
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
-				try {
-					Connection conn = DriverManager.getConnection("jdbc:mysql://35.222.147.13:3306/parqueadero", "root", "842963");
+				String text1 = textField.getText().trim();
+				String text2 = textField_1.getText().trim();
 
-					String query = "INSERT INTO usuarios (numeroidentificacion, nombre, genero, rol, documento) VALUES (?, ?, ?, ?, ?)";
-					PreparedStatement preparedStatement = conn.prepareStatement(query);
+				if(text1.equals("") || text1.length() == 0 || text2.equals("") || text2.length() == 0) {
 
-					preparedStatement.setString(1, textField.getText());
-					preparedStatement.setString(2, textField_1.getText());
-					preparedStatement.setString(3, (String) comboBox.getSelectedItem());
-					preparedStatement.setString(4, "Visitante");
-					preparedStatement.setString(5, textField.getText());
-					preparedStatement.executeUpdate();
+					JOptionPane.showMessageDialog(null, "Debe llenar todos los campos.", "ERROR - Campo(s) vacío(s)", JOptionPane.ERROR_MESSAGE);
+					textField.setText("");
+					textField_1.setText("");
+				}
 
-					visitorDocument = textField.getText();
-					visitorName = textField_1.getText();
+				else {
 
-					dispose();
-					JOptionPane.showMessageDialog(null, "Datos del Visitante Guardados con Éxito", "VISITANTE", JOptionPane.INFORMATION_MESSAGE);
+					try {
+						Connection conn = DriverManager.getConnection("jdbc:mysql://35.222.147.13:3306/parqueadero", "root", "842963");
 
-					AddVisitorVehicle a = new AddVisitorVehicle();
-					a.setVisible(true);
+						String query = "INSERT INTO usuarios (numeroidentificacion, nombre, genero, rol, documento) VALUES (?, ?, ?, ?, ?)";
+						PreparedStatement preparedStatement = conn.prepareStatement(query);
 
-					conn.close();
+						preparedStatement.setString(1, textField.getText());
+						preparedStatement.setString(2, textField_1.getText());
+						preparedStatement.setString(3, (String) comboBox.getSelectedItem());
+						preparedStatement.setString(4, "Visitante");
+						preparedStatement.setString(5, textField.getText());
+						preparedStatement.executeUpdate();
 
-				}// try
+						visitorDocument = textField.getText();
+						visitorName = textField_1.getText();
 
-				catch(SQLException i){
-					i.printStackTrace();
-				}// catch
+						dispose();
+						JOptionPane.showMessageDialog(null, "Datos del Visitante Guardados con Éxito", "VISITANTE", JOptionPane.INFORMATION_MESSAGE);
+
+						AddVisitorVehicle a = new AddVisitorVehicle();
+						a.setVisible(true);
+
+						conn.close();
+
+					}//try
+
+					catch(SQLException i){
+						i.printStackTrace();
+					}//catch
+				}//else
 
 			}//public void actionPerformed(ActionEvent e) 
 		});

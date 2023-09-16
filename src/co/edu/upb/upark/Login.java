@@ -101,134 +101,147 @@ public class Login extends JFrame {
 		btnNewButton.setForeground(new Color(0, 0, 0));
 		btnNewButton.setBackground(new Color(255, 239, 91));
 		btnNewButton.addActionListener(new ActionListener() {
+			
 			// Login button
 			public void actionPerformed(ActionEvent e) {
+				
+				String text = textField.getText().trim();
 
-				try {
-					Connection conn = DriverManager.getConnection("jdbc:mysql://35.222.147.13:3306/parqueadero", "root", "842963");
-					Statement stmt = conn.createStatement();
-					ResultSet rs = stmt.executeQuery("SELECT numeroidentificacion FROM usuarios");
-					ArrayList<String> listLogin = new ArrayList<>();
-					while (rs.next()) {
-						String valor = rs.getString("numeroidentificacion");
-						listLogin.add(valor);
-					}
-					String[] arrayLogin = listLogin.toArray(new String[0]);
-					rs.close();
-					stmt.close();
-
-					Statement stmtRol = conn.createStatement();
-					ResultSet rsRol = stmtRol.executeQuery("SELECT rol FROM usuarios");
-					ArrayList<String> listRol = new ArrayList<>();
-					while (rsRol.next()) {
-						String valor = rsRol.getString("rol");
-						listRol.add(valor);
-					}
-					String[] arrayRol = listRol.toArray(new String[0]);
-					rsRol.close();
-					stmtRol.close();
-
-					Statement stmtCurrentUser = conn.createStatement();
-					ResultSet rsCurrentUser = stmtCurrentUser.executeQuery("SELECT numeroidentificacion FROM usuariosActuales");
-					ArrayList<String> listCurrentUsers = new ArrayList<>();
-					while (rsCurrentUser.next()) {
-						String valor = rsCurrentUser.getString("numeroidentificacion");
-						listCurrentUsers.add(valor);
-					}
-					String[] arrayCurrentUsers = listCurrentUsers.toArray(new String[0]);
-					stmtCurrentUser.close();
-					rsCurrentUser.close();
-
-					int counter = 0;
-					int counterCurrentUser = 0;
-
-					for(int ii = 0; ii < arrayLogin.length; ii++) {
-						if(textField.getText().equals(arrayLogin[ii])) {
-							counter = counter + 1;
-							positionNumber = ii;
-							IdentificationNumber = arrayLogin[ii];
-						}//if
-
-					}// for
-
-					for(int jj = 0; jj < arrayCurrentUsers.length; jj++) {
-						if(textField.getText().equals(arrayCurrentUsers[jj])) {
-							counterCurrentUser = counterCurrentUser + 1;		
-							IdentificationNumber = arrayCurrentUsers[jj];
-						}// if
-					}// for
-
-					if(counterCurrentUser > 0) {
-						dispose();
-
-						// display Exit exitFrame
-						Exit exitFrame = new Exit();
-						exitFrame.setVisible(true);
-
-						// Swing Timer with a 5-second delay
-						Timer timer = new Timer(5000, new ActionListener() {
-							public void actionPerformed(ActionEvent e) {
-								// close Exit exitFrame
-								exitFrame.dispose();
-
-								// display Login
-								Login loginFrame = new Login();
-								loginFrame.setVisible(true);
-							}
-						});
-
-						timer.setRepeats(false);
-						timer.start(); // start the timer
-
-						try {
-
-							String query = "DELETE FROM usuariosActuales WHERE NumeroIdentificacion = '" + IdentificationNumber + "'"; 
-							Statement statementDelete = conn.createStatement();
-							statementDelete.executeUpdate(query);
-
-						} catch (SQLException u) {
-							u.printStackTrace();
+				if(text.equals("") || text.length() == 0) {
+					
+					JOptionPane.showMessageDialog(null, "Debe ingresar su número ID.", "ERROR - Campo Vacío", JOptionPane.ERROR_MESSAGE);
+					textField.setText("");
+				}
+				
+				else {
+					
+					try {
+						Connection conn = DriverManager.getConnection("jdbc:mysql://35.222.147.13:3306/parqueadero", "root", "842963");
+						Statement stmt = conn.createStatement();
+						ResultSet rs = stmt.executeQuery("SELECT numeroidentificacion FROM usuarios");
+						ArrayList<String> listLogin = new ArrayList<>();
+						while (rs.next()) {
+							String valor = rs.getString("numeroidentificacion");
+							listLogin.add(valor);
 						}
+						String[] arrayLogin = listLogin.toArray(new String[0]);
+						rs.close();
+						stmt.close();
 
-						conn.close();
-					}// if(counterCurrentUser > 0)
+						Statement stmtRol = conn.createStatement();
+						ResultSet rsRol = stmtRol.executeQuery("SELECT rol FROM usuarios");
+						ArrayList<String> listRol = new ArrayList<>();
+						while (rsRol.next()) {
+							String valor = rsRol.getString("rol");
+							listRol.add(valor);
+						}
+						String[] arrayRol = listRol.toArray(new String[0]);
+						rsRol.close();
+						stmtRol.close();
 
+						Statement stmtCurrentUser = conn.createStatement();
+						ResultSet rsCurrentUser = stmtCurrentUser.executeQuery("SELECT numeroidentificacion FROM usuariosActuales");
+						ArrayList<String> listCurrentUsers = new ArrayList<>();
+						while (rsCurrentUser.next()) {
+							String valor = rsCurrentUser.getString("numeroidentificacion");
+							listCurrentUsers.add(valor);
+						}
+						String[] arrayCurrentUsers = listCurrentUsers.toArray(new String[0]);
+						stmtCurrentUser.close();
+						rsCurrentUser.close();
 
-					else {
+						int counter = 0;
+						int counterCurrentUser = 0;
 
-						if(counter > 0) {
+						for(int ii = 0; ii < arrayLogin.length; ii++) {
+							if(textField.getText().equals(arrayLogin[ii])) {
+								counter = counter + 1;
+								positionNumber = ii;
+								IdentificationNumber = arrayLogin[ii];
+							}//if
 
-							if(arrayRol[positionNumber].equals("Vigilante")) {
+						}// for
 
-								LoginSecurity l = new LoginSecurity();
-								l.setVisible(true);
-								dispose(); //Close the current window
-							}// Security.
+						for(int jj = 0; jj < arrayCurrentUsers.length; jj++) {
+							if(textField.getText().equals(arrayCurrentUsers[jj])) {
+								counterCurrentUser = counterCurrentUser + 1;		
+								IdentificationNumber = arrayCurrentUsers[jj];
+							}// if
+						}// for
 
-							else {
+						if(counterCurrentUser > 0) {
+							dispose();
 
-								SelectCar p = new SelectCar();
-								p.setVisible(true);
-								dispose(); //Close the current window
+							// display Exit exitFrame
+							Exit exitFrame = new Exit();
+							exitFrame.setVisible(true);
 
-							}// Students, Teachers and others.
+							// Swing Timer with a 5-second delay
+							Timer timer = new Timer(5000, new ActionListener() {
+								public void actionPerformed(ActionEvent e) {
+									// close Exit exitFrame
+									exitFrame.dispose();
 
-						}// if(counter > 0)
+									// display Login
+									Login loginFrame = new Login();
+									loginFrame.setVisible(true);
+								}
+							});
+
+							timer.setRepeats(false);
+							timer.start(); // start the timer
+
+							try {
+
+								String query = "DELETE FROM usuariosActuales WHERE NumeroIdentificacion = '" + IdentificationNumber + "'"; 
+								Statement statementDelete = conn.createStatement();
+								statementDelete.executeUpdate(query);
+
+							} catch (SQLException u) {
+								u.printStackTrace();
+							}
+
+							conn.close();
+						}// if(counterCurrentUser > 0)
+
 
 						else {
-							JOptionPane.showMessageDialog(null, "El usuario no ha sido encontrado", "ERROR", JOptionPane.ERROR_MESSAGE);
-							textField.setText("");
-						}// else
 
-						conn.close();
-					}// else - Current User
+							if(counter > 0) {
 
-				}
-				catch(SQLException i){
-					i.printStackTrace();
-				}// catch
+								if(arrayRol[positionNumber].equals("Vigilante")) {
 
-			}
+									LoginSecurity l = new LoginSecurity();
+									l.setVisible(true);
+									dispose(); //Close the current window
+								}// Security.
+
+								else {
+
+									SelectCar p = new SelectCar();
+									p.setVisible(true);
+									dispose(); //Close the current window
+
+								}// Students, Teachers and others.
+
+							}// if(counter > 0)
+
+							else {
+								JOptionPane.showMessageDialog(null, "El usuario no ha sido encontrado.", "ERROR", JOptionPane.ERROR_MESSAGE);
+								textField.setText("");
+							}// else
+
+							conn.close();
+						}// else - Current User
+
+					}
+					catch(SQLException i){
+						i.printStackTrace();
+					}// catch
+					
+				}//else
+
+			}//public void actionPerformed(ActionEvent e)
 
 		});
 		btnNewButton.setBounds(476, 483, 320, 57);

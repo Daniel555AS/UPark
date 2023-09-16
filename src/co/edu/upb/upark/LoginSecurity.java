@@ -26,7 +26,7 @@ public class LoginSecurity extends JFrame {
 
 	private JPanel contentPane;
 	private JPasswordField passwordField;
-	
+
 	public static String name = "";
 
 	/**
@@ -113,56 +113,66 @@ public class LoginSecurity extends JFrame {
 		btnNewButton_1.setBackground(new Color(255, 239, 91));
 		btnNewButton_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-
-				char[] password = passwordField.getPassword();
-				String passwordFinal = new String(password);
-
-				try {
-					Connection conn = DriverManager.getConnection("jdbc:mysql://35.222.147.13:3306/parqueadero", "root", "842963");
-					Statement stmtLoginSecurity = conn.createStatement();
-					ResultSet rsLoginSecurity = stmtLoginSecurity.executeQuery("SELECT documento FROM usuarios");
-					ArrayList<String> listLoginSecurity = new ArrayList<>();
-					while (rsLoginSecurity.next()) {
-						String valor = rsLoginSecurity.getString("documento");
-						listLoginSecurity.add(valor);
-					}
-					String[] arrayLoginSecurity = listLoginSecurity.toArray(new String[0]);
-					rsLoginSecurity.close();
-					stmtLoginSecurity.close();
-
-					Statement stmtLoginSecurityName = conn.createStatement();
-					ResultSet rsLoginSecurityName = stmtLoginSecurityName.executeQuery("SELECT nombre FROM usuarios");
-					ArrayList<String> listLoginSecurityName = new ArrayList<>();
-					while (rsLoginSecurityName.next()) {
-						String valor = rsLoginSecurityName.getString("nombre");
-						listLoginSecurityName.add(valor);
-					}
-					String[] arrayLoginSecurityName = listLoginSecurityName.toArray(new String[0]);
-					rsLoginSecurityName.close();
-					stmtLoginSecurityName.close();
-
-					if(arrayLoginSecurity[positionLoginSecurity].equals(passwordFinal)) {
-						
-						name = arrayLoginSecurityName[positionLoginSecurity];
-						MenuSecurity m = new MenuSecurity();
-						m.setVisible(true);
-						dispose(); //Close the current window
-
-					}// if
-
-					else {
-						JOptionPane.showMessageDialog(null, "Contraseña incorrecta", "ERROR", JOptionPane.ERROR_MESSAGE);
-						passwordField.setText("");
-					}// else
-
-					conn.close();
-
+				
+				char[] passwordVerification = passwordField.getPassword();
+				
+				if(passwordVerification.length == 0) {
+					JOptionPane.showMessageDialog(null, "Debe ingresar su contraseña.", "ERROR - Campo Vacío", JOptionPane.ERROR_MESSAGE);
+					passwordField.setText("");
 				}
-				catch(SQLException i){
-					i.printStackTrace();
-				}// catch
+				else {
 
-			}
+					char[] password = passwordField.getPassword();
+					String passwordFinal = new String(password);
+
+					try {
+						Connection conn = DriverManager.getConnection("jdbc:mysql://35.222.147.13:3306/parqueadero", "root", "842963");
+						Statement stmtLoginSecurity = conn.createStatement();
+						ResultSet rsLoginSecurity = stmtLoginSecurity.executeQuery("SELECT documento FROM usuarios");
+						ArrayList<String> listLoginSecurity = new ArrayList<>();
+						while (rsLoginSecurity.next()) {
+							String valor = rsLoginSecurity.getString("documento");
+							listLoginSecurity.add(valor);
+						}
+						String[] arrayLoginSecurity = listLoginSecurity.toArray(new String[0]);
+						rsLoginSecurity.close();
+						stmtLoginSecurity.close();
+
+						Statement stmtLoginSecurityName = conn.createStatement();
+						ResultSet rsLoginSecurityName = stmtLoginSecurityName.executeQuery("SELECT nombre FROM usuarios");
+						ArrayList<String> listLoginSecurityName = new ArrayList<>();
+						while (rsLoginSecurityName.next()) {
+							String valor = rsLoginSecurityName.getString("nombre");
+							listLoginSecurityName.add(valor);
+						}
+						String[] arrayLoginSecurityName = listLoginSecurityName.toArray(new String[0]);
+						rsLoginSecurityName.close();
+						stmtLoginSecurityName.close();
+
+						if(arrayLoginSecurity[positionLoginSecurity].equals(passwordFinal)) {
+
+							name = arrayLoginSecurityName[positionLoginSecurity];
+							MenuSecurity m = new MenuSecurity();
+							m.setVisible(true);
+							dispose(); //Close the current window
+
+						}//if
+
+						else {
+							JOptionPane.showMessageDialog(null, "Contraseña incorrecta", "ERROR", JOptionPane.ERROR_MESSAGE);
+							passwordField.setText("");
+						}//else
+
+						conn.close();
+
+					}
+					catch(SQLException i){
+						i.printStackTrace();
+					}//catch
+					
+				}//else
+
+			}//public void actionPerformed(ActionEvent e)
 		});
 		btnNewButton_1.setBounds(476, 446, 320, 57);
 		contentPane.add(btnNewButton_1);
