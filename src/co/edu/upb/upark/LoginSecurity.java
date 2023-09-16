@@ -24,6 +24,11 @@ import java.awt.event.ActionEvent;
 
 public class LoginSecurity extends JFrame {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
 	private JPanel contentPane;
 	private JPasswordField passwordField;
 

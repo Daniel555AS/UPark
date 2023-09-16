@@ -29,6 +29,10 @@ import javax.swing.Timer;
 
 public class SelectCar extends JFrame {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private static String name = "";
 	private static String doc = "";

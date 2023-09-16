@@ -23,6 +23,10 @@ import javax.swing.JOptionPane;
 
 public class MenuSecurity extends JFrame {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private static String nameMenuSecurity = "";
 

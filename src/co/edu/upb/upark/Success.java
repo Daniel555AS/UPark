@@ -19,6 +19,10 @@ import javax.swing.JLabel;
 
 public class Success extends JFrame {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 
 	/**

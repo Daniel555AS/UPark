@@ -22,6 +22,11 @@ import java.awt.event.ActionEvent;
 
 public class AddVisitorVehicle extends JFrame {
 
+	/**
+	 * 
+	 */
+	
+	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JTextField textField;
 	private JTextField textField_1;
@@ -35,6 +40,7 @@ public class AddVisitorVehicle extends JFrame {
 	/**
 	 * Launch the application.
 	 */
+	
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -51,6 +57,7 @@ public class AddVisitorVehicle extends JFrame {
 	/**
 	 * Create the frame.
 	 */
+	
 	public AddVisitorVehicle() {
 
 		this.setResizable(false); // Disable the maximize window option
