@@ -25,7 +25,7 @@ public class Exit extends JFrame {
 	
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
-
+	private static String nameForExit = "";
 
 	/**
 	 * Launch the application.
@@ -65,49 +65,25 @@ public class Exit extends JFrame {
 		panel.setBounds(0, 594, 1287, 29);
 		contentPane.add(panel);
 
-		String nameEx = "";
+
 
 		// --------------------------- Get The Name Of The Vehicle Owner ---------------------------
 
-		try {
-			Connection conn = DriverManager.getConnection("jdbc:mysql://35.222.147.13:3306/parqueadero", "root", "842963");
-			Statement stmtExit = conn.createStatement();
-			ResultSet rsExit = stmtExit.executeQuery("SELECT numeroidentificacion FROM usuariosActuales");
-			ArrayList<String> listExit = new ArrayList<>();
-			while (rsExit.next()) {
-				String valor = rsExit.getString("numeroidentificacion");
-				listExit.add(valor);
-			}
-			String[] arrayExit= listExit.toArray(new String[0]);
-			rsExit.close();
-			stmtExit.close();
-
-			Statement stmtExitNames = conn.createStatement();
-			ResultSet rsExitNames = stmtExitNames.executeQuery("SELECT nombreusuario FROM usuariosActuales");
-			ArrayList<String> listExitNames = new ArrayList<>();
-			while (rsExitNames.next()) {
-				String valor = rsExitNames.getString("nombreusuario");
-				listExitNames.add(valor);
-			}
-			String[] arrayExitNames = listExitNames.toArray(new String[0]);
-			rsExitNames.close();
-			stmtExitNames.close();
-
-			int positionForName = 0;
-
-			for(int ii = 0; ii < arrayExit.length; ii++) {
-				if(arrayExit[ii] == Login.IdentificationNumber){
-					positionForName = ii;
-					break;
-				}
-			}//for
-
-			nameEx = arrayExitNames[positionForName];
-
-		}
-		catch(SQLException e) {
-			e.printStackTrace();
-		}
+        try (Connection connection = DriverManager.getConnection("jdbc:mysql://35.222.147.13:3306/parqueadero", "root", "842963")) {
+            //Create a SQL statement
+            try (Statement statement = connection.createStatement()) {
+                //Run the query and get the result
+                try (ResultSet resultSet = statement.executeQuery("SELECT NombreUsuario FROM usuariosActuales WHERE NumeroIdentificacion = '" + Login.IdentificationNumberExit + "'")) {
+                   
+                    if (resultSet.next()) {
+                        nameForExit = resultSet.getString("NombreUsuario");
+ 
+                    } 
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
 
 		// -----------------------------------------------------------------------------------------
 
@@ -128,7 +104,12 @@ public class Exit extends JFrame {
 		lblNewLabel_3.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel_3.setBounds(64, 410, 1144, 82);
 		contentPane.add(lblNewLabel_3);
+		
+		JLabel lblNewLabel_2 = new JLabel(nameForExit);
+		lblNewLabel_2.setFont(new Font("Cambria", Font.BOLD, 36));
+		lblNewLabel_2.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel_2.setBounds(188, 335, 888, 49);
+		contentPane.add(lblNewLabel_2);
 
 	}
-
 }

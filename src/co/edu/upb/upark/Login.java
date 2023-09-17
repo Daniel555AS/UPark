@@ -47,6 +47,7 @@ public class Login extends JFrame {
 	private JPanel contentPane;
 	private JTextField textField;
 	public static int positionNumber;
+	public static int positionNumberExit;
 	public static String IdentificationNumberExit;
 	public static String IdentificationNumber;
 
@@ -150,10 +151,10 @@ public class Login extends JFrame {
 						stmtRol.close();
 
 						Statement stmtCurrentUser = conn.createStatement();
-						ResultSet rsCurrentUser = stmtCurrentUser.executeQuery("SELECT numeroidentificacion FROM usuariosActuales");
+						ResultSet rsCurrentUser = stmtCurrentUser.executeQuery("SELECT NumeroIdentificacion FROM usuariosActuales");
 						ArrayList<String> listCurrentUsers = new ArrayList<>();
 						while (rsCurrentUser.next()) {
-							String valor = rsCurrentUser.getString("numeroidentificacion");
+							String valor = rsCurrentUser.getString("NumeroIdentificacion");
 							listCurrentUsers.add(valor);
 						}
 						String[] arrayCurrentUsers = listCurrentUsers.toArray(new String[0]);
@@ -172,12 +173,15 @@ public class Login extends JFrame {
 
 						}// for
 
-						for(int jj = 0; jj < arrayCurrentUsers.length; jj++) {
-							if(textField.getText().equals(arrayCurrentUsers[jj])) {
-								counterCurrentUser = counterCurrentUser + 1;		
-								IdentificationNumber = arrayCurrentUsers[jj];
+						for(int jj = 0; jj < arrayCurrentUsers.length ; jj++) {
+							if(textField.getText().equals(arrayCurrentUsers[jj]) == true) {
+								counterCurrentUser = counterCurrentUser + 1;
+								positionNumberExit = jj;
+								IdentificationNumberExit = arrayCurrentUsers[jj];
+								System.out.println(IdentificationNumberExit);
 							}// if
 						}// for
+						
 
 						if(counterCurrentUser > 0) {
 							dispose();
@@ -203,7 +207,7 @@ public class Login extends JFrame {
 
 							try {
 
-								String query = "DELETE FROM usuariosActuales WHERE NumeroIdentificacion = '" + IdentificationNumber + "'"; 
+								String query = "DELETE FROM usuariosActuales WHERE NumeroIdentificacion = '" + IdentificationNumberExit + "'"; 
 								Statement statementDelete = conn.createStatement();
 								statementDelete.executeUpdate(query);
 

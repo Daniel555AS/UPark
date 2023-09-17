@@ -134,7 +134,7 @@ public class SelectCar extends JFrame {
 				count++;
 				if (count == 1) {
 					for (int jj = 1; jj <= rs3.getMetaData().getColumnCount(); jj++) {
-						String rowString = "";
+						String rowString= "";
 						rowString = rs3.getString(jj);
 						vehicleInformation1[countVehicle1] = rowString;
 						countVehicle1++;
@@ -147,7 +147,7 @@ public class SelectCar extends JFrame {
 					}
 
 				} else if (count == 2) {
-					for (int jj = 2; jj <= rs3.getMetaData().getColumnCount(); jj++) {
+					for (int jj = 1; jj <= rs3.getMetaData().getColumnCount(); jj++) {
 						String rowString = "";
 						rowString = rs3.getString(jj);
 						vehicleInformation2[countVehicle2] = rowString;
@@ -182,7 +182,7 @@ public class SelectCar extends JFrame {
 		lblNewLabel_2.setBounds(192, 258, 888, 49);
 		contentPane.add(lblNewLabel_2);
 
-		JComboBox comboBox = new JComboBox();
+		JComboBox<String> comboBox = new JComboBox<String>();
 		DefaultComboBoxModel<String> model = new DefaultComboBoxModel<String>();
 		if(vehicles[0] != "") {
 			model.addElement(vehicles[0]);

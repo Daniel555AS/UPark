@@ -22,12 +22,14 @@ public class Success extends JFrame {
 	/**
 	 * 
 	 */
+	
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 
 	/**
 	 * Launch the application.
 	 */
+	
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -44,11 +46,12 @@ public class Success extends JFrame {
 	/**
 	 * Create the frame.
 	 */
+	
 	public Success() {
 
-		this.setResizable(false); // Disable the maximize window option
+		this.setResizable(false); //Disable the maximize window option.
 
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); //Set the default close operation for the JFrame to exit the application when the user clicks the close button.
 		setBounds(100, 100, 1286, 660);
 		contentPane = new JPanel();
 		contentPane.setBackground(new Color(255, 255, 255));
@@ -79,9 +82,13 @@ public class Success extends JFrame {
 		// ------------------ Get the name of the vehicle owner ------------------
 
 		try {
+			//Establish a connection to our MySQL database:
 			Connection conn = DriverManager.getConnection("jdbc:mysql://35.222.147.13:3306/parqueadero", "root", "842963");
+			//Create a Statement object to execute SQL queries on the database connected to the Connection object "conn":
 			Statement stmtSuccess = conn.createStatement();
-			ResultSet rsSuccess = stmtSuccess.executeQuery("SELECT nombre FROM usuarios");
+			//Run a SQL query to get user names:
+			ResultSet rsSuccess = stmtSuccess.executeQuery("SELECT nombre FROM usuarios"); 
+			
 			ArrayList<String> listSuccess = new ArrayList<>();
 			while (rsSuccess.next()) {
 				String valor = rsSuccess.getString("nombre");
