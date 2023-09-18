@@ -19,14 +19,13 @@ import javax.swing.JTextField;
 import javax.swing.JPasswordField;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
-//
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-//
 
 import java.awt.event.ActionEvent;
 import javax.swing.SwingConstants;
@@ -54,6 +53,7 @@ public class Login extends JFrame {
 	/**
 	 * Launch the application.
 	 */
+	
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -73,7 +73,7 @@ public class Login extends JFrame {
 	public Login() {
 
 		this.setResizable(false); // Disable the maximize window option
-
+               
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1286, 660);
 		contentPane = new JPanel();
@@ -87,50 +87,60 @@ public class Login extends JFrame {
 		panel_1.setBackground(new Color(0, 0, 0));
 		panel_1.setBounds(0, 594, 1287, 29);
 		contentPane.add(panel_1);
-
+		
+		//Creation of a JLabel containing the text: "UPARK".
 		JLabel lblNewLabel = new JLabel("UPARK");
 		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel.setFont(new Font("Cambria", Font.BOLD, 150));
 		lblNewLabel.setBounds(376, 135, 519, 124);
 		contentPane.add(lblNewLabel);
-
+		
+		//Creation of the field where the data corresponding to the user can be entered:
+		//UPB User --> ID.
+		//Visitor --> Document No.
 		textField = new JTextField();
 		textField.setBackground(new Color(237, 238, 223));
 		textField.setFont(new Font("Cambria", Font.BOLD, 28));
 		textField.setBounds(440, 348, 392, 67);
 		contentPane.add(textField);
 		textField.setColumns(10);
-
+		
+		//Creation of a JLabel containing the text: "Usuario".
 		JLabel lblNewLabel_1 = new JLabel("Usuario");
 		lblNewLabel_1.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel_1.setFont(new Font("Cambria", Font.BOLD, 30));
 		lblNewLabel_1.setBounds(578, 299, 116, 39);
 		contentPane.add(lblNewLabel_1);
-
+		
+		//Creation of the button: "ACCEDER":
 		JButton btnNewButton = new JButton("ACCEDER");
 		btnNewButton.setFont(new Font("Cambria", Font.BOLD, 31));
 		btnNewButton.setForeground(new Color(0, 0, 0));
 		btnNewButton.setBackground(new Color(255, 239, 91));
+		
 		btnNewButton.addActionListener(new ActionListener() {
 			
-			// Login button
 			public void actionPerformed(ActionEvent e) {
 				
-				String text = textField.getText().trim();
+				String text = textField.getText().trim(); 
 
 				if(text.equals("") || text.length() == 0) {
 					
 					JOptionPane.showMessageDialog(null, "Debe ingresar su número ID.", "ERROR - Campo Vacío", JOptionPane.ERROR_MESSAGE);
 					textField.setText("");
+					
 				}
 				
 				else {
 					
 					try {
+						
 						Connection conn = DriverManager.getConnection("jdbc:mysql://35.222.147.13:3306/parqueadero", "root", "842963");
+						
 						Statement stmt = conn.createStatement();
 						ResultSet rs = stmt.executeQuery("SELECT numeroidentificacion FROM usuarios");
-						ArrayList<String> listLogin = new ArrayList<>();
+						
+						ArrayList<String> listLogin = new ArrayList<>(); 
 						while (rs.next()) {
 							String valor = rs.getString("numeroidentificacion");
 							listLogin.add(valor);
