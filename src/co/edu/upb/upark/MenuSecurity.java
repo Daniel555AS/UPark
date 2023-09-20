@@ -165,7 +165,7 @@ public class MenuSecurity extends JFrame {
 		
 		JLabel lblNewLabel_3 = new JLabel("Usuario: ");
 		lblNewLabel_3.setFont(new Font("Cambria", Font.BOLD, 32));
-		lblNewLabel_3.setBounds(30, 500, 131, 57);
+		lblNewLabel_3.setBounds(30, 500, 154, 57);
 		contentPane.add(lblNewLabel_3);
 		
 		JLabel lblNewLabel_2 = new JLabel("");
@@ -176,7 +176,7 @@ public class MenuSecurity extends JFrame {
 		JLabel lblNewLabel_4 = new JLabel(nameMenuSecurity);
 		lblNewLabel_4.setHorizontalAlignment(SwingConstants.LEFT);
 		lblNewLabel_4.setFont(new Font("Cambria", Font.BOLD, 20));
-		lblNewLabel_4.setBounds(175, 512, 673, 43);
+		lblNewLabel_4.setBounds(205, 512, 629, 43);
 		contentPane.add(lblNewLabel_4);
 	}
 }
