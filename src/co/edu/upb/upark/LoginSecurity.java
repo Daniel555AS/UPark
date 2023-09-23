@@ -27,7 +27,12 @@ public class LoginSecurity extends JFrame {
 	/**
 	 * 
 	 */
+	
 	private static final long serialVersionUID = 1L;
+	
+	/**
+	 * 
+	 */
 	
 	private JPanel contentPane;
 	private JPasswordField passwordField;
@@ -53,6 +58,7 @@ public class LoginSecurity extends JFrame {
 	/**
 	 * Create the frame.
 	 */
+	
 	public LoginSecurity() {
 
 		this.setResizable(false); // Disable the maximize window option
@@ -181,6 +187,7 @@ public class LoginSecurity extends JFrame {
 		btnNewButton_1.setBounds(476, 446, 320, 57);
 		contentPane.add(btnNewButton_1);
 
-	}
+	} // public LoginSecurity()
 
-}
+
+} // public class LoginSecurity extends JFrame
