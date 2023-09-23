@@ -9,6 +9,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
@@ -27,18 +30,28 @@ import java.awt.event.ActionEvent;
 
 import javax.swing.Timer;
 
-public class SelectCar extends JFrame {
+public class SelectCar extends JFrame implements Runnable {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	
+	/**
+	 * 
+	 */
+	
 	private JPanel contentPane;
 	private static String name = "";
 	private static String doc = "";
 	private static String[] vehicleInformation1 = new String[5];
 	private static String[] vehicleInformation2 = new String[5];
 	private static String[]  vehicles = new String[2];
+	
+	String hour, minutes, seconds, amOrPm;
+	Calendar calendar;
+	Thread thread1;
+	private JLabel lblClock = new JLabel("");
 
 	/**
 	 * Launch the application.
@@ -62,6 +75,9 @@ public class SelectCar extends JFrame {
 	public SelectCar() {
 
 		this.setResizable(false); // Disable the maximize window option
+		
+		thread1 = new Thread(this);
+		thread1.start();
 
 		int numberPosition = Login.positionNumber;
 		String numberIdentification = Login.IdentificationNumber;
@@ -79,12 +95,16 @@ public class SelectCar extends JFrame {
 		panel.setBounds(0, 594, 1287, 29);
 		panel.setBackground(new Color(0, 0, 0));
 		contentPane.add(panel);
+		
+		
+		// Creation of a JLabel with the Logo of the University:
+		JLabel lblUpbLogo = new JLabel("");
+		lblUpbLogo.setBounds(10, 10, 343, 132);
+		contentPane.add(lblUpbLogo);
+		lblUpbLogo.setIcon(new ImageIcon("Media\\logo-upb-blanco1.png"));
 
-		JLabel lblNewLabel = new JLabel("");
-		lblNewLabel.setBounds(10, 10, 343, 132);
-		contentPane.add(lblNewLabel);
-		lblNewLabel.setIcon(new ImageIcon("Media\\logo-upb-blanco1.png"));
-
+		
+		// Creation of a JLabel with the text: "Escoge Tu Vehículo":
 		JLabel lblNewLabel_1 = new JLabel("Escoge Tu Vehículo");
 		lblNewLabel_1.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel_1.setFont(new Font("Cambria", Font.BOLD, 99));
@@ -175,7 +195,9 @@ public class SelectCar extends JFrame {
 		}
 
 		//------------------------------------------------------------------------------------------------------------------------------ ------------
-
+		
+		
+		// Creation of a JLabel with the user's name as text:
 		JLabel lblNewLabel_2 = new JLabel(name);
 		lblNewLabel_2.setFont(new Font("Cambria", Font.BOLD, 36));
 		lblNewLabel_2.setHorizontalAlignment(SwingConstants.CENTER);
@@ -260,6 +282,62 @@ public class SelectCar extends JFrame {
 		});
 		btnNewButton.setBounds(416, 468, 440, 76);
 		contentPane.add(btnNewButton);
+		
+		
+		lblClock.setFont(new Font("Cambria", Font.BOLD, 52));
+		lblClock.setHorizontalAlignment(SwingConstants.CENTER);
+		lblClock.setBounds(868, 42, 370, 57);
+		contentPane.add(lblClock);
+		
+		
+		// Creation of a JLabel with the text: "Hora":
+		JLabel lblHora = new JLabel("Hora:");
+		lblHora.setFont(new Font("Cambria", Font.BOLD, 54));
+		lblHora.setHorizontalAlignment(SwingConstants.LEFT);
+		lblHora.setBounds(730, 42, 148, 59);
+		contentPane.add(lblHora);
+		
+		
+	} // public SelectCar()
 
-	}
-}
+	@Override
+	public void run() {
+		
+		Thread currentThread = Thread.currentThread();
+		
+		while(currentThread == thread1) {
+			
+			calculate();
+			lblClock.setText(hour + ":" + minutes + ":" + seconds + "  " + amOrPm);
+			try {
+				Thread.sleep(1000);
+			}catch(InterruptedException e) {}
+			
+		}//while(currentThread == thread1)
+		
+	}// public void run()
+
+	
+	private void calculate() {
+		
+		Calendar calendar = new GregorianCalendar();
+		Date currentTime = new Date();
+		
+		calendar.setTime(currentTime);
+		amOrPm = calendar.get(Calendar.AM_PM)==Calendar.AM?"AM":"PM";
+		
+	    if(amOrPm.equals("PM")) {
+	    	int h = calendar.get(Calendar.HOUR_OF_DAY)-12;
+	    	hour = h>9?""+h:"0"+h;
+	    }
+	    else {
+	    	hour = calendar.get(Calendar.HOUR_OF_DAY)>9?""+calendar.get(Calendar.HOUR_OF_DAY):"0"+calendar.get(Calendar.HOUR);
+	    }
+	    
+	    minutes = calendar.get(Calendar.MINUTE)>9?""+calendar.get(Calendar.MINUTE):"0"+calendar.get(Calendar.MINUTE);
+	    seconds = calendar.get(Calendar.SECOND)>9?""+calendar.get(Calendar.SECOND):"0"+calendar.get(Calendar.SECOND);
+		
+	} // private void calculate()
+
+
+} // public class SelectCar extends JFrame implements Runnable

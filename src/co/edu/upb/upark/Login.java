@@ -26,12 +26,12 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-
+import java.util.*;
 import java.awt.event.ActionEvent;
 import javax.swing.SwingConstants;
 import javax.swing.Timer;
 
-public class Login extends JFrame {
+public class Login extends JFrame implements Runnable {
 
 	/**
 	 * 
@@ -49,6 +49,11 @@ public class Login extends JFrame {
 	public static int positionNumberExit;
 	public static String IdentificationNumberExit;
 	public static String IdentificationNumber;
+	
+	String hour, minutes, seconds, amOrPm;
+	Calendar calendar;
+	Thread thread1;
+	private JLabel lblClock = new JLabel("");
 
 	/**
 	 * Launch the application.
@@ -73,6 +78,9 @@ public class Login extends JFrame {
 	public Login() {
 
 		this.setResizable(false); // Disable the maximize window option
+		
+		thread1 = new Thread(this);
+		thread1.start();
                
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1286, 660);
@@ -196,17 +204,17 @@ public class Login extends JFrame {
 						if(counterCurrentUser > 0) {
 							dispose();
 
-							// display Exit exitFrame
+							//Display Exit exitFrame
 							Exit exitFrame = new Exit();
 							exitFrame.setVisible(true);
 
-							// Swing Timer with a 5-second delay
+							//Swing Timer with a 5-second delay
 							Timer timer = new Timer(5000, new ActionListener() {
 								public void actionPerformed(ActionEvent e) {
 									// close Exit exitFrame
 									exitFrame.dispose();
 
-									// display Login
+									//Display Login frame:
 									Login loginFrame = new Login();
 									loginFrame.setVisible(true);
 								}
@@ -226,7 +234,8 @@ public class Login extends JFrame {
 							}
 
 							conn.close();
-						}// if(counterCurrentUser > 0)
+							
+						}//if(counterCurrentUser > 0)
 
 
 						else {
@@ -261,20 +270,73 @@ public class Login extends JFrame {
 					}
 					catch(SQLException i){
 						i.printStackTrace();
-					}// catch
+					}// catch(SQLException i)
 					
-				}//else
+				}// else
 
-			}//public void actionPerformed(ActionEvent e)
+			}// public void actionPerformed(ActionEvent e)
 
 		});
 		btnNewButton.setBounds(476, 483, 320, 57);
 		contentPane.add(btnNewButton);
 
-		JLabel lblNewLabel_2 = new JLabel("");
-		lblNewLabel_2.setBounds(10, 10, 343, 132);
-		contentPane.add(lblNewLabel_2);
-		lblNewLabel_2.setIcon(new ImageIcon("Media\\logo-upb-blanco1.png"));
+		JLabel lblUpbLogo = new JLabel("");
+		lblUpbLogo.setBounds(10, 10, 343, 132);
+		contentPane.add(lblUpbLogo);
+		lblUpbLogo.setIcon(new ImageIcon("Media\\logo-upb-blanco1.png"));
+		
+		
+		lblClock.setFont(new Font("Cambria", Font.BOLD, 52));
+		lblClock.setHorizontalAlignment(SwingConstants.CENTER);
+		lblClock.setBounds(868, 42, 370, 57);
+		contentPane.add(lblClock);
+		
+		JLabel lblHora = new JLabel("Hora:");
+		lblHora.setFont(new Font("Cambria", Font.BOLD, 54));
+		lblHora.setHorizontalAlignment(SwingConstants.LEFT);
+		lblHora.setBounds(730, 42, 148, 59);
+		contentPane.add(lblHora);
 
+		
+	} // public Login()
+	
+
+	@Override
+	public void run() {
+		
+		Thread currentThread = Thread.currentThread();
+		
+		while(currentThread == thread1) {
+			
+			calculate();
+			lblClock.setText(hour + ":" + minutes + ":" + seconds + "  " + amOrPm);
+			try {
+				Thread.sleep(1000);
+			}catch(InterruptedException e) {}
+			
+		} // while(currentThread == thread1)
+		
+	} // public void run()
+
+	
+	private void calculate() {
+		
+		Calendar calendar = new GregorianCalendar();
+		Date currentTime = new Date();
+		
+		calendar.setTime(currentTime);
+		amOrPm = calendar.get(Calendar.AM_PM)==Calendar.AM?"AM":"PM";
+		
+	    if(amOrPm.equals("PM")) {
+	    	int h = calendar.get(Calendar.HOUR_OF_DAY)-12;
+	    	hour = h>9?""+h:"0"+h;
+	    }
+	    else {
+	    	hour = calendar.get(Calendar.HOUR_OF_DAY)>9?""+calendar.get(Calendar.HOUR_OF_DAY):"0"+calendar.get(Calendar.HOUR);
+	    }
+	    
+	    minutes = calendar.get(Calendar.MINUTE)>9?""+calendar.get(Calendar.MINUTE):"0"+calendar.get(Calendar.MINUTE);
+	    seconds = calendar.get(Calendar.SECOND)>9?""+calendar.get(Calendar.SECOND):"0"+calendar.get(Calendar.SECOND);
+		
 	}
 }
