@@ -206,31 +206,6 @@ public class Login extends JFrame implements Runnable {
 							Exit exitFrame = new Exit();
 							exitFrame.setVisible(true);
 
-							//Swing Timer with a 5-second delay
-							Timer timer = new Timer(5000, new ActionListener() {
-								public void actionPerformed(ActionEvent e) {
-									// close Exit exitFrame
-									exitFrame.dispose();
-
-									//Display Login frame:
-									Login loginFrame = new Login();
-									loginFrame.setVisible(true);
-								}
-							});
-
-							timer.setRepeats(false);
-							timer.start(); // start the timer
-
-							try {
-
-								String query = "DELETE FROM usuariosActuales WHERE NumeroIdentificacion = '" + IdentificationNumberExit + "'"; 
-								Statement statementDelete = conn.createStatement();
-								statementDelete.executeUpdate(query);
-
-							} catch (SQLException u) {
-								u.printStackTrace();
-							}
-
 							conn.close();
 							
 						}//if(counterCurrentUser > 0)
