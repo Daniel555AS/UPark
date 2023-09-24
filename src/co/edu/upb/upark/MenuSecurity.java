@@ -107,7 +107,7 @@ public class MenuSecurity extends JFrame {
 		    }
 		});
 
-		
+	
 		btnNewButton.setBounds(785, 352, 404, 77);
 		contentPane.add(btnNewButton);
 		
@@ -115,8 +115,11 @@ public class MenuSecurity extends JFrame {
 		btnNewButton_1.setBackground(new Color(162, 214, 22));
 		btnNewButton_1.setFont(new Font("Cambria", Font.BOLD, 35));
 		btnNewButton_1.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			}
+		    public void actionPerformed(ActionEvent e) {
+		        HistorialVentana ventanaHistorial = new HistorialVentana();
+		        ventanaHistorial.mostrarDatosHistorial();
+		        ventanaHistorial.setVisible(true);
+		    }
 		});
 		btnNewButton_1.setBounds(365, 351, 389, 77);
 		contentPane.add(btnNewButton_1);
