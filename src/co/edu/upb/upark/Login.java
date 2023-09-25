@@ -113,7 +113,7 @@ public class Login extends JFrame implements Runnable {
 		contentPane.add(textField);
 		textField.setColumns(10);
 		
-		//Creation of a JLabel containing the text: "Usuario".
+		//Creation of a JLabel containing the text: "Usuario":
 		JLabel lblNewLabel_1 = new JLabel("Usuario");
 		lblNewLabel_1.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel_1.setFont(new Font("Cambria", Font.BOLD, 30));
@@ -254,23 +254,25 @@ public class Login extends JFrame implements Runnable {
 		});
 		btnNewButton.setBounds(476, 483, 320, 57);
 		contentPane.add(btnNewButton);
-
+		
+		// Creation of a JLabel with the Logo of the University:
 		JLabel lblUpbLogo = new JLabel("");
 		lblUpbLogo.setBounds(10, 10, 343, 132);
 		contentPane.add(lblUpbLogo);
 		lblUpbLogo.setIcon(new ImageIcon("Media\\logo-upb-blanco1.png"));
 		
-		
+		// Properties of the JLabel containing the Current Time:
 		lblClock.setFont(new Font("Cambria", Font.BOLD, 52));
 		lblClock.setHorizontalAlignment(SwingConstants.CENTER);
 		lblClock.setBounds(868, 42, 370, 57);
 		contentPane.add(lblClock);
 		
-		JLabel lblHora = new JLabel("Hora:");
-		lblHora.setFont(new Font("Cambria", Font.BOLD, 54));
-		lblHora.setHorizontalAlignment(SwingConstants.LEFT);
-		lblHora.setBounds(730, 42, 148, 59);
-		contentPane.add(lblHora);
+		// Creation of a JLabel containing the text: "Hora:":
+		JLabel lblHour = new JLabel("Hora:");
+		lblHour.setFont(new Font("Cambria", Font.BOLD, 54));
+		lblHour.setHorizontalAlignment(SwingConstants.LEFT);
+		lblHour.setBounds(730, 42, 148, 59);
+		contentPane.add(lblHour);
 
 		
 	} // public Login()

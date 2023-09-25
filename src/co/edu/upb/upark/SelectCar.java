@@ -47,6 +47,7 @@ public class SelectCar extends JFrame implements Runnable {
 	private static String[] vehicleInformation1 = new String[5];
 	private static String[] vehicleInformation2 = new String[5];
 	private static String[]  vehicles = new String[2];
+	public static String selectedVehicle;
 	
 	String hour, minutes, seconds, amOrPm;
 	Calendar calendar;
@@ -239,10 +240,12 @@ public class SelectCar extends JFrame implements Runnable {
 
 					if((String) comboBox.getSelectedItem() == vehicles[0]) {
 						LicensePlate = vehicleInformation1[1];
+						selectedVehicle = vehicles[0];
 					}
 
 					else {
 						LicensePlate = vehicleInformation2[1];
+						selectedVehicle = vehicles[1];
 					}
 
 					preparedStatement.setString(1, identificationNumberUser);
