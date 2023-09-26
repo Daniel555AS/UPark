@@ -36,29 +36,30 @@ public class Login extends JFrame implements Runnable {
 	/**
 	 * 
 	 */
-	
+
 	private static final long serialVersionUID = 1L;
-	
+
 	/**
 	 * 
 	 */
-	
+
 	private JPanel contentPane;
 	private JTextField textField;
 	public static int positionNumber;
 	public static int positionNumberExit;
 	public static String IdentificationNumberExit;
 	public static String IdentificationNumber;
-	
+
 	String hour, minutes, seconds, amOrPm;
 	Calendar calendar;
 	Thread thread1;
 	private JLabel lblClock = new JLabel("");
+	private DatabaseManager databaseManager;
 
 	/**
 	 * Launch the application.
 	 */
-	
+
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -78,10 +79,11 @@ public class Login extends JFrame implements Runnable {
 	public Login() {
 
 		this.setResizable(false); // Disable the maximize window option
-		
+
+		// Create a new thread and start it:
 		thread1 = new Thread(this);
 		thread1.start();
-               
+
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1286, 660);
 		contentPane = new JPanel();
@@ -95,14 +97,14 @@ public class Login extends JFrame implements Runnable {
 		panel_1.setBackground(new Color(0, 0, 0));
 		panel_1.setBounds(0, 594, 1287, 29);
 		contentPane.add(panel_1);
-		
+
 		//Creation of a JLabel containing the text: "UPARK".
 		JLabel lblNewLabel = new JLabel("UPARK");
 		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel.setFont(new Font("Cambria", Font.BOLD, 150));
 		lblNewLabel.setBounds(376, 135, 519, 124);
 		contentPane.add(lblNewLabel);
-		
+
 		//Creation of the field where the data corresponding to the user can be entered:
 		//UPB User --> ID.
 		//Visitor --> Document No.
@@ -112,141 +114,84 @@ public class Login extends JFrame implements Runnable {
 		textField.setBounds(440, 348, 392, 67);
 		contentPane.add(textField);
 		textField.setColumns(10);
-		
+
 		//Creation of a JLabel containing the text: "Usuario":
 		JLabel lblNewLabel_1 = new JLabel("Usuario");
 		lblNewLabel_1.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel_1.setFont(new Font("Cambria", Font.BOLD, 30));
 		lblNewLabel_1.setBounds(578, 299, 116, 39);
 		contentPane.add(lblNewLabel_1);
-		
+
 		//Creation of the button: "ACCEDER":
 		JButton btnNewButton = new JButton("ACCEDER");
 		btnNewButton.setFont(new Font("Cambria", Font.BOLD, 31));
 		btnNewButton.setForeground(new Color(0, 0, 0));
 		btnNewButton.setBackground(new Color(255, 239, 91));
-		
+
+		databaseManager = new DatabaseManager(); // Instance of the public class DatabaseManager
+
 		btnNewButton.addActionListener(new ActionListener() {
-			
+
 			public void actionPerformed(ActionEvent e) {
-				
+
 				String text = textField.getText().trim(); 
 
-				if(text.equals("") || text.length() == 0) {
-					
+				if(text.equals("") || text.length() == 0) {					
 					JOptionPane.showMessageDialog(null, "Debe ingresar su número ID.", "ERROR - Campo Vacío", JOptionPane.ERROR_MESSAGE);
-					textField.setText("");
-					
+					textField.setText("");				
 				}
-				
+
 				else {
-					
-					try {
-						
-						Connection conn = DriverManager.getConnection("jdbc:mysql://35.222.147.13:3306/parqueadero", "root", "842963");
-						
-						Statement stmt = conn.createStatement();
-						ResultSet rs = stmt.executeQuery("SELECT numeroidentificacion FROM usuarios");
-						
-						ArrayList<String> listLogin = new ArrayList<>(); 
-						while (rs.next()) {
-							String valor = rs.getString("numeroidentificacion");
-							listLogin.add(valor);
+					String[] idNumberDataFromUsuarios = databaseManager.getIdNumberDataFromUsuarios();
+					String[] idNumberDataFromUsuariosActuales = databaseManager.getCurrentUserDataFromUsuariosActuales();
+					String[] rolDataFromUsuarios = databaseManager.getRolDataFromUsuarios();
+
+					int counter = 0;
+					int counterCurrentUsers = 0;
+
+					for(int ii = 0; ii < idNumberDataFromUsuarios.length; ii++) {
+						if(textField.getText().equals(idNumberDataFromUsuarios[ii])) {
+							counter++;
+							positionNumber = ii;
+							IdentificationNumber = idNumberDataFromUsuarios[ii];
 						}
-						String[] arrayLogin = listLogin.toArray(new String[0]);
-						rs.close();
-						stmt.close();
+					}
 
-						Statement stmtRol = conn.createStatement();
-						ResultSet rsRol = stmtRol.executeQuery("SELECT rol FROM usuarios");
-						ArrayList<String> listRol = new ArrayList<>();
-						while (rsRol.next()) {
-							String valor = rsRol.getString("rol");
-							listRol.add(valor);
+					for(int jj = 0; jj < idNumberDataFromUsuariosActuales.length ; jj++) {
+						if(textField.getText().equals(idNumberDataFromUsuariosActuales[jj]) == true) {
+							counterCurrentUsers++;
+							positionNumberExit = jj;
+							IdentificationNumberExit = idNumberDataFromUsuariosActuales[jj];
 						}
-						String[] arrayRol = listRol.toArray(new String[0]);
-						rsRol.close();
-						stmtRol.close();
+					}
 
-						Statement stmtCurrentUser = conn.createStatement();
-						ResultSet rsCurrentUser = stmtCurrentUser.executeQuery("SELECT NumeroIdentificacion FROM usuariosActuales");
-						ArrayList<String> listCurrentUsers = new ArrayList<>();
-						while (rsCurrentUser.next()) {
-							String valor = rsCurrentUser.getString("NumeroIdentificacion");
-							listCurrentUsers.add(valor);
-						}
-						String[] arrayCurrentUsers = listCurrentUsers.toArray(new String[0]);
-						stmtCurrentUser.close();
-						rsCurrentUser.close();
+					if(counterCurrentUsers > 0) {
+						dispose();
 
-						int counter = 0;
-						int counterCurrentUser = 0;
-
-						for(int ii = 0; ii < arrayLogin.length; ii++) {
-							if(textField.getText().equals(arrayLogin[ii])) {
-								counter = counter + 1;
-								positionNumber = ii;
-								IdentificationNumber = arrayLogin[ii];
-							}//if
-
-						}// for
-
-						for(int jj = 0; jj < arrayCurrentUsers.length ; jj++) {
-							if(textField.getText().equals(arrayCurrentUsers[jj]) == true) {
-								counterCurrentUser = counterCurrentUser + 1;
-								positionNumberExit = jj;
-								IdentificationNumberExit = arrayCurrentUsers[jj];
-								System.out.println(IdentificationNumberExit);
-							}// if
-						}// for
-						
-
-						if(counterCurrentUser > 0) {
-							dispose();
-
-							//Display Exit exitFrame
-							Exit exitFrame = new Exit();
-							exitFrame.setVisible(true);
-
-							conn.close();
-							
-						}//if(counterCurrentUser > 0)
-
+						//Display Exit exitFrame
+						Exit exitFrame = new Exit();
+						exitFrame.setVisible(true);
+						databaseManager.closeConnection();
+					} // if(counterCurrentUser > 0)
+					else {
+						if(counter > 0) {
+							if(rolDataFromUsuarios[positionNumber].equals("Vigilante")) {
+								LoginSecurity l = new LoginSecurity();
+								l.setVisible(true);
+								dispose(); //Close the current window
+							}// Security.
+							else {
+								SelectCar p = new SelectCar();
+								p.setVisible(true);
+								dispose(); //Close the current window
+							}// Students, Teachers and others.
+						}// if(counter > 0)
 
 						else {
-
-							if(counter > 0) {
-
-								if(arrayRol[positionNumber].equals("Vigilante")) {
-
-									LoginSecurity l = new LoginSecurity();
-									l.setVisible(true);
-									dispose(); //Close the current window
-								}// Security.
-
-								else {
-
-									SelectCar p = new SelectCar();
-									p.setVisible(true);
-									dispose(); //Close the current window
-
-								}// Students, Teachers and others.
-
-							}// if(counter > 0)
-
-							else {
-								JOptionPane.showMessageDialog(null, "El usuario no ha sido encontrado.", "ERROR", JOptionPane.ERROR_MESSAGE);
-								textField.setText("");
-							}// else
-
-							conn.close();
-						}// else - Current User
-
-					}
-					catch(SQLException i){
-						i.printStackTrace();
-					}// catch(SQLException i)
-					
+							JOptionPane.showMessageDialog(null, "El usuario no ha sido encontrado.", "ERROR", JOptionPane.ERROR_MESSAGE);
+							textField.setText("");
+						}// else
+					}	
 				}// else
 
 			}// public void actionPerformed(ActionEvent e)
@@ -254,19 +199,19 @@ public class Login extends JFrame implements Runnable {
 		});
 		btnNewButton.setBounds(476, 483, 320, 57);
 		contentPane.add(btnNewButton);
-		
+
 		// Creation of a JLabel with the Logo of the University:
 		JLabel lblUpbLogo = new JLabel("");
 		lblUpbLogo.setBounds(10, 10, 343, 132);
 		contentPane.add(lblUpbLogo);
 		lblUpbLogo.setIcon(new ImageIcon("Media\\logo-upb-blanco1.png"));
-		
+
 		// Properties of the JLabel containing the Current Time:
 		lblClock.setFont(new Font("Cambria", Font.BOLD, 52));
 		lblClock.setHorizontalAlignment(SwingConstants.CENTER);
 		lblClock.setBounds(868, 42, 370, 57);
 		contentPane.add(lblClock);
-		
+
 		// Creation of a JLabel containing the text: "Hora:":
 		JLabel lblHour = new JLabel("Hora:");
 		lblHour.setFont(new Font("Cambria", Font.BOLD, 54));
@@ -274,46 +219,46 @@ public class Login extends JFrame implements Runnable {
 		lblHour.setBounds(730, 42, 148, 59);
 		contentPane.add(lblHour);
 
-		
+
 	} // public Login()
-	
+
 
 	@Override
 	public void run() {
-		
+
 		Thread currentThread = Thread.currentThread();
-		
+
 		while(currentThread == thread1) {
-			
+
 			calculate();
 			lblClock.setText(hour + ":" + minutes + ":" + seconds + "  " + amOrPm);
 			try {
 				Thread.sleep(1000);
 			}catch(InterruptedException e) {}
-			
+
 		} // while(currentThread == thread1)
-		
+
 	} // public void run()
 
-	
+
 	private void calculate() {
-		
+
 		Calendar calendar = new GregorianCalendar();
 		Date currentTime = new Date();
-		
+
 		calendar.setTime(currentTime);
 		amOrPm = calendar.get(Calendar.AM_PM)==Calendar.AM?"AM":"PM";
-		
-	    if(amOrPm.equals("PM")) {
-	    	int h = calendar.get(Calendar.HOUR_OF_DAY)-12;
-	    	hour = h>9?""+h:"0"+h;
-	    }
-	    else {
-	    	hour = calendar.get(Calendar.HOUR_OF_DAY)>9?""+calendar.get(Calendar.HOUR_OF_DAY):"0"+calendar.get(Calendar.HOUR);
-	    }
-	    
-	    minutes = calendar.get(Calendar.MINUTE)>9?""+calendar.get(Calendar.MINUTE):"0"+calendar.get(Calendar.MINUTE);
-	    seconds = calendar.get(Calendar.SECOND)>9?""+calendar.get(Calendar.SECOND):"0"+calendar.get(Calendar.SECOND);
-		
+
+		if(amOrPm.equals("PM")) {
+			int h = calendar.get(Calendar.HOUR_OF_DAY)-12;
+			hour = h>9?""+h:"0"+h;
+		}
+		else {
+			hour = calendar.get(Calendar.HOUR_OF_DAY)>9?""+calendar.get(Calendar.HOUR_OF_DAY):"0"+calendar.get(Calendar.HOUR);
+		}
+
+		minutes = calendar.get(Calendar.MINUTE)>9?""+calendar.get(Calendar.MINUTE):"0"+calendar.get(Calendar.MINUTE);
+		seconds = calendar.get(Calendar.SECOND)>9?""+calendar.get(Calendar.SECOND):"0"+calendar.get(Calendar.SECOND);
+
 	}
 }
