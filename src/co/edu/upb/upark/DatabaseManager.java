@@ -30,7 +30,7 @@ public class DatabaseManager {
             ResultSet rs = stmt.executeQuery("SELECT numeroidentificacion FROM usuarios");
 
             ArrayList<String> listIdNumberDataFromUsuarios = new ArrayList<>();
-            while (rs.next()) {
+            while(rs.next()) {
                 String valor = rs.getString("numeroidentificacion");
                 listIdNumberDataFromUsuarios.add(valor);
             }
@@ -71,7 +71,7 @@ public class DatabaseManager {
             Statement stmt = conn.createStatement();
             ResultSet rs = stmt.executeQuery("SELECT NumeroIdentificacion FROM usuariosActuales");
             ArrayList<String> listCurrentUsersFromUsuariosActuales = new ArrayList<>();
-            while (rs.next()) {
+            while(rs.next()) {
                 String valor = rs.getString("NumeroIdentificacion");
                 listCurrentUsersFromUsuariosActuales.add(valor);
             }
@@ -83,6 +83,46 @@ public class DatabaseManager {
         }
         return currentUsersDataFromUsuariosActuales;
     } // public String[] getCurrentUserDataFromUsuariosActuales()
+    
+    
+    public String[] getNamesFromUsuarios() {
+    	String[] namesFromUsuarios = null;
+    	try {
+    		Statement stmt = conn.createStatement();
+    		ResultSet rs = stmt.executeQuery("SELECT nombre FROM usuarios");
+    		ArrayList<String> listNamesFromUsuarios = new ArrayList<>();
+    		while(rs.next()) {
+    			String valor = rs.getString("nombre");
+    			listNamesFromUsuarios.add(valor);
+    		}
+    		namesFromUsuarios = listNamesFromUsuarios.toArray(new String[0]);
+    		stmt.close();
+    		rs.close();
+    	} catch (SQLException e) {
+    		e.printStackTrace();
+    	}	
+    	return namesFromUsuarios;
+    } // public String[] getNamesFromUsuarios()
+    
+    
+  public String[] getDocumentsFromUsuarios() {
+      String[] documentsFromUsuarios = null;
+      try {
+          Statement stmt = conn.createStatement();
+          ResultSet rs = stmt.executeQuery("SELECT documento FROM usuarios");
+          ArrayList<String> listDocumentsFromUsuarios = new ArrayList<>();
+          while(rs.next()) {
+              String valor = rs.getString("documento");
+              listDocumentsFromUsuarios.add(valor);
+          }
+          documentsFromUsuarios = listDocumentsFromUsuarios.toArray(new String[0]);
+          stmt.close();
+          rs.close();
+      } catch (SQLException e) {
+          e.printStackTrace();
+      }
+      return documentsFromUsuarios;
+  } // public String[] getDocumentsFromUsuarios()
     
     
     public void closeConnection() {
