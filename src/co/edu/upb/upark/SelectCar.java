@@ -115,7 +115,7 @@ public class SelectCar extends JFrame implements Runnable {
 		int countVehicle1 = 0;
 		int countVehicle2 = 0;
 
-		// --------------------- Get the name of the vehicle owner, the document of the vechicle owner and the array of vehicles ---------------------
+		// --------------------- Get the name of the vehicle owner, the document of the vehicle owner and the array of vehicles ---------------------
 
 		try {
 			Connection conn = DriverManager.getConnection("jdbc:mysql://:/", "***", "***");
