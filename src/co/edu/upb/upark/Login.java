@@ -84,30 +84,35 @@ public class Login extends JFrame implements Runnable {
 		thread1 = new Thread(this);
 		thread1.start();
 
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 1286, 660);
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // Set the operation that will be performed when the window is closed
+		setBounds(100, 100, 1286, 660); // Size and position of the frame
+		
+		// Creating a new JPanel and setting its properties:
 		contentPane = new JPanel();
 		contentPane.setBackground(new Color(255, 255, 255));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
-		setContentPane(contentPane);
-		contentPane.setLayout(null);
-
+		setContentPane(contentPane); // Set the content pane of the frame to the new JPanel
+		contentPane.setLayout(null); // Set the layout of the panel to null
+		
+		// Creation of the black JPanel, located at the bottom of the window:
 		JPanel panel_1 = new JPanel();
 		panel_1.setBackground(new Color(0, 0, 0));
 		panel_1.setBounds(0, 594, 1287, 29);
 		contentPane.add(panel_1);
 
-		//Creation of a JLabel containing the text: "UPARK".
+		// Creation of a JLabel containing the text: "UPARK".
 		JLabel lblNewLabel = new JLabel("UPARK");
 		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel.setFont(new Font("Cambria", Font.BOLD, 150));
 		lblNewLabel.setBounds(376, 135, 519, 124);
 		contentPane.add(lblNewLabel);
 
-		//Creation of the field where the data corresponding to the user can be entered:
-		//UPB User --> ID.
-		//Visitor --> Document No.
+		/*
+		 Creation of the field where the data corresponding to the user can be entered:
+		 UPB User --> ID.
+		 Visitor --> Document No.
+		*/
 		textField = new JTextField();
 		textField.setBackground(new Color(237, 238, 223));
 		textField.setFont(new Font("Cambria", Font.BOLD, 28));
@@ -115,14 +120,14 @@ public class Login extends JFrame implements Runnable {
 		contentPane.add(textField);
 		textField.setColumns(10);
 
-		//Creation of a JLabel containing the text: "Usuario":
+		// Creation of a JLabel containing the text: "Usuario":
 		JLabel lblNewLabel_1 = new JLabel("Usuario");
 		lblNewLabel_1.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel_1.setFont(new Font("Cambria", Font.BOLD, 30));
 		lblNewLabel_1.setBounds(578, 299, 116, 39);
 		contentPane.add(lblNewLabel_1);
 
-		//Creation of the button: "ACCEDER":
+		// Creation of the button: "ACCEDER":
 		JButton btnNewButton = new JButton("ACCEDER");
 		btnNewButton.setFont(new Font("Cambria", Font.BOLD, 31));
 		btnNewButton.setForeground(new Color(0, 0, 0));
