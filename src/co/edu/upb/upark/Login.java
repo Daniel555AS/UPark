@@ -222,6 +222,18 @@ public class Login extends JFrame implements Runnable {
 		lblHour.setHorizontalAlignment(SwingConstants.LEFT);
 		lblHour.setBounds(730, 42, 148, 59);
 		contentPane.add(lblHour);
+		
+		// Creation of a JLabel containing the text: "Puestos Ocupados:":
+		JLabel lblOccupiedPositionsText = new JLabel("Puestos Ocupados:");
+		lblOccupiedPositionsText.setFont(new Font("Cambria", Font.BOLD, 45));
+		lblOccupiedPositionsText.setBounds(24, 434, 397, 57);
+		contentPane.add(lblOccupiedPositionsText);
+		
+		JLabel lblOccupiedPositionsNumber = new JLabel(databaseManager.countRowsFromUsuariosActuales() + "/15");
+		lblOccupiedPositionsNumber.setHorizontalAlignment(SwingConstants.CENTER);
+		lblOccupiedPositionsNumber.setFont(new Font("Cambria", Font.BOLD, 45));
+		lblOccupiedPositionsNumber.setBounds(24, 483, 397, 57);
+		contentPane.add(lblOccupiedPositionsNumber);
 
 
 	} // public Login()
