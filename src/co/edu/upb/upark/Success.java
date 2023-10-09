@@ -69,7 +69,8 @@ public class Success extends JFrame {
 		lblNewLabel.setBounds(10, 10, 343, 132);
 		lblNewLabel.setIcon(new ImageIcon("Media\\logo-upb-blanco1.png"));
 		contentPane.add(lblNewLabel);
-
+		
+		// Creation of a JLabel containing the text: "INGRESO EXITOSO":
 		JLabel lblNewLabel_1 = new JLabel("INGRESO EXITOSO");
 		lblNewLabel_1.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel_1.setFont(new Font("Cambria", Font.BOLD, 99));

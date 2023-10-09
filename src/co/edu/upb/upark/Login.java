@@ -86,7 +86,7 @@ public class Login extends JFrame implements Runnable {
 
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // Set the operation that will be performed when the window is closed
 		setBounds(100, 100, 1286, 660); // Size and position of the frame
-		
+
 		// Creating a new JPanel and setting its properties:
 		contentPane = new JPanel();
 		contentPane.setBackground(new Color(255, 255, 255));
@@ -94,7 +94,7 @@ public class Login extends JFrame implements Runnable {
 
 		setContentPane(contentPane); // Set the content pane of the frame to the new JPanel
 		contentPane.setLayout(null); // Set the layout of the panel to null
-		
+
 		// Creation of the black JPanel, located at the bottom of the window:
 		JPanel panel_1 = new JPanel();
 		panel_1.setBackground(new Color(0, 0, 0));
@@ -112,7 +112,7 @@ public class Login extends JFrame implements Runnable {
 		 Creation of the field where the data corresponding to the user can be entered:
 		 UPB User --> ID.
 		 Visitor --> Document No.
-		*/
+		 */
 		textField = new JTextField();
 		textField.setBackground(new Color(237, 238, 223));
 		textField.setFont(new Font("Cambria", Font.BOLD, 28));
@@ -184,10 +184,11 @@ public class Login extends JFrame implements Runnable {
 								l.setVisible(true);
 								dispose(); //Close the current window
 							}// Security.
-							else {
-								SelectCar p = new SelectCar();
-								p.setVisible(true);
-								dispose(); //Close the current window
+							else {	
+									SelectCar p = new SelectCar();
+									p.setVisible(true);
+									dispose(); //Close the current window
+								
 							}// Students, Teachers and others.
 						}// if(counter > 0)
 
@@ -222,13 +223,13 @@ public class Login extends JFrame implements Runnable {
 		lblHour.setHorizontalAlignment(SwingConstants.LEFT);
 		lblHour.setBounds(730, 42, 148, 59);
 		contentPane.add(lblHour);
-		
+
 		// Creation of a JLabel containing the text: "Puestos Ocupados:":
 		JLabel lblOccupiedPositionsText = new JLabel("Puestos Ocupados:");
 		lblOccupiedPositionsText.setFont(new Font("Cambria", Font.BOLD, 45));
 		lblOccupiedPositionsText.setBounds(24, 434, 397, 57);
 		contentPane.add(lblOccupiedPositionsText);
-		
+
 		JLabel lblOccupiedPositionsNumber = new JLabel(databaseManager.countRowsFromUsuariosActuales() + "/15");
 		lblOccupiedPositionsNumber.setHorizontalAlignment(SwingConstants.CENTER);
 		lblOccupiedPositionsNumber.setFont(new Font("Cambria", Font.BOLD, 45));
