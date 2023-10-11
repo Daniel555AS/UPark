@@ -184,11 +184,16 @@ public class Login extends JFrame implements Runnable {
 								l.setVisible(true);
 								dispose(); //Close the current window
 							}// Security.
-							else {	
+							else {		
+								if(databaseManager.countRowsFromUsuariosActuales() == 15) {
+									JOptionPane.showMessageDialog(null, "Los cupos del parqueadero han alcanzado su límite.", "ERROR-CUPOS-LÍMITE", JOptionPane.ERROR_MESSAGE);
+									textField.setText("");
+								}
+								else {
 									SelectCar p = new SelectCar();
 									p.setVisible(true);
 									dispose(); //Close the current window
-								
+								}
 							}// Students, Teachers and others.
 						}// if(counter > 0)
 
