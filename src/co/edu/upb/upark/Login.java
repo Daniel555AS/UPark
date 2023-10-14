@@ -113,7 +113,7 @@ public class Login extends JFrame implements Runnable {
 		 UPB User --> ID.
 		 Visitor --> Document No.
 		 */
-		textField = new JTextField();
+		textField = new RoundedTextField(10);
 		textField.setBackground(new Color(237, 238, 223));
 		textField.setFont(new Font("Cambria", Font.BOLD, 28));
 		textField.setBounds(440, 348, 392, 67);
@@ -128,7 +128,7 @@ public class Login extends JFrame implements Runnable {
 		contentPane.add(lblNewLabel_1);
 
 		// Creation of the button: "ACCEDER":
-		JButton btnNewButton = new JButton("ACCEDER");
+		RoundedButton btnNewButton = new RoundedButton("ACCEDER");
 		btnNewButton.setFont(new Font("Cambria", Font.BOLD, 31));
 		btnNewButton.setForeground(new Color(0, 0, 0));
 		btnNewButton.setBackground(new Color(255, 239, 91));
