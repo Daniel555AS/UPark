@@ -104,7 +104,7 @@ public class Login extends JFrame implements Runnable {
 		// Creation of a JLabel containing the text: "UPARK".
 		JLabel lblNewLabel = new JLabel("UPARK");
 		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel.setFont(new Font("Cambria", Font.BOLD, 150));
+		lblNewLabel.setFont(new Font("Franklin Gothic Heavy", Font.PLAIN, 150));
 		lblNewLabel.setBounds(376, 135, 519, 124);
 		contentPane.add(lblNewLabel);
 
@@ -115,7 +115,7 @@ public class Login extends JFrame implements Runnable {
 		 */
 		textField = new RoundedTextField(10);
 		textField.setBackground(new Color(237, 238, 223));
-		textField.setFont(new Font("Cambria", Font.BOLD, 28));
+		textField.setFont(new Font("Franklin Gothic Demi", Font.BOLD, 28));
 		textField.setBounds(440, 348, 392, 67);
 		contentPane.add(textField);
 		textField.setColumns(10);
@@ -123,13 +123,13 @@ public class Login extends JFrame implements Runnable {
 		// Creation of a JLabel containing the text: "Usuario":
 		JLabel lblNewLabel_1 = new JLabel("Usuario");
 		lblNewLabel_1.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel_1.setFont(new Font("Cambria", Font.BOLD, 30));
+		lblNewLabel_1.setFont(new Font("Franklin Gothic Medium", Font.BOLD, 30));
 		lblNewLabel_1.setBounds(578, 299, 116, 39);
 		contentPane.add(lblNewLabel_1);
 
 		// Creation of the button: "ACCEDER":
 		RoundedButton btnNewButton = new RoundedButton("ACCEDER");
-		btnNewButton.setFont(new Font("Cambria", Font.BOLD, 31));
+		btnNewButton.setFont(new Font("Franklin Gothic Medium", Font.BOLD, 31));
 		btnNewButton.setForeground(new Color(0, 0, 0));
 		btnNewButton.setBackground(new Color(255, 239, 91));
 
@@ -217,27 +217,27 @@ public class Login extends JFrame implements Runnable {
 		lblUpbLogo.setIcon(new ImageIcon("Media\\logo-upb-blanco1.png"));
 
 		// Properties of the JLabel containing the Current Time:
-		lblClock.setFont(new Font("Cambria", Font.BOLD, 52));
+		lblClock.setFont(new Font("Franklin Gothic Medium", Font.BOLD, 52));
 		lblClock.setHorizontalAlignment(SwingConstants.CENTER);
-		lblClock.setBounds(868, 42, 370, 57);
+		lblClock.setBounds(868, 42, 370, 59);
 		contentPane.add(lblClock);
 
 		// Creation of a JLabel containing the text: "Hora:":
 		JLabel lblHour = new JLabel("Hora:");
-		lblHour.setFont(new Font("Cambria", Font.BOLD, 54));
+		lblHour.setFont(new Font("Franklin Gothic Medium", Font.BOLD, 60));
 		lblHour.setHorizontalAlignment(SwingConstants.LEFT);
-		lblHour.setBounds(730, 42, 148, 59);
+		lblHour.setBounds(731, 42, 148, 59);
 		contentPane.add(lblHour);
 
 		// Creation of a JLabel containing the text: "Puestos Ocupados:":
 		JLabel lblOccupiedPositionsText = new JLabel("Puestos Ocupados:");
-		lblOccupiedPositionsText.setFont(new Font("Cambria", Font.BOLD, 45));
+		lblOccupiedPositionsText.setFont(new Font("Franklin Gothic Medium", Font.BOLD, 45));
 		lblOccupiedPositionsText.setBounds(24, 434, 397, 57);
 		contentPane.add(lblOccupiedPositionsText);
 
 		JLabel lblOccupiedPositionsNumber = new JLabel(databaseManager.countRowsFromUsuariosActuales() + "/15");
 		lblOccupiedPositionsNumber.setHorizontalAlignment(SwingConstants.CENTER);
-		lblOccupiedPositionsNumber.setFont(new Font("Cambria", Font.BOLD, 45));
+		lblOccupiedPositionsNumber.setFont(new Font("Franklin Gothic Medium", Font.BOLD, 45));
 		lblOccupiedPositionsNumber.setBounds(24, 483, 397, 57);
 		contentPane.add(lblOccupiedPositionsNumber);
 
