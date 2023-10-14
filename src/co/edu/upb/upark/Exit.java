@@ -115,8 +115,8 @@ public class Exit extends JFrame implements Runnable {
 		// Creation of a JLabel containing the text: "Confirmación De Datos Para Salida":
 		JLabel lblConfirmationOfData = new JLabel("Confirmación De Datos Para Salida");
 		lblConfirmationOfData.setHorizontalAlignment(SwingConstants.CENTER);
-		lblConfirmationOfData.setFont(new Font("Cambria", Font.BOLD, 66));
-		lblConfirmationOfData.setBounds(63, 152, 1098, 88);
+		lblConfirmationOfData.setFont(new Font("Franklin Gothic Heavy", Font.PLAIN, 66));
+		lblConfirmationOfData.setBounds(65, 152, 1141, 88);
 		contentPane.add(lblConfirmationOfData);
 
 		// Creation of a JLabel with the Logo of the University:
@@ -126,7 +126,7 @@ public class Exit extends JFrame implements Runnable {
 		contentPane.add(lblNewLabel_1);
 
 		// Confirmation Button Properties:
-		JButton confirmButton = new JButton("CONFIRMAR");
+		RoundedButton confirmButton = new RoundedButton("CONFIRMAR");
 		confirmButton.setBackground(new Color(255, 239, 91));
 		confirmButton.setForeground(new Color(0, 0, 0));
 		confirmButton.setFont(new Font("Cambria", Font.BOLD, 50));
@@ -175,13 +175,13 @@ public class Exit extends JFrame implements Runnable {
 		// Creation of a JLabel containing the User's Name:
 		JLabel lblNameExit = new JLabel(nameForExit);
 		lblNameExit.setForeground(new Color(0, 0, 0));
-		lblNameExit.setFont(new Font("Cambria", Font.BOLD, 45));
+		lblNameExit.setFont(new Font("Franklin Gothic Medium", Font.BOLD, 45));
 		lblNameExit.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNameExit.setBounds(63, 284, 1098, 49);
+		lblNameExit.setBounds(38, 284, 1196, 49);
 		contentPane.add(lblNameExit);
 
 		//Boton para regresar (El color de fondo funciona solo al ejecutar)/Sin razon ..?
-		JButton regresarButton = new JButton("REGRESAR");
+		RoundedButton regresarButton = new RoundedButton("REGRESAR");
 		regresarButton.setBackground(new Color(255, 239, 91));
 		regresarButton.setHorizontalAlignment(SwingConstants.CENTER);
 		regresarButton.setForeground(new Color(0, 0, 0));
@@ -191,15 +191,15 @@ public class Exit extends JFrame implements Runnable {
 		
 		// Creation of a JLabel containing the vehicle Information:
 		JLabel lblVehicleInformation = new JLabel(vehicleInformation);
-		lblVehicleInformation.setForeground(new Color(75, 75, 75));
+		lblVehicleInformation.setForeground(new Color(104, 104, 104));
 		lblVehicleInformation.setHorizontalAlignment(SwingConstants.CENTER);
-		lblVehicleInformation.setFont(new Font("Cambria", Font.BOLD, 35));
+		lblVehicleInformation.setFont(new Font("Franklin Gothic Medium", Font.BOLD, 35));
 		lblVehicleInformation.setBounds(74, 371, 1088, 59);
 		contentPane.add(lblVehicleInformation);
 		
 		// Creation of a JLabel containing the text: "Vehículo:":
 		JLabel lblNewLabel_3 = new JLabel("Vehículo:");
-		lblNewLabel_3.setForeground(new Color(156, 18, 18));
+		lblNewLabel_3.setForeground(new Color(229, 86, 109));
 		lblNewLabel_3.setFont(new Font("Cambria", Font.BOLD, 35));
 		lblNewLabel_3.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel_3.setBounds(74, 343, 1088, 32);
@@ -214,14 +214,14 @@ public class Exit extends JFrame implements Runnable {
 		});
 		
 		// Properties of the JLabel containing the Current Time:
-		lblClock.setFont(new Font("Cambria", Font.BOLD, 52));
+		lblClock.setFont(new Font("Franklin Gothic Medium", Font.BOLD, 52));
 		lblClock.setHorizontalAlignment(SwingConstants.CENTER);
 		lblClock.setBounds(868, 42, 370, 57);
 		contentPane.add(lblClock);
 		
 		// Creation of a JLabel containing the text: "Hora:":
 		JLabel lblHour = new JLabel("Hora:");
-		lblHour.setFont(new Font("Cambria", Font.BOLD, 54));
+		lblHour.setFont(new Font("Franklin Gothic Medium", Font.BOLD, 54));
 		lblHour.setHorizontalAlignment(SwingConstants.LEFT);
 		lblHour.setBounds(730, 42, 148, 59);
 		contentPane.add(lblHour);

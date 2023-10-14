@@ -73,7 +73,7 @@ public class Success extends JFrame {
 		// Creation of a JLabel containing the text: "INGRESO EXITOSO":
 		JLabel lblNewLabel_1 = new JLabel("INGRESO EXITOSO");
 		lblNewLabel_1.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel_1.setFont(new Font("Cambria", Font.BOLD, 99));
+		lblNewLabel_1.setFont(new Font("Franklin Gothic Heavy", Font.PLAIN, 99));
 		lblNewLabel_1.setBounds(188, 153, 895, 124);
 		contentPane.add(lblNewLabel_1);
 
@@ -108,13 +108,13 @@ public class Success extends JFrame {
 		// -----------------------------------------------------------------------
 
 		JLabel lblNewLabel_2 = new JLabel(name);
-		lblNewLabel_2.setFont(new Font("Cambria", Font.BOLD, 36));
+		lblNewLabel_2.setFont(new Font("Franklin Gothic Medium", Font.BOLD, 36));
 		lblNewLabel_2.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel_2.setBounds(195, 301, 888, 49);
+		lblNewLabel_2.setBounds(65, 301, 1141, 49);
 		contentPane.add(lblNewLabel_2);
 
 		JLabel lblNewLabel_3 = new JLabel("¡Gracias Por Usar Nuestro Servicio!");
-		lblNewLabel_3.setForeground(new Color(172, 50, 9));
+		lblNewLabel_3.setForeground(new Color(233, 88, 111));
 		lblNewLabel_3.setFont(new Font("Cambria", Font.BOLD, 60));
 		lblNewLabel_3.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel_3.setBounds(97, 410, 1078, 82);
