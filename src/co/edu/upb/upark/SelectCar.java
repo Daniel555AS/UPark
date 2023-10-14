@@ -108,8 +108,8 @@ public class SelectCar extends JFrame implements Runnable {
 		// Creation of a JLabel with the text: "Escoge Tu Vehículo":
 		JLabel lblNewLabel_1 = new JLabel("Escoge Tu Vehículo");
 		lblNewLabel_1.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel_1.setFont(new Font("Cambria", Font.BOLD, 99));
-		lblNewLabel_1.setBounds(164, 124, 944, 124);
+		lblNewLabel_1.setFont(new Font("Franklin Gothic Heavy", Font.PLAIN, 99));
+		lblNewLabel_1.setBounds(126, 124, 1020, 124);
 		contentPane.add(lblNewLabel_1);
 
 		int countVehicle1 = 0;
@@ -200,9 +200,9 @@ public class SelectCar extends JFrame implements Runnable {
 		
 		// Creation of a JLabel with the user's name as text:
 		JLabel lblNewLabel_2 = new JLabel(name);
-		lblNewLabel_2.setFont(new Font("Cambria", Font.BOLD, 36));
+		lblNewLabel_2.setFont(new Font("Franklin Gothic Medium", Font.BOLD, 37));
 		lblNewLabel_2.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel_2.setBounds(192, 258, 888, 49);
+		lblNewLabel_2.setBounds(33, 258, 1206, 49);
 		contentPane.add(lblNewLabel_2);
 
 		JComboBox<String> comboBox = new JComboBox<String>();
@@ -215,12 +215,12 @@ public class SelectCar extends JFrame implements Runnable {
 		}
 
 		comboBox.setModel(model);
-		comboBox.setFont(new Font("Cambria", Font.BOLD, 29));
+		comboBox.setFont(new Font("Franklin Gothic Medium", Font.BOLD, 30));
 		comboBox.setBounds(216, 345, 840, 71);
 		contentPane.add(comboBox);
 
 		RoundedButton btnNewButton = new RoundedButton("INGRESAR");
-		btnNewButton.setFont(new Font("Cambria", Font.BOLD, 44));
+		btnNewButton.setFont(new Font("Franklin Gothic Medium", Font.BOLD, 31));
 		btnNewButton.setForeground(new Color(0, 0, 0));
 		btnNewButton.setBackground(new Color(255, 239, 91));
 		btnNewButton.addActionListener(new ActionListener() {
@@ -283,19 +283,20 @@ public class SelectCar extends JFrame implements Runnable {
 				timer.start(); // start the timer
 			}
 		});
-		btnNewButton.setBounds(416, 468, 440, 76);
+		btnNewButton.setBounds(476, 483, 320, 57);
+		//btnNewButton.setBounds(416, 468, 440, 76);)
 		contentPane.add(btnNewButton);
 		
 		
-		lblClock.setFont(new Font("Cambria", Font.BOLD, 52));
+		lblClock.setFont(new Font("Franklin Gothic Medium", Font.BOLD, 52));
 		lblClock.setHorizontalAlignment(SwingConstants.CENTER);
-		lblClock.setBounds(868, 42, 370, 57);
+		lblClock.setBounds(868, 42, 370, 59);
 		contentPane.add(lblClock);
 		
 		
 		// Creation of a JLabel with the text: "Hora":
 		JLabel lblHora = new JLabel("Hora:");
-		lblHora.setFont(new Font("Cambria", Font.BOLD, 54));
+		lblHora.setFont(new Font("Franklin Gothic Medium", Font.BOLD, 60));
 		lblHora.setHorizontalAlignment(SwingConstants.LEFT);
 		lblHora.setBounds(730, 42, 148, 59);
 		contentPane.add(lblHora);
