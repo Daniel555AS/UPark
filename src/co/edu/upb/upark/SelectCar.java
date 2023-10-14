@@ -219,7 +219,7 @@ public class SelectCar extends JFrame implements Runnable {
 		comboBox.setBounds(216, 345, 840, 71);
 		contentPane.add(comboBox);
 
-		JButton btnNewButton = new JButton("INGRESAR");
+		RoundedButton btnNewButton = new RoundedButton("INGRESAR");
 		btnNewButton.setFont(new Font("Cambria", Font.BOLD, 44));
 		btnNewButton.setForeground(new Color(0, 0, 0));
 		btnNewButton.setBackground(new Color(255, 239, 91));
