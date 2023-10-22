@@ -35,7 +35,7 @@ public class LoginSecurity extends JFrame {
 	 */
 	
 	private JPanel contentPane;
-	private JPasswordField passwordField;
+	private RoundedPasswordField passwordField;
 
 	public static String name = "";
 
@@ -83,30 +83,35 @@ public class LoginSecurity extends JFrame {
 		lblNewLabel.setBounds(10, 10, 343, 132);
 		contentPane.add(lblNewLabel);
 		lblNewLabel.setIcon(new ImageIcon("Media\\logo-upb-blanco1.png"));
+		
+		// Creation of a JLabel containing the text: "Interfaz de Seguridad":
+		JLabel seguridadLabel = new JLabel("Interfaz de Seguridad");
+		seguridadLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		seguridadLabel.setBounds(20, 143, 1224, 124);
+		seguridadLabel.setFont(new Font("Franklin Gothic Heavy", Font.PLAIN, 110));
+		contentPane.add(seguridadLabel);
+		
+		// Creation of a JLabel containing the text: "Constraseña":
+		JLabel contrasenaLabel = new JLabel("Contraseña");
+		contrasenaLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		contrasenaLabel.setBounds(535, 299, 201, 39);
+		contrasenaLabel.setFont(new Font("Franklin Gothic Medium", Font.BOLD, 30));
+		contentPane.add(contrasenaLabel);
 
-		JLabel lblNewLabel_1 = new JLabel("Interfaz de Seguridad");
-		lblNewLabel_1.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel_1.setBounds(110, 143, 1052, 124);
-		lblNewLabel_1.setFont(new Font("Cambria", Font.BOLD, 99));
-		contentPane.add(lblNewLabel_1);
-
-		JLabel lblNewLabel_2 = new JLabel("Contraseña");
-		lblNewLabel_2.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel_2.setBounds(535, 299, 201, 39);
-		lblNewLabel_2.setFont(new Font("Cambria", Font.BOLD, 32));
-		contentPane.add(lblNewLabel_2);
-
-		passwordField = new JPasswordField();
+		passwordField = new RoundedPasswordField(15);
 		passwordField.setBackground(new Color(237, 238, 223));
 		passwordField.setBounds(440, 348, 392, 67);
 		passwordField.setFont(new Font("Cambria", Font.BOLD, 35));
 		contentPane.add(passwordField);
-
-		JButton btnNewButton = new JButton("REGRESAR");
-		btnNewButton.setFont(new Font("Cambria", Font.BOLD, 31));
-		btnNewButton.setForeground(new Color(0, 0, 0));
-		btnNewButton.setBackground(new Color(243, 37, 68));
-		btnNewButton.addActionListener(new ActionListener() {
+		
+		// Creation of the button: "REGRESAR":
+		RoundedButton regresarButton = new RoundedButton("REGRESAR", new Color(229, 86, 109), new Color(216, 58, 58), 1000);
+		regresarButton.setFont(new Font("Franklin Gothic Medium", Font.BOLD, 31));
+		regresarButton.setForeground(new Color(0, 0, 0));
+		regresarButton.setBackground(new Color(243, 37, 68));
+		regresarButton.setBounds(10, 527, 221, 57);
+		contentPane.add(regresarButton);
+		regresarButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
 				Login ls = new Login();
@@ -115,14 +120,15 @@ public class LoginSecurity extends JFrame {
 
 			}
 		});
-		btnNewButton.setBounds(10, 527, 221, 57);
-		contentPane.add(btnNewButton);
 
-		JButton btnNewButton_1 = new JButton("ACCEDER");
-		btnNewButton_1.setFont(new Font("Cambria", Font.BOLD, 44));
-		btnNewButton_1.setForeground(new Color(0, 0, 0));
-		btnNewButton_1.setBackground(new Color(255, 239, 91));
-		btnNewButton_1.addActionListener(new ActionListener() {
+		// Creation of the button: "ACCEDER":
+		RoundedButton accederButton = new RoundedButton("ACCEDER", new Color(255, 239, 91), new Color(247, 208, 57), 1000);
+		accederButton.setFont(new Font("Franklin Gothic Medium", Font.BOLD, 31));
+		accederButton.setForeground(new Color(0, 0, 0));
+		accederButton.setBackground(new Color(255, 239, 91));
+		accederButton.setBounds(476, 446, 320, 57);
+		contentPane.add(accederButton);
+		accederButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				char[] passwordVerification = passwordField.getPassword();
 				
@@ -184,10 +190,7 @@ public class LoginSecurity extends JFrame {
 
 			}//public void actionPerformed(ActionEvent e)
 		});
-		btnNewButton_1.setBounds(476, 446, 320, 57);
-		contentPane.add(btnNewButton_1);
 
 	} // public LoginSecurity()
-
 
 } // public class LoginSecurity extends JFrame

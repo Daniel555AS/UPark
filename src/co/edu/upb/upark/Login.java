@@ -103,11 +103,11 @@ public class Login extends JFrame implements Runnable {
 		contentPane.add(panel_1);
 
 		// Creation of a JLabel containing the text: "UPARK".
-		JLabel lblNewLabel = new JLabel("UPARK");
-		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel.setFont(new Font("Franklin Gothic Heavy", Font.PLAIN, 150));
-		lblNewLabel.setBounds(376, 135, 519, 124);
-		contentPane.add(lblNewLabel);
+		JLabel uParkLabel = new JLabel("UPARK");
+		uParkLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		uParkLabel.setFont(new Font("Franklin Gothic Heavy", Font.PLAIN, 150));
+		uParkLabel.setBounds(376, 135, 519, 124);
+		contentPane.add(uParkLabel);
 
 		/*
 		 * Creation of the field where the data corresponding to the user can be entered:
