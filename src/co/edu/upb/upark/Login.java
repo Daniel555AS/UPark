@@ -133,6 +133,8 @@ public class Login extends JFrame implements Runnable {
 		btnNewButton.setFont(new Font("Franklin Gothic Medium", Font.BOLD, 31));
 		btnNewButton.setForeground(new Color(0, 0, 0));
 		btnNewButton.setBackground(new Color(255, 239, 91));
+		btnNewButton.setBounds(476, 483, 320, 57);
+		contentPane.add(btnNewButton);
 
 		databaseManager = new DatabaseManager(); // Instance of the public class DatabaseManager
 
@@ -208,8 +210,6 @@ public class Login extends JFrame implements Runnable {
 			} // public void actionPerformed(ActionEvent e)
 
 		});
-		btnNewButton.setBounds(476, 483, 320, 57);
-		contentPane.add(btnNewButton);
 		
 		
 		btnNewButton.addMouseListener(new MouseAdapter() {
@@ -302,6 +302,20 @@ public class Login extends JFrame implements Runnable {
 		lblOccupiedPositionsNumber.setFont(new Font("Franklin Gothic Medium", Font.BOLD, 45));
 		lblOccupiedPositionsNumber.setBounds(24, 483, 397, 57);
 		contentPane.add(lblOccupiedPositionsNumber);
+		
+		// // Creation of the button: "OBSERVAR MAPA":
+		RoundedButton observarMapaButton= new RoundedButton("OBSERVAR MAPA");
+		observarMapaButton.setBackground(new Color(255, 255, 255));
+		observarMapaButton.setFont(new Font("Franklin Gothic Medium", Font.BOLD, 31));
+		observarMapaButton.setForeground(new Color(0, 0, 0));
+		observarMapaButton.setBounds(918, 510, 320, 57);
+		contentPane.add(observarMapaButton);
+		
+		// Creation of a RoundedPanel that works as a frame of the observeMapButton:
+		RoundedPanel panel = new RoundedPanel(20);
+		panel.setBackground(new Color(0, 0, 0));
+		panel.setBounds(915, 506, 326, 64);
+		contentPane.add(panel);
 
 
 	} // public Login()
