@@ -129,7 +129,7 @@ public class Login extends JFrame implements Runnable {
 		contentPane.add(lblNewLabel_1);
 
 		// Creation of the button: "ACCEDER":
-		RoundedButton btnNewButton = new RoundedButton("ACCEDER");
+		RoundedButton btnNewButton = new RoundedButton("ACCEDER", new Color(255, 239, 91), new Color(247, 208, 57), 1000);
 		btnNewButton.setFont(new Font("Franklin Gothic Medium", Font.BOLD, 31));
 		btnNewButton.setForeground(new Color(0, 0, 0));
 		btnNewButton.setBackground(new Color(255, 239, 91));
@@ -210,66 +210,7 @@ public class Login extends JFrame implements Runnable {
 			} // public void actionPerformed(ActionEvent e)
 
 		});
-		
-		
-		btnNewButton.addMouseListener(new MouseAdapter() {
-		    private Timer timer;
-		    private int alpha = 0;
-		    private Color startColor = new Color(255, 239, 91);
-		    private Color endColor = new Color(247, 208, 57);
-		    private int animationDuration = 1000; // In milliseconds
-
-		    @Override
-		    public void mouseEntered(MouseEvent e) {
-		        if (timer != null && timer.isRunning()) {
-		            timer.stop();
-		        }
-		        alpha = 0;
-		        timer = new Timer(animationDuration / 100, new ActionListener() {
-		            @Override
-		            public void actionPerformed(ActionEvent e) {
-		                alpha += 10;
-		                if (alpha >= 255) {
-		                    alpha = 255;
-		                    timer.stop();
-		                }
-		                Color color = new Color(
-		                        (int) (startColor.getRed() * (1 - alpha / 255.0) + endColor.getRed() * (alpha / 255.0)),
-		                        (int) (startColor.getGreen() * (1 - alpha / 255.0) + endColor.getGreen() * (alpha / 255.0)),
-		                        (int) (startColor.getBlue() * (1 - alpha / 255.0) + endColor.getBlue() * (alpha / 255.0))
-		                );
-		                btnNewButton.setBackground(color);
-		            }
-		        });
-		        timer.start();
-		    }
-
-		    @Override
-		    public void mouseExited(MouseEvent e) {
-		        if (timer != null && timer.isRunning()) {
-		            timer.stop();
-		        }
-		        alpha = 0;
-		        timer = new Timer(animationDuration / 100, new ActionListener() {
-		            @Override
-		            public void actionPerformed(ActionEvent e) {
-		                alpha += 10;
-		                if (alpha >= 255) {
-		                    alpha = 255;
-		                    timer.stop();
-		                }
-		                Color color = new Color(
-		                        (int) (endColor.getRed() * (1 - alpha / 255.0) + startColor.getRed() * (alpha / 255.0)),
-		                        (int) (endColor.getGreen() * (1 - alpha / 255.0) + startColor.getGreen() * (alpha / 255.0)),
-		                        (int) (endColor.getBlue() * (1 - alpha / 255.0) + startColor.getBlue() * (alpha / 255.0))
-		                );
-		                btnNewButton.setBackground(color);
-		            }
-		        });
-		        timer.start();
-		    }
-		}); // btnNewButton.addMouseListener(new MouseAdapter()
-		
+				
 		//255, 239, 91
 
 		// Creation of a JLabel with the Logo of the University:
@@ -304,7 +245,7 @@ public class Login extends JFrame implements Runnable {
 		contentPane.add(lblOccupiedPositionsNumber);
 		
 		// // Creation of the button: "OBSERVAR MAPA":
-		RoundedButton observarMapaButton= new RoundedButton("OBSERVAR MAPA");
+		RoundedButton observarMapaButton= new RoundedButton("OBSERVAR MAPA", new Color(255, 255, 255),new Color(196, 193, 186), 1000);
 		observarMapaButton.setBackground(new Color(255, 255, 255));
 		observarMapaButton.setFont(new Font("Franklin Gothic Medium", Font.BOLD, 31));
 		observarMapaButton.setForeground(new Color(0, 0, 0));
@@ -316,7 +257,6 @@ public class Login extends JFrame implements Runnable {
 		panel.setBackground(new Color(0, 0, 0));
 		panel.setBounds(915, 506, 326, 64);
 		contentPane.add(panel);
-
 
 	} // public Login()
 

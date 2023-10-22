@@ -126,7 +126,7 @@ public class Exit extends JFrame implements Runnable {
 		contentPane.add(lblNewLabel_1);
 
 		// Confirmation Button Properties:
-		RoundedButton confirmButton = new RoundedButton("CONFIRMAR");
+		RoundedButton confirmButton = new RoundedButton("CONFIRMAR", new Color(255, 239, 91), new Color(247, 208, 57), 1000);
 		confirmButton.setBackground(new Color(255, 239, 91));
 		confirmButton.setForeground(new Color(0, 0, 0));
 		confirmButton.setFont(new Font("Cambria", Font.BOLD, 50));
@@ -180,9 +180,9 @@ public class Exit extends JFrame implements Runnable {
 		lblNameExit.setBounds(38, 284, 1196, 49);
 		contentPane.add(lblNameExit);
 
-		//Boton para regresar (El color de fondo funciona solo al ejecutar)/Sin razon ..?
-		RoundedButton regresarButton = new RoundedButton("REGRESAR");
-		regresarButton.setBackground(new Color(255, 239, 91));
+		
+		RoundedButton regresarButton = new RoundedButton("REGRESAR", new Color(229, 86, 109), new Color(216, 58, 58), 1000);
+		regresarButton.setBackground(new Color(229, 86, 109));
 		regresarButton.setHorizontalAlignment(SwingConstants.CENTER);
 		regresarButton.setForeground(new Color(0, 0, 0));
 		regresarButton.setFont(new Font("Cambria", Font.BOLD, 50));
