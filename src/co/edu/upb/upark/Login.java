@@ -110,9 +110,9 @@ public class Login extends JFrame implements Runnable {
 		contentPane.add(lblNewLabel);
 
 		/*
-		 Creation of the field where the data corresponding to the user can be entered:
-		 UPB User --> ID.
-		 Visitor --> Document No.
+		 * Creation of the field where the data corresponding to the user can be entered:
+		 * UPB User --> ID.
+		 * Visitor --> Document No.
 		 */
 		textField = new RoundedTextField(10);
 		textField.setBackground(new Color(237, 238, 223));

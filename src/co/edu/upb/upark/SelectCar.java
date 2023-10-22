@@ -26,6 +26,8 @@ import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.awt.event.ActionEvent;
 
 import javax.swing.Timer;
@@ -286,6 +288,70 @@ public class SelectCar extends JFrame implements Runnable {
 		btnNewButton.setBounds(476, 483, 320, 57);
 		//btnNewButton.setBounds(416, 468, 440, 76);)
 		contentPane.add(btnNewButton);
+		
+		/////////////////////////////////
+		
+		btnNewButton.addMouseListener(new MouseAdapter() {
+		    private Timer timer;
+		    private int alpha = 0;
+		    private Color startColor = new Color(255, 239, 91);
+		    private Color endColor = new Color(247, 208, 57);
+		    private int animationDuration = 1000; // In milliseconds
+
+		    @Override
+		    public void mouseEntered(MouseEvent e) {
+		        if (timer != null && timer.isRunning()) {
+		            timer.stop();
+		        }
+		        alpha = 0;
+		        timer = new Timer(animationDuration / 100, new ActionListener() {
+		            @Override
+		            public void actionPerformed(ActionEvent e) {
+		                alpha += 10;
+		                if (alpha >= 255) {
+		                    alpha = 255;
+		                    timer.stop();
+		                }
+		                Color color = new Color(
+		                        (int) (startColor.getRed() * (1 - alpha / 255.0) + endColor.getRed() * (alpha / 255.0)),
+		                        (int) (startColor.getGreen() * (1 - alpha / 255.0) + endColor.getGreen() * (alpha / 255.0)),
+		                        (int) (startColor.getBlue() * (1 - alpha / 255.0) + endColor.getBlue() * (alpha / 255.0))
+		                );
+		                btnNewButton.setBackground(color);
+		            }
+		        });
+		        timer.start();
+		    }
+
+		    @Override
+		    public void mouseExited(MouseEvent e) {
+		        if (timer != null && timer.isRunning()) {
+		            timer.stop();
+		        }
+		        alpha = 0;
+		        timer = new Timer(animationDuration / 100, new ActionListener() {
+		            @Override
+		            public void actionPerformed(ActionEvent e) {
+		                alpha += 10;
+		                if (alpha >= 255) {
+		                    alpha = 255;
+		                    timer.stop();
+		                }
+		                Color color = new Color(
+		                        (int) (endColor.getRed() * (1 - alpha / 255.0) + startColor.getRed() * (alpha / 255.0)),
+		                        (int) (endColor.getGreen() * (1 - alpha / 255.0) + startColor.getGreen() * (alpha / 255.0)),
+		                        (int) (endColor.getBlue() * (1 - alpha / 255.0) + startColor.getBlue() * (alpha / 255.0))
+		                );
+		                btnNewButton.setBackground(color);
+		            }
+		        });
+		        timer.start();
+		    }
+		}); // btnNewButton.addMouseListener(new MouseAdapter()
+		
+		
+		
+		/////////////////////////////////
 		
 		
 		lblClock.setFont(new Font("Franklin Gothic Medium", Font.BOLD, 52));
