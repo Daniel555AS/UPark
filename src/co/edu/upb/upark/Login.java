@@ -244,7 +244,7 @@ public class Login extends JFrame implements Runnable {
 		lblOccupiedPositionsNumber.setBounds(24, 483, 397, 57);
 		contentPane.add(lblOccupiedPositionsNumber);
 		
-		// // Creation of the button: "OBSERVAR MAPA":
+		// // Creation of the Button: "OBSERVAR MAPA":
 		RoundedButton observarMapaButton= new RoundedButton("OBSERVAR MAPA", new Color(255, 255, 255),new Color(196, 193, 186), 1000);
 		observarMapaButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {

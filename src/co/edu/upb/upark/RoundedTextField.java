@@ -1,6 +1,5 @@
 package co.edu.upb.upark;
 
-import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
@@ -8,7 +7,12 @@ import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
 public class RoundedTextField extends JTextField {
-    public RoundedTextField(int columns) {
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	public RoundedTextField(int columns) {
         super(columns);
         setOpaque(false);
         setBorder(new EmptyBorder(0, 10, 0, 10));

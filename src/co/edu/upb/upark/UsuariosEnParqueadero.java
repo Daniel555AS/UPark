@@ -9,7 +9,11 @@ import java.awt.event.ActionListener;
 import java.sql.*;
 
 public class UsuariosEnParqueadero extends JFrame {
-    private JTable tablaUsuarios;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private JTable tablaUsuarios;
 
     public UsuariosEnParqueadero() {
         initComponents();

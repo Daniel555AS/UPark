@@ -1,13 +1,16 @@
 package co.edu.upb.upark;
 
-import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
 import javax.swing.JPanel;
 
 public class RoundedPanel extends JPanel {
-    private int cornerRadius;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private int cornerRadius;
 
     public RoundedPanel(int cornerRadius) {
         this.cornerRadius = cornerRadius;

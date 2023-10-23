@@ -88,6 +88,7 @@ public class MenuSecurity extends JFrame {
 		panel.setBackground(new Color(0, 0, 0));
 		contentPane.add(panel);
 		
+		// Creation of the Butto: "Usuarios en Parqueadero":
 		RoundedButton btnNewButton = new RoundedButton("Usuarios en Parqueadero", new Color(255, 255, 255),new Color(196, 193, 186), 1000);
 		btnNewButton.setBackground(new Color(255, 255, 255));
 		btnNewButton.setFont(new Font("Franklin Gothic Medium", Font.BOLD, 31));
@@ -120,6 +121,7 @@ public class MenuSecurity extends JFrame {
 		btnNewButton_1.setBounds(365, 351, 389, 77);
 		contentPane.add(btnNewButton_1);
 		
+		// Creation of the Button: "Cerrar Sesión":
 		JButton btnNewButton_2 = new JButton("Cerrar Sesión");
 		btnNewButton_2.setBackground(new Color(243, 37, 68));
 		btnNewButton_2.setForeground(new Color(0, 0, 0));
@@ -136,6 +138,7 @@ public class MenuSecurity extends JFrame {
 		btnNewButton_2.setBounds(858, 489, 389, 77);
 		contentPane.add(btnNewButton_2);
 		
+		// Creation of the Button: "Agregar Visitante":
 		JButton btnNewButton_3 = new JButton("Agregar Visitante");
 		btnNewButton_3.setBackground(new Color(255, 239, 91));
 		btnNewButton_3.setFont(new Font("Franklin Gothic Medium", Font.BOLD, 44));
