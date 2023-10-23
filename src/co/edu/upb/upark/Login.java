@@ -246,6 +246,10 @@ public class Login extends JFrame implements Runnable {
 		
 		// // Creation of the button: "OBSERVAR MAPA":
 		RoundedButton observarMapaButton= new RoundedButton("OBSERVAR MAPA", new Color(255, 255, 255),new Color(196, 193, 186), 1000);
+		observarMapaButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
 		observarMapaButton.setBackground(new Color(255, 255, 255));
 		observarMapaButton.setFont(new Font("Franklin Gothic Medium", Font.BOLD, 31));
 		observarMapaButton.setForeground(new Color(0, 0, 0));

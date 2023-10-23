@@ -4,9 +4,7 @@ import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.Font;
 
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.SwingConstants;
+import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -90,9 +88,11 @@ public class MenuSecurity extends JFrame {
 		panel.setBackground(new Color(0, 0, 0));
 		contentPane.add(panel);
 		
-		JButton btnNewButton = new JButton("Usuarios en Parqueadero");
-		btnNewButton.setBackground(new Color(162, 214, 22));
-		btnNewButton.setFont(new Font("Cambria", Font.BOLD, 30));
+		RoundedButton btnNewButton = new RoundedButton("Usuarios en Parqueadero", new Color(255, 255, 255),new Color(196, 193, 186), 1000);
+		btnNewButton.setBackground(new Color(255, 255, 255));
+		btnNewButton.setFont(new Font("Franklin Gothic Medium", Font.BOLD, 31));
+		btnNewButton.setBounds(785, 352, 404, 77);
+		contentPane.add(btnNewButton);
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 			}
@@ -106,14 +106,10 @@ public class MenuSecurity extends JFrame {
 		        ventanaUsuarios.setVisible(true);
 		    }
 		});
-
 	
-		btnNewButton.setBounds(785, 352, 404, 77);
-		contentPane.add(btnNewButton);
-		
 		JButton btnNewButton_1 = new JButton("Historial");
 		btnNewButton_1.setBackground(new Color(162, 214, 22));
-		btnNewButton_1.setFont(new Font("Cambria", Font.BOLD, 35));
+		btnNewButton_1.setFont(new Font("Franklin Gothic Medium", Font.BOLD, 31));
 		btnNewButton_1.addActionListener(new ActionListener() {
 		    public void actionPerformed(ActionEvent e) {
 		        HistorialVentana ventanaHistorial = new HistorialVentana();
@@ -127,7 +123,7 @@ public class MenuSecurity extends JFrame {
 		JButton btnNewButton_2 = new JButton("Cerrar Sesión");
 		btnNewButton_2.setBackground(new Color(243, 37, 68));
 		btnNewButton_2.setForeground(new Color(0, 0, 0));
-		btnNewButton_2.setFont(new Font("Cambria", Font.BOLD, 35));
+		btnNewButton_2.setFont(new Font("Franklin Gothic Medium", Font.BOLD, 31));
 		btnNewButton_2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
@@ -142,7 +138,7 @@ public class MenuSecurity extends JFrame {
 		
 		JButton btnNewButton_3 = new JButton("Agregar Visitante");
 		btnNewButton_3.setBackground(new Color(255, 239, 91));
-		btnNewButton_3.setFont(new Font("Cambria", Font.BOLD, 44));
+		btnNewButton_3.setFont(new Font("Franklin Gothic Medium", Font.BOLD, 44));
 		btnNewButton_3.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
@@ -162,12 +158,12 @@ public class MenuSecurity extends JFrame {
 		
 		JLabel lblNewLabel_1 = new JLabel("Menú de Vigilancia");
 		lblNewLabel_1.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel_1.setFont(new Font("Cambria", Font.BOLD, 90));
+		lblNewLabel_1.setFont(new Font("Franklin Gothic Heavy", Font.BOLD, 83));
 		lblNewLabel_1.setBounds(363, 34, 821, 108);
 		contentPane.add(lblNewLabel_1);
 		
 		JLabel lblNewLabel_3 = new JLabel("Usuario: ");
-		lblNewLabel_3.setFont(new Font("Cambria", Font.BOLD, 32));
+		lblNewLabel_3.setFont(new Font("Franklin Gothic Medium", Font.BOLD, 32));
 		lblNewLabel_3.setBounds(30, 500, 154, 57);
 		contentPane.add(lblNewLabel_3);
 		
@@ -178,8 +174,13 @@ public class MenuSecurity extends JFrame {
 		
 		JLabel lblNewLabel_4 = new JLabel(nameMenuSecurity);
 		lblNewLabel_4.setHorizontalAlignment(SwingConstants.LEFT);
-		lblNewLabel_4.setFont(new Font("Cambria", Font.BOLD, 20));
+		lblNewLabel_4.setFont(new Font("Franklin Gothic Medium", Font.BOLD, 25));
 		lblNewLabel_4.setBounds(205, 512, 629, 43);
 		contentPane.add(lblNewLabel_4);
+		
+		RoundedPanel panel_1 = new RoundedPanel(20);
+		panel_1.setBackground(Color.BLACK);
+		panel_1.setBounds(781, 348, 411, 85);
+		contentPane.add(panel_1);
 	}
 }
