@@ -89,12 +89,14 @@ public class AddVisitorVehicle extends JFrame {
 		panel.setBackground(new Color(0, 0, 0));
 		panel.setBounds(0, 594, 1287, 29);
 		contentPane.add(panel);
-
+		
+		// Creation of a JLabel with the Logo of the University:
 		JLabel lblNewLabel = new JLabel("");
 		lblNewLabel.setBounds(10, 10, 343, 132);
 		lblNewLabel.setIcon(new ImageIcon("Media\\logo-upb-blanco1.png"));
 		contentPane.add(lblNewLabel);
-
+		
+		// Creation of a JLabel containing the text: "Datos del Vehículo":
 		JLabel lblNewLabel_1 = new JLabel("Datos del Vehículo");
 		lblNewLabel_1.setFont(new Font("Franklin Gothic Heavy", Font.BOLD, 85));
 		lblNewLabel_1.setHorizontalAlignment(SwingConstants.CENTER);
