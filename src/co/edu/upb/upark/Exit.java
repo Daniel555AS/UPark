@@ -2,22 +2,18 @@ package co.edu.upb.upark;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
-
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 
 public class Exit extends JFrame implements Runnable {
-
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private static String nameForExit = "";
@@ -25,6 +21,7 @@ public class Exit extends JFrame implements Runnable {
 	Calendar calendar;
 	Thread thread1;
 	private JLabel lblClock = new JLabel("");
+	private SoundPlayer soundPlayer = new SoundPlayer();
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(() -> {
@@ -38,54 +35,42 @@ public class Exit extends JFrame implements Runnable {
 	}
 
 	public Exit() {
-		
 		this.setResizable(false); // Disable the maximize window option
-		
 		// Create a new thread and start it:
 		thread1 = new Thread(this);
 		thread1.start();
-		
 		String numberIdentification = Login.IdentificationNumber;
 		String vehiclePlate = "";
 		String vehicleInformation = "";
 
-		// -------------------------------------------------- Get the Vehicle Information  --------------------------------------------------
-
 		try {
-			Connection conn = DriverManager.getConnection("jdbc:mysql://:/", "***", "***");
-
+			Connection conn = DatabaseConnection.getConnection();
 			Statement stmt1 = conn.createStatement();
 			String sql1 = "SELECT * FROM usuariosActuales WHERE numeroidentificacion = '" + numberIdentification + "'";
 			ResultSet rs1 = stmt1.executeQuery(sql1);
 
-			while (rs1.next()) {          
+			while (rs1.next()) {
 				vehiclePlate = rs1.getString("placa");
 			}
 			rs1.close();
 			stmt1.close();
-
 			Statement stmt2 = conn.createStatement();
 			String sql2 = "SELECT * FROM vehiculos WHERE placa = '" + vehiclePlate + "'";
 			ResultSet rs2 = stmt2.executeQuery(sql2);
 
-			while (rs2.next()) {          
+			while (rs2.next()) {
 				String vehicleBrand = rs2.getString("marca");
 				String vehicleColor = rs2.getString("color");
 				String vehicleModel = rs2.getString("modelo");
-
 				vehicleInformation = vehicleBrand + " " + vehiclePlate + " " + vehicleColor + " " + vehicleModel;
 			}
 			rs2.close();
 			stmt2.close();
 			conn.close();
-
-		}
-		catch(SQLException i){
+		} catch (SQLException i) {
 			i.printStackTrace();
 		}
 
-		// ----------------------------------------------------------------------------------------------------------------------------------
-		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1286, 660);
 		contentPane = new JPanel();
@@ -93,16 +78,18 @@ public class Exit extends JFrame implements Runnable {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
-		
+
 		// Creation a JPanel for decorative purposes(The JPanel located at the bottom):
 		JPanel panel = new JPanel();
 		panel.setBackground(new Color(0, 0, 0));
 		panel.setBounds(0, 594, 1287, 29);
 		contentPane.add(panel);
 
-		try (Connection connection = DriverManager.getConnection("jdbc:mysql://:/", "***", "***")) {
+		try (Connection connection = DatabaseConnection.getConnection()) {
 			try (Statement statement = connection.createStatement()) {
-				try (ResultSet resultSet = statement.executeQuery("SELECT NombreUsuario FROM usuariosActuales WHERE NumeroIdentificacion = '" + Login.IdentificationNumberExit + "'")) {
+				try (ResultSet resultSet = statement
+						.executeQuery("SELECT NombreUsuario FROM usuariosActuales WHERE NumeroIdentificacion = '"
+								+ Login.IdentificationNumberExit + "'")) {
 					if (resultSet.next()) {
 						nameForExit = resultSet.getString("NombreUsuario");
 					}
@@ -126,46 +113,50 @@ public class Exit extends JFrame implements Runnable {
 		contentPane.add(lblNewLabel_1);
 
 		// Confirmation Button Properties:
-		RoundedButton confirmButton = new RoundedButton("CONFIRMAR", new Color(255, 239, 91), new Color(247, 208, 57), 1000);
+		RoundedButton confirmButton = new RoundedButton("CONFIRMAR", new Color(255, 239, 91), new Color(247, 208, 57),
+				1000);
 		confirmButton.setBackground(new Color(255, 239, 91));
 		confirmButton.setForeground(new Color(0, 0, 0));
-		confirmButton.setFont(new Font("Cambria", Font.BOLD, 50));
+		confirmButton.setFont(new Font("Franklin Gothic Medium", Font.BOLD, 45));
 		confirmButton.setBounds(826, 454, 335, 82);
+		confirmButton.setFocusable(false);
 		contentPane.add(confirmButton);
 
 		confirmButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				try (Connection connection = DriverManager.getConnection("jdbc:mysql://:/", "***", "***")) {
+				try (Connection connection = DatabaseConnection.getConnection()) {
+					soundPlayer.playSound("Media\\AccessSound.wav");
 					try (Statement statement = connection.createStatement()) {
-						String deleteQuery = "DELETE FROM usuariosActuales WHERE NumeroIdentificacion = '" + Login.IdentificationNumberExit + "'";
+						String deleteQuery = "DELETE FROM usuariosActuales WHERE NumeroIdentificacion = '"
+								+ Login.IdentificationNumberExit + "'";
 						statement.executeUpdate(deleteQuery);
 					}
 				} catch (SQLException ex) {
 					ex.printStackTrace();
 				}
 
-				JOptionPane optionPane = new JOptionPane("Salida confirmada. Gracias por usar nuestros servicios", JOptionPane.INFORMATION_MESSAGE, JOptionPane.DEFAULT_OPTION, null, new Object[]{}, null);
+				JOptionPane optionPane = new JOptionPane("Salida confirmada. Gracias por usar nuestros servicios",
+						JOptionPane.INFORMATION_MESSAGE, JOptionPane.DEFAULT_OPTION, null, new Object[] {}, null);
 
-				// Crear un JDialog sin botones
+				// Creating a JDialog without buttons
 				JDialog dialog = new JDialog(Exit.this, "Confirmación", true);
 				dialog.setContentPane(optionPane);
 
-				// Establecer un temporizador para cerrar el diálogo después de 2 segundos
+				// Set a timer to close the dialog after 2 seconds
 				Timer timer = new Timer(2000, new ActionListener() {
 					@Override
 					public void actionPerformed(ActionEvent evt) {
+						soundPlayer.playSound("Media\\CelebrationSoundEffect.wav");
 						dialog.dispose();
-						// Volver a la ventana de login
+						// Return to the Login window
 						Login loginFrame = new Login();
 						loginFrame.setVisible(true);
 						dispose();
 					}
 				});
-
 				timer.setRepeats(false);
 				timer.start();
-
 				dialog.pack();
 				dialog.setLocationRelativeTo(Exit.this);
 				dialog.setVisible(true);
@@ -180,15 +171,16 @@ public class Exit extends JFrame implements Runnable {
 		lblNameExit.setBounds(38, 284, 1196, 49);
 		contentPane.add(lblNameExit);
 
-		
-		RoundedButton regresarButton = new RoundedButton("REGRESAR", new Color(229, 86, 109), new Color(216, 58, 58), 1000);
+		RoundedButton regresarButton = new RoundedButton("REGRESAR", new Color(229, 86, 109), new Color(216, 58, 58),
+				1000);
 		regresarButton.setBackground(new Color(229, 86, 109));
 		regresarButton.setHorizontalAlignment(SwingConstants.CENTER);
 		regresarButton.setForeground(new Color(0, 0, 0));
-		regresarButton.setFont(new Font("Cambria", Font.BOLD, 50));
+		regresarButton.setFont(new Font("Franklin Gothic Medium", Font.BOLD, 45));
 		regresarButton.setBounds(64, 454, 385, 82);
+		regresarButton.setFocusable(false);
 		contentPane.add(regresarButton);
-		
+
 		// Creation of a JLabel containing the vehicle Information:
 		JLabel lblVehicleInformation = new JLabel(vehicleInformation);
 		lblVehicleInformation.setForeground(new Color(104, 104, 104));
@@ -196,7 +188,7 @@ public class Exit extends JFrame implements Runnable {
 		lblVehicleInformation.setFont(new Font("Franklin Gothic Medium", Font.BOLD, 35));
 		lblVehicleInformation.setBounds(74, 371, 1088, 59);
 		contentPane.add(lblVehicleInformation);
-		
+
 		// Creation of a JLabel containing the text: "Vehículo:":
 		JLabel lblNewLabel_3 = new JLabel("Vehículo:");
 		lblNewLabel_3.setForeground(new Color(229, 86, 109));
@@ -207,63 +199,58 @@ public class Exit extends JFrame implements Runnable {
 
 		regresarButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				soundPlayer.playSound("Media\\ButtonSound.wav");
 				Login loginFrame = new Login();
-				loginFrame.setVisible(true);  
-				dispose();  
+				loginFrame.setVisible(true);
+				dispose();
 			}
 		});
-		
+
 		// Properties of the JLabel containing the Current Time:
 		lblClock.setFont(new Font("Franklin Gothic Medium", Font.BOLD, 52));
 		lblClock.setHorizontalAlignment(SwingConstants.CENTER);
 		lblClock.setBounds(868, 42, 370, 57);
 		contentPane.add(lblClock);
-		
+
 		// Creation of a JLabel containing the text: "Hora:":
 		JLabel lblHour = new JLabel("Hora:");
 		lblHour.setFont(new Font("Franklin Gothic Medium", Font.BOLD, 54));
 		lblHour.setHorizontalAlignment(SwingConstants.LEFT);
 		lblHour.setBounds(730, 42, 148, 59);
 		contentPane.add(lblHour);
-		
 	} // public Exit()
-	
+
 	@Override
 	public void run() {
-
 		Thread currentThread = Thread.currentThread();
 
-		while(currentThread == thread1) {
-
+		while (currentThread == thread1) {
 			calculate();
 			lblClock.setText(hour + ":" + minutes + ":" + seconds + "  " + amOrPm);
 			try {
 				Thread.sleep(1000);
-			}catch(InterruptedException e) {}
-
-		} // while(currentThread == thread1)
-
+			} catch (InterruptedException e) {
+			}
+		} 
 	} // public void run()
 
 	private void calculate() {
-
 		Calendar calendar = new GregorianCalendar();
 		Date currentTime = new Date();
-
 		calendar.setTime(currentTime);
-		amOrPm = calendar.get(Calendar.AM_PM)==Calendar.AM?"AM":"PM";
+		amOrPm = calendar.get(Calendar.AM_PM) == Calendar.AM ? "AM" : "PM";
 
-		if(amOrPm.equals("PM")) {
-			int h = calendar.get(Calendar.HOUR_OF_DAY)-12;
-			hour = h>9?""+h:"0"+h;
+		if (amOrPm.equals("PM")) {
+			int h = calendar.get(Calendar.HOUR_OF_DAY) - 12;
+			hour = h > 9 ? "" + h : "0" + h;
+		} else {
+			hour = calendar.get(Calendar.HOUR_OF_DAY) > 9 ? "" + calendar.get(Calendar.HOUR_OF_DAY)
+					: "0" + calendar.get(Calendar.HOUR);
 		}
-		else {
-			hour = calendar.get(Calendar.HOUR_OF_DAY)>9?""+calendar.get(Calendar.HOUR_OF_DAY):"0"+calendar.get(Calendar.HOUR);
-		}
 
-		minutes = calendar.get(Calendar.MINUTE)>9?""+calendar.get(Calendar.MINUTE):"0"+calendar.get(Calendar.MINUTE);
-		seconds = calendar.get(Calendar.SECOND)>9?""+calendar.get(Calendar.SECOND):"0"+calendar.get(Calendar.SECOND);
-
+		minutes = calendar.get(Calendar.MINUTE) > 9 ? "" + calendar.get(Calendar.MINUTE)
+				: "0" + calendar.get(Calendar.MINUTE);
+		seconds = calendar.get(Calendar.SECOND) > 9 ? "" + calendar.get(Calendar.SECOND)
+				: "0" + calendar.get(Calendar.SECOND);
 	} // private void calculate()
-	
 } // public class Exit extends JFrame implements Runnable

@@ -5,7 +5,6 @@ import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -20,6 +19,7 @@ public class Map extends JFrame {
 	 */
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
+	private SoundPlayer soundPlayer = new SoundPlayer();
 
 	/**
 	 * Launch the application.
@@ -41,7 +41,6 @@ public class Map extends JFrame {
 	 * Create the frame.
 	 */
 	public Map() {
-		
 		this.setResizable(false); // Disable the maximize window option
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // Set the operation that will be performed when the window is closed
@@ -67,7 +66,7 @@ public class Map extends JFrame {
 		contentPane.add(lblUpbLogo);
 		lblUpbLogo.setIcon(new ImageIcon("Media\\logo-upb-blanco1.png"));
 		
-		// Creation of a JLabel with the Logo of the University:
+		// Creation of a JLabel with the Map of the University Parking Lot:
 		JLabel lblMapa= new JLabel("");
 		lblMapa.setBounds(44, 152, 1184, 365);
 		contentPane.add(lblMapa);
@@ -90,14 +89,11 @@ public class Map extends JFrame {
 		contentPane.add(regresarButton);
 		regresarButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-
+				soundPlayer.playSound("Media\\ButtonSound.wav");
 				Login ls = new Login();
 				ls.setVisible(true);
 				dispose(); //Close the current window
-
 			}
 		});
-		
 	} // public Map()
-
 } // public class Map extends JFrame

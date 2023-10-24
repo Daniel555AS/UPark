@@ -8,7 +8,11 @@ import java.awt.event.ActionListener;
 import java.sql.*;
 
 public class HistorialVentana extends JFrame {
-    private JTable tablaHistorial;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private JTable tablaHistorial;
 
     public HistorialVentana() {
         initComponents();
@@ -30,7 +34,7 @@ public class HistorialVentana extends JFrame {
         JButton btnCerrar = new JButton("Cerrar");
         btnCerrar.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                dispose(); // 
+                dispose(); 
             }
         });
         panel.add(btnCerrar, BorderLayout.SOUTH);
@@ -38,15 +42,14 @@ public class HistorialVentana extends JFrame {
 
     public void mostrarDatosHistorial() {
         try {
-            // Establecer la conexión a la base de datos
-            Connection conn = DriverManager.getConnection("jdbc:mysql://:/", "***", "***");
+            // Establishing the connection to the database
+            Connection conn = DatabaseConnection.getConnection();
 
-            // Crear una consulta SQL para obtener los datos
+            // Create an SQL query to obtain the data
             String sql = "SELECT id, NumeroIdentificacion, NombreUsuario, DocumentoUsuario, Placa, entrada, salida FROM historial";
             PreparedStatement statement = conn.prepareStatement(sql);
             ResultSet resultSet = statement.executeQuery();
 
-            // Esto no sirve
             DefaultTableModel model = new DefaultTableModel();
             tablaHistorial.setModel(model);
 
@@ -58,7 +61,7 @@ public class HistorialVentana extends JFrame {
             model.addColumn("Entrada");
             model.addColumn("Salida");
 
-            // Agregar las filas (todas)
+            // Add rows (all)
             while (resultSet.next()) {
                 int id = resultSet.getInt("id");
                 String numIdentificacion = resultSet.getString("NumeroIdentificacion");
@@ -69,13 +72,11 @@ public class HistorialVentana extends JFrame {
                 String salida = resultSet.getString("salida");
                 model.addRow(new Object[]{id, numIdentificacion, nombreUsuario, docUsuario, placa, entrada, salida});
             }
-
-
             conn.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
-    }
+    } // mostrarDatosHistorial()
 
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
@@ -83,5 +84,5 @@ public class HistorialVentana extends JFrame {
             ventana.mostrarDatosHistorial(); 
             ventana.setVisible(true);
         });
-    }
-}
+    } // main
+} // public class HistorialVentana extends JFrame 

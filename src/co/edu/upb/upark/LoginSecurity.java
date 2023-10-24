@@ -3,7 +3,6 @@ package co.edu.upb.upark;
 import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.Font;
-
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -11,11 +10,8 @@ import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-import javax.swing.JPasswordField;
-import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -36,7 +32,7 @@ public class LoginSecurity extends JFrame {
 	
 	private JPanel contentPane;
 	private RoundedPasswordField passwordField;
-
+	private SoundPlayer soundPlayer = new SoundPlayer();
 	public static String name = "";
 
 	/**
@@ -60,9 +56,7 @@ public class LoginSecurity extends JFrame {
 	 */
 	
 	public LoginSecurity() {
-
 		this.setResizable(false); // Disable the maximize window option
-
 		int positionLoginSecurity = Login.positionNumber;
 
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -110,14 +104,14 @@ public class LoginSecurity extends JFrame {
 		regresarButton.setForeground(new Color(0, 0, 0));
 		regresarButton.setBackground(new Color(243, 37, 68));
 		regresarButton.setBounds(10, 527, 221, 57);
+		regresarButton.setFocusable(false);
 		contentPane.add(regresarButton);
 		regresarButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-
+				soundPlayer.playSound("Media\\ButtonSound.wav");
 				Login ls = new Login();
 				ls.setVisible(true);
 				dispose(); //Close the current window
-
 			}
 		});
 
@@ -127,22 +121,21 @@ public class LoginSecurity extends JFrame {
 		accederButton.setForeground(new Color(0, 0, 0));
 		accederButton.setBackground(new Color(255, 239, 91));
 		accederButton.setBounds(476, 446, 320, 57);
+		accederButton.setFocusable(false);
 		contentPane.add(accederButton);
 		accederButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				char[] passwordVerification = passwordField.getPassword();
 				
 				if(passwordVerification.length == 0) {
+					soundPlayer.playSound("Media\\ErrorSound.wav");
 					JOptionPane.showMessageDialog(null, "Debe ingresar su contraseña.", "ERROR - Campo Vacío", JOptionPane.ERROR_MESSAGE);
 					passwordField.setText("");
-				}
-				else {
-
+				} else {
 					char[] password = passwordField.getPassword();
 					String passwordFinal = new String(password);
-
 					try {
-						Connection conn = DriverManager.getConnection("jdbc:mysql://:/", "***", "***");
+						Connection conn = DatabaseConnection.getConnection();
 						Statement stmtLoginSecurity = conn.createStatement();
 						ResultSet rsLoginSecurity = stmtLoginSecurity.executeQuery("SELECT documento FROM usuarios");
 						ArrayList<String> listLoginSecurity = new ArrayList<>();
@@ -166,31 +159,23 @@ public class LoginSecurity extends JFrame {
 						stmtLoginSecurityName.close();
 
 						if(arrayLoginSecurity[positionLoginSecurity].equals(passwordFinal)) {
-
 							name = arrayLoginSecurityName[positionLoginSecurity];
+							soundPlayer.playSound("Media\\AccessSound.wav");
 							MenuSecurity m = new MenuSecurity();
 							m.setVisible(true);
 							dispose(); //Close the current window
-
-						}//if
-
-						else {
+						} else {
+							soundPlayer.playSound("Media\\ErrorSound.wav");
 							JOptionPane.showMessageDialog(null, "Contraseña incorrecta", "ERROR", JOptionPane.ERROR_MESSAGE);
 							passwordField.setText("");
-						}//else
-
+						}
 						conn.close();
-
 					}
 					catch(SQLException i){
 						i.printStackTrace();
 					}//catch
-					
 				}//else
-
 			}//public void actionPerformed(ActionEvent e)
 		});
-
 	} // public LoginSecurity()
-
 } // public class LoginSecurity extends JFrame

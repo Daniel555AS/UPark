@@ -1,23 +1,15 @@
 package co.edu.upb.upark;
 
-import java.awt.Color;
-import java.awt.EventQueue;
-import java.awt.Font;
-
+import java.awt.*;
 import javax.swing.*;
-import javax.swing.border.EmptyBorder;
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
+import javax.swing.border.*;
 import java.awt.event.ActionListener;
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.ArrayList;
+import java.util.*;
 import java.awt.event.ActionEvent;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 
 public class MenuSecurity extends JFrame {
 
@@ -27,6 +19,7 @@ public class MenuSecurity extends JFrame {
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private static String nameMenuSecurity = "";
+	private SoundPlayer soundPlayer = new SoundPlayer();
 
 	/**
 	 * Launch the application.
@@ -48,13 +41,11 @@ public class MenuSecurity extends JFrame {
 	 * Create the frame.
 	 */
 	public MenuSecurity() {
-		
 		this.setResizable(false); // Disable the maximize window option
-		
 		int numberPosition = Login.positionNumber;
 		
 		try {
-			Connection conn = DriverManager.getConnection("jdbc:mysql://:/", "***", "***");
+			Connection conn = DatabaseConnection.getConnection();
 			Statement stmtMenuSecurity = conn.createStatement();
 			ResultSet rsMenuSecurity = stmtMenuSecurity.executeQuery("SELECT nombre FROM usuarios");
 			ArrayList<String> listMenuSecurity = new ArrayList<>();
@@ -65,12 +56,9 @@ public class MenuSecurity extends JFrame {
 			String[] arrayMenuSecurity = listMenuSecurity.toArray(new String[0]);
 			rsMenuSecurity.close();
 			stmtMenuSecurity.close();
-
 			nameMenuSecurity = arrayMenuSecurity[numberPosition];	
-			
 			conn.close();
-		}
-		catch(SQLException i){
+		} catch(SQLException i){
 			i.printStackTrace();
 		}
 		
@@ -88,11 +76,12 @@ public class MenuSecurity extends JFrame {
 		panel.setBackground(new Color(0, 0, 0));
 		contentPane.add(panel);
 		
-		// Creation of the Button: "Usuarios en Parqueadero":
+		// Creation of the Button: "Usuarios en Parqueadero"
 		RoundedButton usuariosParqueaderoButton = new RoundedButton("Usuarios en Parqueadero", new Color(255, 255, 255),new Color(196, 193, 186), 1000);
 		usuariosParqueaderoButton.setBackground(new Color(255, 255, 255));
 		usuariosParqueaderoButton.setFont(new Font("Franklin Gothic Medium", Font.BOLD, 31));
 		usuariosParqueaderoButton.setBounds(785, 352, 404, 77);
+		usuariosParqueaderoButton.setFocusable(false);
 		contentPane.add(usuariosParqueaderoButton);
 		usuariosParqueaderoButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -100,50 +89,57 @@ public class MenuSecurity extends JFrame {
 		});
 		usuariosParqueaderoButton.addActionListener(new ActionListener() {
 		    public void actionPerformed(ActionEvent e) {
-		        // Crear una instancia de UsuariosEnParqueadero y mostrar la ventana
+		        // Create an instance of "UsuariosEnParqueadero" and display the window
 		        UsuariosEnParqueadero ventanaUsuarios = new UsuariosEnParqueadero();
+		        soundPlayer.playSound("Media\\ButtonSound.wav");
 		        ventanaUsuarios.mostrarDatosUsuarios();
 		        ventanaUsuarios.setVisible(true);
 		    }
 		});
 		
-		// Creation of the Button: "Historial":
+		// Creation of the Button: "Historial"
 		RoundedButton historialButton = new RoundedButton("Historial", new Color(255, 255, 255),new Color(196, 193, 186), 1000);
 		historialButton.setBackground(new Color(255, 255, 255));
 		historialButton.setFont(new Font("Franklin Gothic Medium", Font.BOLD, 31));
 		historialButton.setBounds(365, 351, 389, 77);
+		historialButton.setFocusable(false);
 		contentPane.add(historialButton);
 		historialButton.addActionListener(new ActionListener() {
 		    public void actionPerformed(ActionEvent e) {
 		        HistorialVentana ventanaHistorial = new HistorialVentana();
+		        soundPlayer.playSound("Media\\ButtonSound.wav");
 		        ventanaHistorial.mostrarDatosHistorial();
 		        ventanaHistorial.setVisible(true);
 		    }
 		});
 		
-		// Creation of the Button: "Cerrar Sesión":
+		// Creation of the Button: "Cerrar Sesión"
 		RoundedButton cerrarSesionButton = new RoundedButton("Cerrar Sesión", new Color(229, 86, 109), new Color(216, 58, 58), 1000);
 		cerrarSesionButton.setBackground(new Color(243, 37, 68));
 		cerrarSesionButton.setForeground(new Color(0, 0, 0));
 		cerrarSesionButton.setFont(new Font("Franklin Gothic Medium", Font.BOLD, 31));
 		cerrarSesionButton.setBounds(858, 489, 389, 77);
+		cerrarSesionButton.setFocusable(false);
 		contentPane.add(cerrarSesionButton);
 		cerrarSesionButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				dispose();
+				soundPlayer.playSound("Media\\ButtonSound.wav");
 				Login loginMenuSecurity = new Login();
 				loginMenuSecurity.setVisible(true);
 			}
 		});
 		
-		// Creation of the Button: "Agregar Visitante":
+		// Creation of the Button: "Agregar Visitante"
 		RoundedButton agregarVisitanteButton = new RoundedButton("Agregar Visitante", new Color(255, 239, 91), new Color(247, 208, 57), 1000);
 		agregarVisitanteButton.setBackground(new Color(255, 239, 91));
 		agregarVisitanteButton.setFont(new Font("Franklin Gothic Medium", Font.BOLD, 44));
 		agregarVisitanteButton.setBounds(365, 228, 824, 77);
+		agregarVisitanteButton.setFocusable(false);
 		contentPane.add(agregarVisitanteButton);
 		agregarVisitanteButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				soundPlayer.playSound("Media\\ButtonSound.wav");
 				AddVisitor addVisitorFrame = new AddVisitor();
 				addVisitorFrame.setVisible(true);
 				dispose(); //Close the current window	
@@ -155,14 +151,14 @@ public class MenuSecurity extends JFrame {
 		lblNewLabel.setIcon(new ImageIcon("Media\\logo-upb-blanco1.png"));
 		contentPane.add(lblNewLabel);
 		
-		// Creation of a JLabel containing the text: "Menú de Vigilancia":
+		// Creation of a JLabel containing the text: "Menú de Vigilancia"
 		JLabel lblNewLabel_1 = new JLabel("Menú de Vigilancia");
 		lblNewLabel_1.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel_1.setFont(new Font("Franklin Gothic Heavy", Font.BOLD, 83));
 		lblNewLabel_1.setBounds(363, 34, 821, 108);
 		contentPane.add(lblNewLabel_1);
 		
-		// // Creation of a JLabel containing the text: "Usuario: ":
+		// // Creation of a JLabel containing the text: "Usuario: "
 		JLabel lblNewLabel_3 = new JLabel("Usuario: ");
 		lblNewLabel_3.setFont(new Font("Franklin Gothic Medium", Font.BOLD, 32));
 		lblNewLabel_3.setBounds(30, 500, 154, 57);
@@ -188,6 +184,5 @@ public class MenuSecurity extends JFrame {
 		panel_2.setBackground(Color.BLACK);
 		panel_2.setBounds(362, 347, 396, 85);
 		contentPane.add(panel_2);
-	
 	} // public MenuSecurity()
 } // public class MenuSecurity extends JFrame

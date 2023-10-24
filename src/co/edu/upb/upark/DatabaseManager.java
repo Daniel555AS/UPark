@@ -1,36 +1,30 @@
 package co.edu.upb.upark;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.ArrayList;
+import java.util.*;
 
 public class DatabaseManager {
-
 	private Connection conn;
 
 	public DatabaseManager() {
-
 		try {
-			conn = DriverManager.getConnection("jdbc:mysql://:/", "***", "***");
+			conn = DatabaseConnection.getConnection();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-
 	} // public DatabaseManager()
 
-
 	public String[] getIdNumberDataFromUsuarios() {
-
 		String[] idNumberDataFromUsuarios = null;
 		try {
 			Statement stmt = conn.createStatement();
 			ResultSet rs = stmt.executeQuery("SELECT numeroidentificacion FROM usuarios");
 
 			ArrayList<String> listIdNumberDataFromUsuarios = new ArrayList<>();
-			while(rs.next()) {
+			while (rs.next()) {
 				String valor = rs.getString("numeroidentificacion");
 				listIdNumberDataFromUsuarios.add(valor);
 			}
@@ -41,9 +35,7 @@ public class DatabaseManager {
 			e.printStackTrace();
 		}
 		return idNumberDataFromUsuarios;
-
-	} //  public String[] getIdNumberDataFromUsuarios()
-
+	} // public String[] getIdNumberDataFromUsuarios()
 
 	public String[] getRolDataFromUsuarios() {
 		String[] rolDataFromUsuarios = null;
@@ -62,8 +54,7 @@ public class DatabaseManager {
 			e.printStackTrace();
 		}
 		return rolDataFromUsuarios;
-	} //
-
+	} // public String[] getRolDataFromUsuarios()
 
 	public String[] getCurrentUserDataFromUsuariosActuales() {
 		String[] currentUsersDataFromUsuariosActuales = null;
@@ -71,7 +62,7 @@ public class DatabaseManager {
 			Statement stmt = conn.createStatement();
 			ResultSet rs = stmt.executeQuery("SELECT NumeroIdentificacion FROM usuariosActuales");
 			ArrayList<String> listCurrentUsersFromUsuariosActuales = new ArrayList<>();
-			while(rs.next()) {
+			while (rs.next()) {
 				String valor = rs.getString("NumeroIdentificacion");
 				listCurrentUsersFromUsuariosActuales.add(valor);
 			}
@@ -84,14 +75,13 @@ public class DatabaseManager {
 		return currentUsersDataFromUsuariosActuales;
 	} // public String[] getCurrentUserDataFromUsuariosActuales()
 
-
 	public String[] getNamesFromUsuarios() {
 		String[] namesFromUsuarios = null;
 		try {
 			Statement stmt = conn.createStatement();
 			ResultSet rs = stmt.executeQuery("SELECT nombre FROM usuarios");
 			ArrayList<String> listNamesFromUsuarios = new ArrayList<>();
-			while(rs.next()) {
+			while (rs.next()) {
 				String valor = rs.getString("nombre");
 				listNamesFromUsuarios.add(valor);
 			}
@@ -100,10 +90,9 @@ public class DatabaseManager {
 			rs.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
-		}	
+		}
 		return namesFromUsuarios;
 	} // public String[] getNamesFromUsuarios()
-
 
 	public String[] getDocumentsFromUsuarios() {
 		String[] documentsFromUsuarios = null;
@@ -111,7 +100,7 @@ public class DatabaseManager {
 			Statement stmt = conn.createStatement();
 			ResultSet rs = stmt.executeQuery("SELECT documento FROM usuarios");
 			ArrayList<String> listDocumentsFromUsuarios = new ArrayList<>();
-			while(rs.next()) {
+			while (rs.next()) {
 				String valor = rs.getString("documento");
 				listDocumentsFromUsuarios.add(valor);
 			}
@@ -124,29 +113,43 @@ public class DatabaseManager {
 		return documentsFromUsuarios;
 	} // public String[] getDocumentsFromUsuarios()
 
-	
 	public int countRowsFromUsuariosActuales() {
 		int rowCount = 0;
-		
 		try {
 			String sql = "SELECT COUNT(*) FROM usuariosActuales";
-			
+
 			Statement stmt = conn.createStatement();
 			ResultSet rs = stmt.executeQuery(sql);
 			rs.next();
-		    rowCount = rs.getInt(1);
-		    
-		    rs.close();
-		    stmt.close();
-		} catch(SQLException e) {
-			 e.printStackTrace();
+			rowCount = rs.getInt(1);
+
+			rs.close();
+			stmt.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
 		}
-		
-		
 		return rowCount;
 	} // public int countRowsFromUsuariosActuales()
 
-	
+	public String[] platesFromUsuariosActuales() {
+		String[] platesFromUsuariosActuales = null;
+		try {
+			Statement stmt = conn.createStatement();
+			ResultSet rs = stmt.executeQuery("SELECT placa FROM usuariosActuales");
+			ArrayList<String> listPlatesFromUsuariosActuales = new ArrayList<>();
+			while (rs.next()) {
+				String valor = rs.getString("placa");
+				listPlatesFromUsuariosActuales.add(valor);
+			}
+			platesFromUsuariosActuales = listPlatesFromUsuariosActuales.toArray(new String[0]);
+			stmt.close();
+			rs.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return platesFromUsuariosActuales;
+	} // public String[] platesFromUsuariosActuales()
+
 	public void closeConnection() {
 		try {
 			conn.close();
@@ -154,6 +157,4 @@ public class DatabaseManager {
 			e.printStackTrace();
 		}
 	} // public void closeConnection()
-
-
 } // public class DatabaseManager
