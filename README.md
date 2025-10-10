@@ -13,5 +13,8 @@ UPark is a software project developed at Universidad Pontificia Bolivariana – 
 UPark is a software application developed to support the management of parking spaces at the university. It includes features for vehicle registration and exit management, visitor registration, license plate validation, and administrative and security management.
 
 The system was developed using the Java programming language, with a graphical user interface built using Java Swing, and integrated with a MySQL database.
+## Tech Stack
+![Java](https://img.shields.io/badge/java-%23ED8B00.svg?style=for-the-badge&logo=openjdk&logoColor=white)
+![MySQL](https://img.shields.io/badge/mysql-4479A1.svg?style=for-the-badge&logo=mysql&logoColor=white)
 ## Results
 You can observe the general operation of the software and all its features in the following video: [Systems Analysis and Design Project: UPark – Digital Parking Management System](https://www.youtube.com/watch?v=9IYIratJslE&t=1s)
