@@ -14,4 +14,4 @@ UPark is a software application developed to support the management of parking s
 
 The system was developed using the Java programming language, with a graphical user interface built using Java Swing, and integrated with a MySQL database.
 ## Results
-You can observe the general operation of the software and all its features in the following video: <a href="https://www.youtube.com/watch?v=9IYIratJslE&t=1s" target="_blank">Systems Analysis and Design Project: UPark – Digital Parking Management System</a>
+You can observe the general operation of the software and all its features in the following video: [Systems Analysis and Design Project: UPark – Digital Parking Management System](https://www.youtube.com/watch?v=9IYIratJslE&t=1s)
