@@ -31,16 +31,19 @@ Below are some sections resulting from the software project:
 <p align="center">
 	<img src="media-readme/Login.png" width="600" height="385" alt="Login - Home">
 </p>
+
 * __Vehicle Selection:__ Vehicle Selection Panel, where the user can choose from their registered vehicles to record the corresponding entry into the university’s parking facilities.
 <br><br>
 <p align="center">
 	<img src="media-readme/VehicleSelection.png" width="600" height="385" alt="Vehicle Selection">
 </p>
+
 * __Security Guard Menu:__ Security Menu Panel, where the on-duty security guard can manage various tasks such as adding a visitor, viewing the activity history, checking the current users in the parking area, and finally, logging out of the system.
 <br><br>
 <p align="center">
 	<img src="media-readme/SecurityGuardMenu.png" width="600" height="385" alt="Security Guard Menu">
 </p>
+
 * __Visitor Registration:__ Visitor Registration Panel, where the assigned security guard can register a visitor who wishes to use the parking service at the Universidad Pontificia Bolivariana – Bucaramanga Campus. The system requests information such as full name, identification number, gender, and continues with the registration flow for the corresponding vehicle data.
 <br><br>
 <p align="center">
