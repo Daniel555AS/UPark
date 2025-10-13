@@ -25,7 +25,21 @@ The system was developed using the Java programming language, with a graphical u
 * The database was managed using phpMyAdmin.
 * The user interfaces were built using Java Swing, providing a graphical environment for interaction.
 
-## 
+## Database
+
+The database management system used for the project was MariaDB, a popular open-source relational database system. The database was administered through a graphical interface using phpMyAdmin, which facilitated tasks such as database design, data entry, and query execution in an intuitive and user-friendly manner.
+
+To view all the content related to the database of the UPark project, you are invited to visit the following repository: [db-upark](https://github.com/Daniel555AS/upark-db)
+
+* __Entity-Relationship Diagram:__  Although MariaDB was used as the database management system and phpMyAdmin served as the web administration tool for the database, the Entity-Relationship diagram was generated through the reverse engineering feature of MySQL Workbench:
+
+<p align="center">
+	<img src="https://raw.githubusercontent.com/Daniel555AS/upark-db/refs/heads/main/entity-relationship-diagram-db-upark.png" alt="entity-relationship-diagram-db-upark" 	width="600" height="450">
+</p>
+
+* __Data Dictionary:__ To view the data dictionary corresponding to the project, you can access the following link: [data-dictionary-upark](https://daniel555as.github.io/upark-db/)
+
+* __SQL Dump File:__ To access the SQL Dump file corresponding to the UPark project, you can use the following link: [sql-dump-file-upark](https://github.com/Daniel555AS/upark-db/blob/main/upark_db.sql)
 
 ## Results
 You can observe the general operation of the software and all its features in the following video: [Systems Analysis and Design Project: UPark – Digital Parking Management System](https://www.youtube.com/watch?v=9IYIratJslE&t=1s)
