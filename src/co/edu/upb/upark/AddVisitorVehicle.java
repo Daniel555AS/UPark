@@ -196,9 +196,9 @@ public class AddVisitorVehicle extends JFrame {
 							}
 						}
 
-						System.out.println(platesFromUsuariosActuales[0]);
-						System.out.println(text1);
-						System.out.println(countPlatesFromUsuariosActuales);
+						//System.out.println(platesFromUsuariosActuales[0]);
+						//System.out.println(text1);
+						//System.out.println(countPlatesFromUsuariosActuales);
 
 						if (countPlatesFromUsuariosActuales > 0) {
 							JOptionPane.showMessageDialog(null,
